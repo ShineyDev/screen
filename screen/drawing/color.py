@@ -147,8 +147,9 @@ class Color:
         p: :class:`float`
             The point along the line in the range ``[0, 1]``.
         method: :class:`~.ColorInterpolationMethod`
-            The method to use. Defaults to :attr:`ColorInterpolationMethod.rgb \
-            <screen.drawing.ColorInterpolationMethod.rgb>`.
+            The method to use. Defaults to
+            :attr:`ColorInterpolationMethod.rgb \
+            <.ColorInterpolationMethod.rgb>`.
 
         Returns
         -------
