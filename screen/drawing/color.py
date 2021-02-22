@@ -9,6 +9,7 @@ class ColorInterpolationMethod(enum.IntEnum):
     hsv = 2
     rgb = 3
 
+
 class Color:
     __slots__ = ("value",)
 
