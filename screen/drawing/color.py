@@ -62,7 +62,7 @@ class Color:
     @classmethod
     def from_argb(cls, a, r, g, b):
         """
-        Constructs a :class:`~screen.drawing.Color` from an ARGB tuple.
+        Constructs a :class:`~.Color` from an ARGB tuple.
         """
 
         a = int(a * 255)
@@ -71,7 +71,7 @@ class Color:
     @classmethod
     def from_hsl(cls, h, s, l):
         """
-        Constructs a :class:`~screen.drawing.Color` from an HSL tuple.
+        Constructs a :class:`~.Color` from an HSL tuple.
         """
 
         return cls.from_rgb(*cls._hsl_to_rgb(h, s, l))
@@ -79,7 +79,7 @@ class Color:
     @classmethod
     def from_hsv(cls, h, s, v):
         """
-        Constructs a :class:`~screen.drawing.Color` from an HSV tuple.
+        Constructs a :class:`~.Color` from an HSV tuple.
         """
 
         return cls.from_rgb(*cls._hsv_to_rgb(h, s, v))
@@ -87,7 +87,7 @@ class Color:
     @classmethod
     def from_rgb(cls, r, g, b):
         """
-        Constructs a :class:`~screen.drawing.Color` from an RGB tuple.
+        Constructs a :class:`~.Color` from an RGB tuple.
         """
 
         return cls.from_argb(1, r, g, b)
@@ -140,19 +140,19 @@ class Color:
 
         Parameters
         ----------
-        c1: :class:`~screen.drawing.Color`
+        c1: :class:`~.Color`
             The start color.
-        c2: :class:`~screen.drawing.Color`
+        c2: :class:`~.Color`
             The end color.
         p: :class:`float`
             The point along the line in the range ``[0, 1]``.
-        method: :class:`~screen.drawing.ColorInterpolationMethod`
+        method: :class:`~.ColorInterpolationMethod`
             The method to use. Defaults to :attr:`ColorInterpolationMethod.rgb \
             <screen.drawing.ColorInterpolationMethod.rgb>`.
 
         Returns
         -------
-        :class:`~screen.drawing.Color`
+        :class:`~.Color`
             The interpolated color.
         """
 
