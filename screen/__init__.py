@@ -10,7 +10,9 @@ __all__ = [
 ]
 
 
-_VersionInfo = collections.namedtuple("_VersionInfo", "major minor patch release serial")
+_VersionInfo = collections.namedtuple(
+    "_VersionInfo", "major minor patch release serial"
+)
 
 version = "0.1.0a"
 version_info = _VersionInfo(0, 1, 0, "alpha", 0)

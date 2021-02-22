@@ -9,7 +9,7 @@ class ColorInterpolationMethod(enum.IntEnum):
     hsv = 2
     rgb = 3
 
-class Color():
+class Color:
     __slots__ = ("value",)
 
     def __init__(self, value):
