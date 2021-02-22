@@ -7,15 +7,19 @@ from screen import utils
 class ColorInterpolationMethod(enum.IntEnum):
     """
     Represents a method used to interpolate a color.
+
+    Attributes
+    ----------
+    hsl
+        Interpolate via HSL values.
+    hsv
+        Interpolate via HSV values.
+    rgb
+        Interpolate via RGB values.
     """
 
-    #: Interpolate via HSL values.
     hsl = 1
-    
-    #: Interpolate via HSV values.
     hsv = 2
-    
-    #: Interpolate via RGB values.
     rgb = 3
 
 
