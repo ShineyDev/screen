@@ -5,12 +5,46 @@ from screen import utils
 
 
 class ColorInterpolationMethod(enum.IntEnum):
+    """
+    Represents a method used to interpolate a color.
+    """
+
+    #: Interpolate via HSL values.
     hsl = 1
+    
+    #: Interpolate via HSV values.
     hsv = 2
+    
+    #: Interpolate via RGB values.
     rgb = 3
 
 
 class Color:
+    """
+    Represents a drawable color.
+
+    .. container:: operations
+
+        .. describe:: x == y
+        .. describe:: x != y
+
+            Compares the :attr:`~.value` of ``x`` and ``y``.
+
+        .. describe:: hash(T)
+
+            Gets the hash of the :attr:`~.value`.
+
+    Parameters
+    ----------
+    value: int
+        The color value.
+
+    Attributes
+    ----------
+    value: int
+        The color value.
+    """
+
     __slots__ = ("value",)
 
     def __init__(self, value):
@@ -27,40 +61,101 @@ class Color:
 
     @classmethod
     def from_argb(cls, a, r, g, b):
+        """
+        Constructs a :class:`~screen.drawing.Color` from an ARGB tuple.
+        """
+
         a = int(a * 255)
         return cls((a << 24) + (r << 16) + (g << 8) + b)
 
     @classmethod
     def from_hsl(cls, h, s, l):
+        """
+        Constructs a :class:`~screen.drawing.Color` from an HSL tuple.
+        """
+
         return cls.from_rgb(*cls._hsl_to_rgb(h, s, l))
 
     @classmethod
     def from_hsv(cls, h, s, v):
+        """
+        Constructs a :class:`~screen.drawing.Color` from an HSV tuple.
+        """
+
         return cls.from_rgb(*cls._hsv_to_rgb(h, s, v))
 
     @classmethod
     def from_rgb(cls, r, g, b):
+        """
+        Constructs a :class:`~screen.drawing.Color` from an RGB tuple.
+        """
+
         return cls.from_argb(1, r, g, b)
 
     @property
     def a(self):
+        """
+        The alpha component of the color in the range ``[0, 1]``.
+
+        :type: :class:`float`
+        """
+
         a = self.value >> 24 & 0xFF
         return a / 255
 
     @property
     def r(self):
+        """
+        The red component of the color in the range ``[0, 255]``.
+
+        :type: :class:`int`
+        """
+
         return self.value >> 16 & 0xFF
 
     @property
     def g(self):
+        """
+        The green component of the color in the range ``[0, 255]``.
+
+        :type: :class:`int`
+        """
+
         return self.value >> 8 & 0xFF
 
     @property
     def b(self):
+        """
+        The blue component of the color in the range ``[0, 255]``.
+
+        :type: :class:`int`
+        """
+
         return self.value & 0xFF
 
     @staticmethod
     def interpolate(c1, c2, p, *, method=None):
+        """
+        Calculates linear interpolation.
+
+        Parameters
+        ----------
+        c1: :class:`~screen.drawing.Color`
+            The start color.
+        c2: :class:`~screen.drawing.Color`
+            The end color.
+        p: :class:`float`
+            The point along the line in the range ``[0, 1]``.
+        method: :class:`~screen.drawing.ColorInterpolationMethod`
+            The method to use. Defaults to :attr:`ColorInterpolationMethod.rgb \
+            <screen.drawing.ColorInterpolationMethod.rgb>`.
+
+        Returns
+        -------
+        :class:`~screen.drawing.Color`
+            The interpolated color.
+        """
+
         method = method or ColorInterpolationMethod.rgb
         meth = Color._interpolation_method_map[method]
         return meth(c1, c2, p)

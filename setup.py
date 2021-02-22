@@ -30,13 +30,24 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Documentation",
+    "Topic :: Documentation :: Sphinx",
     "Topic :: Software Development",
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
 
+extras_require = {
+    "docs": [
+        "sphinx",
+        "sphinxcontrib_trio",
+        "sphinx-rtd-theme",
+    ],
+}
+
 project_urls = {
+    "Documentation": "https://screen.readthedocs.io/en/latest/",
     "Issue Tracker": "https://github.com/ShineyDev/screen/issues/",
     "Source": "https://github.com/ShineyDev/screen/",
 }
@@ -45,6 +56,7 @@ setuptools.setup(
     author="ShineyDev",
     classifiers=classifiers,
     description="A Python library for creating TUI inspired by WPF.",
+    extras_require=extras_require,
     license="Apache Software License",
     name="screen",
     packages=["screen", "screen.drawing"],
