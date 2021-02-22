@@ -39,11 +39,7 @@ classifiers = [
 ]
 
 extras_require = {
-    "docs": [
-        "sphinx",
-        "sphinxcontrib_trio",
-        "sphinx-rtd-theme",
-    ],
+    "docs": ["sphinx", "sphinxcontrib_trio", "sphinx-rtd-theme"],
 }
 
 project_urls = {

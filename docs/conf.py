@@ -17,7 +17,7 @@ extensions = [
 autodoc_typehints = "none"
 
 extlinks = {
-    "issue": ("https://github.com/ShineyDev/screen/issues/%s", "#")
+    "issue": ("https://github.com/ShineyDev/screen/issues/%s", "#"),
 }
 
 intersphinx_mapping = {
