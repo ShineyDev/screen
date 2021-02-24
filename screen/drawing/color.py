@@ -67,6 +67,17 @@ class Color:
     def from_ahsl(cls, a, h, s, l):
         """
         Constructs a :class:`~.Color` from an AHSL tuple.
+
+        Parameters
+        ----------
+        a: :class:`float`
+            The alpha value in the range ``[0, 1]``.
+        h: :class:`int`
+            The hue value in the range ``[0, 360]``.
+        s: :class:`float`
+            The saturation value in the range ``[0, 1]``.
+        l: :class:`float`
+            The lightness value in the range ``[0, 1]``.
         """
 
         return cls.from_argb(a, *cls._hsl_to_rgb(h, s, l))
@@ -75,6 +86,17 @@ class Color:
     def from_ahsv(cls, a, h, s, v):
         """
         Constructs a :class:`~.Color` from an AHSV tuple.
+
+        Parameters
+        ----------
+        a: :class:`float`
+            The alpha value in the range ``[0, 1]``.
+        h: :class:`int`
+            The hue value in the range ``[0, 360]``.
+        s: :class:`float`
+            The saturation value in the range ``[0, 1]``.
+        v: :class:`float`
+            The value in the range ``[0, 1]``.
         """
 
         return cls.from_argb(a, *cls._hsv_to_rgb(h, s, v))
@@ -83,6 +105,17 @@ class Color:
     def from_argb(cls, a, r, g, b):
         """
         Constructs a :class:`~.Color` from an ARGB tuple.
+
+        Parameters
+        ----------
+        a: :class:`float`
+            The alpha value in the range ``[0, 1]``.
+        r: :class:`int`
+            The red value in the range ``[0, 255]``.
+        g: :class:`float`
+            The green value in the range ``[0, 255]``.
+        b: :class:`float`
+            The blue value in the range ``[0, 255]``.
         """
 
         a = int(a * 255)
@@ -94,6 +127,15 @@ class Color:
         Constructs a :class:`~.Color` from an HSL tuple.
 
         Calls :meth:`~.from_ahsl` with an alpha level of ``1``.
+
+        Parameters
+        ----------
+        h: :class:`int`
+            The hue value in the range ``[0, 360]``.
+        s: :class:`float`
+            The saturation value in the range ``[0, 1]``.
+        l: :class:`float`
+            The lightness value in the range ``[0, 1]``.
         """
 
         return cls.from_ahsl(1, h, s, l)
@@ -104,6 +146,15 @@ class Color:
         Constructs a :class:`~.Color` from an HSV tuple.
 
         Calls :meth:`~.from_ahsv` with an alpha level of ``1``.
+
+        Parameters
+        ----------
+        h: :class:`int`
+            The hue value in the range ``[0, 360]``.
+        s: :class:`float`
+            The saturation value in the range ``[0, 1]``.
+        v: :class:`float`
+            The value in the range ``[0, 1]``.
         """
 
         return cls.from_ahsv(1, h, s, v)
@@ -114,6 +165,15 @@ class Color:
         Constructs a :class:`~.Color` from an RGB tuple.
 
         Calls :meth:`~.from_argb` with an alpha level of ``1``.
+
+        Parameters
+        ----------
+        r: :class:`int`
+            The red value in the range ``[0, 255]``.
+        g: :class:`float`
+            The green value in the range ``[0, 255]``.
+        b: :class:`float`
+            The blue value in the range ``[0, 255]``.
         """
 
         return cls.from_argb(1, r, g, b)
