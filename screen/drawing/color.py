@@ -1,5 +1,6 @@
 import colorsys
 import enum
+import random
 
 from screen import utils
 
@@ -177,6 +178,167 @@ class Color:
         """
 
         return cls.from_argb(1, r, g, b)
+
+    @classmethod
+    def from_random(cls):
+        """
+        Constructs a random :class:`~.Color`.
+
+        .. tip::
+
+            This method can create unsatisfactory colors. It is
+            recommended to use :meth:`~.from_random_hsv` with
+            custom-bound saturation and brightness values instead.
+        """
+
+        return cls(int(random.random() * 0xFFFFFFFF))
+
+    @classmethod
+    def from_random_ahsl(cls, a=None, h=None, s=None, l=None):
+        """
+        Constructs a partially randomized :class:`~.Color` from an AHSL
+        tuple.
+
+        Parameters
+        ----------
+        a: :class:`float`
+            The alpha value in the range ``[0, 1]``.
+        h: :class:`int`
+            The hue value in the range ``[0, 360]``.
+        s: :class:`float`
+            The saturation value in the range ``[0, 1]``.
+        l: :class:`float`
+            The lightness value in the range ``[0, 1]``.
+        """
+
+        return cls.from_ahsl(
+            a or random.random(),
+            h or int(random.random() * 360),
+            s or random.random(),
+            l or random.random(),
+        )
+
+    @classmethod
+    def from_random_ahsv(cls, a=None, h=None, s=None, v=None):
+        """
+        Constructs a partially randomized :class:`~.Color` from an AHSV
+        tuple.
+
+        Parameters
+        ----------
+        a: :class:`float`
+            The alpha value in the range ``[0, 1]``.
+        h: :class:`int`
+            The hue value in the range ``[0, 360]``.
+        s: :class:`float`
+            The saturation value in the range ``[0, 1]``.
+        v: :class:`float`
+            The value in the range ``[0, 1]``.
+        """
+
+        return cls.from_ahsv(
+            a or random.random(),
+            h or int(random.random() * 360),
+            s or random.random(),
+            v or random.random(),
+        )
+
+    @classmethod
+    def from_random_argb(cls, a=None, r=None, g=None, b=None):
+        """
+        Constructs a partially randomized :class:`~.Color` from an ARGB
+        tuple.
+
+        .. tip::
+
+            This method can create unsatisfactory colors. It is
+            recommended to use :meth:`~.from_random_hsv` with
+            custom-bound saturation and brightness values instead.
+
+        Parameters
+        ----------
+        a: :class:`float`
+            The alpha value in the range ``[0, 1]``.
+        r: :class:`int`
+            The red value in the range ``[0, 255]``.
+        g: :class:`float`
+            The green value in the range ``[0, 255]``.
+        b: :class:`float`
+            The blue value in the range ``[0, 255]``.
+        """
+
+        return cls.from_argb(
+            a or random.random(),
+            r or int(random.random() * 255),
+            g or int(random.random() * 255),
+            b or int(random.random() * 255),
+        )
+
+    @classmethod
+    def from_random_hsl(cls, h=None, s=None, l=None):
+        """
+        Constructs a partially randomized :class:`~.Color` from an HSL
+        tuple.
+
+        Calls :meth:`~.from_random_ahsl` with an alpha level of ``1``.
+
+        Parameters
+        ----------
+        h: :class:`int`
+            The hue value in the range ``[0, 360]``.
+        s: :class:`float`
+            The saturation value in the range ``[0, 1]``.
+        l: :class:`float`
+            The lightness value in the range ``[0, 1]``.
+        """
+
+        return cls.from_random_ahsl(1, h, s, l)
+
+    @classmethod
+    def from_random_hsv(cls, h=None, s=None, v=None):
+        """
+        Constructs a partially randomized :class:`~.Color` from an HSV
+        tuple.
+
+        Calls :meth:`~.from_random_ahsv` with an alpha level of ``1``.
+
+        Parameters
+        ----------
+        h: :class:`int`
+            The hue value in the range ``[0, 360]``.
+        s: :class:`float`
+            The saturation value in the range ``[0, 1]``.
+        v: :class:`float`
+            The value in the range ``[0, 1]``.
+        """
+
+        return cls.from_random_ahsv(1, h, s, v)
+
+    @classmethod
+    def from_random_rgb(cls, r=None, g=None, b=None):
+        """
+        Constructs a partially randomized :class:`~.Color` from an RGB
+        tuple.
+
+        Calls :meth:`~.from_random_argb` with an alpha level of ``1``.
+
+        .. tip::
+
+            This method can create unsatisfactory colors. It is
+            recommended to use :meth:`~.from_random_hsv` with
+            custom-bound saturation and brightness values instead.
+
+        Parameters
+        ----------
+        r: :class:`int`
+            The red value in the range ``[0, 255]``.
+        g: :class:`float`
+            The green value in the range ``[0, 255]``.
+        b: :class:`float`
+            The blue value in the range ``[0, 255]``.
+        """
+
+        return cls.from_random_argb(1, r, g, b)
 
     @property
     def a(self):
