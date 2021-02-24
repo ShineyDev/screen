@@ -7,4 +7,4 @@ Color
 .. autoclass:: Color
     :members:
 
-.. autoclass:: ColorInterpolationMethod
+.. autoclass:: ColorInterpolationMethod()

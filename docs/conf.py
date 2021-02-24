@@ -14,6 +14,7 @@ extensions = [
     "sphinx_rtd_theme",
 ]
 
+autodoc_member_order = "bysource"
 autodoc_typehints = "none"
 
 extlinks = {

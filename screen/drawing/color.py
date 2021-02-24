@@ -6,7 +6,7 @@ from screen import utils
 
 class ColorInterpolationMethod(enum.IntEnum):
     """
-    Represents a method used to interpolate a color.
+    Represents the method used to interpolate a color.
 
     Attributes
     ----------
@@ -34,9 +34,9 @@ class Color:
 
             Compares the :attr:`~.value` of ``x`` and ``y``.
 
-        .. describe:: hash(T)
+        .. describe:: hash(x)
 
-            Gets the hash of the :attr:`~.value`.
+            Returns the hash of the color :attr:`~.value`.
 
     Parameters
     ----------
@@ -99,7 +99,7 @@ class Color:
     @property
     def a(self):
         """
-        The alpha component of the color in the range ``[0, 1]``.
+        The alpha value in the range ``[0, 1]``.
 
         :type: :class:`float`
         """
@@ -110,7 +110,7 @@ class Color:
     @property
     def r(self):
         """
-        The red component of the color in the range ``[0, 255]``.
+        The red value in the range ``[0, 255]``.
 
         :type: :class:`int`
         """
@@ -120,7 +120,7 @@ class Color:
     @property
     def g(self):
         """
-        The green component of the color in the range ``[0, 255]``.
+        The green value in the range ``[0, 255]``.
 
         :type: :class:`int`
         """
@@ -130,7 +130,7 @@ class Color:
     @property
     def b(self):
         """
-        The blue component of the color in the range ``[0, 255]``.
+        The blue value in the range ``[0, 255]``.
 
         :type: :class:`int`
         """
@@ -152,7 +152,7 @@ class Color:
             The point along the line in the range ``[0, 1]``.
         method: :class:`~.ColorInterpolationMethod`
             The method to use. Defaults to
-            :attr:`~.ColorInterpolationMethod.rgb`.
+            :attr:`.ColorInterpolationMethod.rgb`.
 
         Returns
         -------
