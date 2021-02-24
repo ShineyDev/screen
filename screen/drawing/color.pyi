@@ -12,6 +12,8 @@ class ColorInterpolationMethod(IntEnum):
     rgb: int
 
 class Color:
+    value: int
+
     def __init__(self, value: int) -> None: ...
 
     @classmethod
