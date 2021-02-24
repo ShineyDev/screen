@@ -196,7 +196,7 @@ class Color:
     @classmethod
     def from_random_ahsl(cls, a=None, h=None, s=None, l=None):
         """
-        Constructs a partially randomized :class:`~.Color` from an AHSL
+        Constructs a partially random :class:`~.Color` from an AHSL
         tuple.
 
         Parameters
@@ -221,7 +221,7 @@ class Color:
     @classmethod
     def from_random_ahsv(cls, a=None, h=None, s=None, v=None):
         """
-        Constructs a partially randomized :class:`~.Color` from an AHSV
+        Constructs a partially random :class:`~.Color` from an AHSV
         tuple.
 
         Parameters
@@ -246,7 +246,7 @@ class Color:
     @classmethod
     def from_random_argb(cls, a=None, r=None, g=None, b=None):
         """
-        Constructs a partially randomized :class:`~.Color` from an ARGB
+        Constructs a partially random :class:`~.Color` from an ARGB
         tuple.
 
         .. tip::
@@ -277,7 +277,7 @@ class Color:
     @classmethod
     def from_random_hsl(cls, h=None, s=None, l=None):
         """
-        Constructs a partially randomized :class:`~.Color` from an HSL
+        Constructs a partially random :class:`~.Color` from an HSL
         tuple.
 
         Calls :meth:`~.from_random_ahsl` with an alpha level of ``1``.
@@ -297,7 +297,7 @@ class Color:
     @classmethod
     def from_random_hsv(cls, h=None, s=None, v=None):
         """
-        Constructs a partially randomized :class:`~.Color` from an HSV
+        Constructs a partially random :class:`~.Color` from an HSV
         tuple.
 
         Calls :meth:`~.from_random_ahsv` with an alpha level of ``1``.
@@ -317,7 +317,7 @@ class Color:
     @classmethod
     def from_random_rgb(cls, r=None, g=None, b=None):
         """
-        Constructs a partially randomized :class:`~.Color` from an RGB
+        Constructs a partially random :class:`~.Color` from an RGB
         tuple.
 
         Calls :meth:`~.from_random_argb` with an alpha level of ``1``.
