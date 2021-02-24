@@ -97,7 +97,7 @@ class Color:
         s: :class:`float`
             The saturation value in the range ``[0, 1]``.
         v: :class:`float`
-            The value in the range ``[0, 1]``.
+            The brightness value in the range ``[0, 1]``.
         """
 
         return cls.from_argb(a, *cls._hsv_to_rgb(h, s, v))
@@ -155,7 +155,7 @@ class Color:
         s: :class:`float`
             The saturation value in the range ``[0, 1]``.
         v: :class:`float`
-            The value in the range ``[0, 1]``.
+            The brightness value in the range ``[0, 1]``.
         """
 
         return cls.from_ahsv(1, h, s, v)
@@ -233,7 +233,7 @@ class Color:
         s: :class:`float`
             The saturation value in the range ``[0, 1]``.
         v: :class:`float`
-            The value in the range ``[0, 1]``.
+            The brightness value in the range ``[0, 1]``.
         """
 
         return cls.from_ahsv(
@@ -309,7 +309,7 @@ class Color:
         s: :class:`float`
             The saturation value in the range ``[0, 1]``.
         v: :class:`float`
-            The value in the range ``[0, 1]``.
+            The brightness value in the range ``[0, 1]``.
         """
 
         return cls.from_random_ahsv(1, h, s, v)
