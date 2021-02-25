@@ -14,6 +14,7 @@ class StyleMeta(type):
 
         return cls
 
+
 class Style(metaclass=StyleMeta):
     """
     Represents a drawable style.
@@ -78,7 +79,7 @@ class Style(metaclass=StyleMeta):
     # monospace_off = 50
     # frame_on = 51
     # encircle_on = 52
-    
+
     overline_on = 53
 
     # frame_off = 54
