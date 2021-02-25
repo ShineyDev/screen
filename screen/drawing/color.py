@@ -385,8 +385,8 @@ class Color:
             The interpolated color.
         """
 
-        method = method or ColorInterpolationMethod.rgb
-        meth = cls._interpolation_method_map[method]
+        name = (method or ColorInterpolationMethod.rgb).name
+        meth = getattr(cls, f"_interpolate_{name}")
         return meth(cls, c1, c2, p)
 
     def _interpolate_hsl(cls, c1, c2, p):
@@ -399,7 +399,7 @@ class Color:
             utils.interpolate(l1, l2, p),
         )
 
-    def _interpolate_hsv(c1, c2, p):
+    def _interpolate_hsv(cls, c1, c2, p):
         h1, s1, v1 = cls._rgb_to_hsv(c1.r, c1.g, c1.b)
         h2, s2, v2 = cls._rgb_to_hsv(c2.r, c2.g, c2.b)
 
@@ -409,18 +409,12 @@ class Color:
             utils.interpolate(v1, v2, p),
         )
 
-    def _interpolate_rgb(c1, c2, p):
+    def _interpolate_rgb(cls, c1, c2, p):
         return cls.from_rgb(
             int(utils.interpolate(c1.r, c2.r, p)),
             int(utils.interpolate(c1.g, c2.g, p)),
             int(utils.interpolate(c1.b, c2.b, p)),
         )
-
-    _interpolation_method_map = {
-        ColorInterpolationMethod.hsl: _interpolate_hsl,
-        ColorInterpolationMethod.hsv: _interpolate_hsv,
-        ColorInterpolationMethod.rgb: _interpolate_rgb,
-    }
 
     def _hsl_to_rgb(h, s, l):
         h /= 360
