@@ -17,6 +17,7 @@ screen.drawing
     :maxdepth: 1
 
     drawing/color
+    drawing/style
 
 
 Still can't find what you're looking for?
