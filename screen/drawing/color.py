@@ -5,25 +5,6 @@ import random
 from screen import utils
 
 
-class ColorInterpolationMethod(enum.IntEnum):
-    """
-    Represents the method used to interpolate a color.
-
-    Attributes
-    ----------
-    hsl
-        Interpolate via HSL values.
-    hsv
-        Interpolate via HSV values.
-    rgb
-        Interpolate via RGB values.
-    """
-
-    hsl = 1
-    hsv = 2
-    rgb = 3
-
-
 class Color:
     """
     Represents a drawable color.
@@ -484,3 +465,22 @@ class Color:
         h = int(h * 360)
 
         return (h, s, v)
+
+
+class ColorInterpolationMethod(enum.IntEnum):
+    """
+    Represents the method used to interpolate a color.
+
+    Attributes
+    ----------
+    hsl
+        Interpolate via HSL values.
+    hsv
+        Interpolate via HSV values.
+    rgb
+        Interpolate via RGB values.
+    """
+
+    hsl = 1
+    hsv = 2
+    rgb = 3
