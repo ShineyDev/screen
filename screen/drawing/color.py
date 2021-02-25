@@ -56,13 +56,13 @@ class Color:
         self.value = value
 
     def __eq__(self, other):
-        return isinstance(other, Color) and self.value == other.value
+        return isinstance(other, self.__class__) and self.value == other.value
 
     def __hash__(self):
         return hash(self.value)
 
     def __repr__(self):
-        return f"<Color r={self.r} g={self.g} b={self.b}>"
+        return f"<{self.__class__.__name__} r={self.r} g={self.g} b={self.b}>"
 
     @classmethod
     def from_ahsl(cls, a, h, s, l):
@@ -381,8 +381,8 @@ class Color:
 
         return self.value & 0xFF
 
-    @staticmethod
-    def interpolate(c1, c2, p, *, method=None):
+    @classmethod
+    def interpolate(cls, c1, c2, p, *, method=None):
         """
         Calculates linear interpolation.
 
@@ -405,31 +405,31 @@ class Color:
         """
 
         method = method or ColorInterpolationMethod.rgb
-        meth = Color._interpolation_method_map[method]
-        return meth(c1, c2, p)
+        meth = cls._interpolation_method_map[method]
+        return meth(cls, c1, c2, p)
 
-    def _interpolate_hsl(c1, c2, p):
-        h1, s1, l1 = Color._rgb_to_hsl(c1.r, c1.g, c1.b)
-        h2, s2, l2 = Color._rgb_to_hsl(c2.r, c2.g, c2.b)
+    def _interpolate_hsl(cls, c1, c2, p):
+        h1, s1, l1 = cls._rgb_to_hsl(c1.r, c1.g, c1.b)
+        h2, s2, l2 = cls._rgb_to_hsl(c2.r, c2.g, c2.b)
 
-        return Color.from_hsl(
+        return cls.from_hsl(
             int(utils.interpolate(h1, h2, p)),
             utils.interpolate(s1, s2, p),
             utils.interpolate(l1, l2, p),
         )
 
     def _interpolate_hsv(c1, c2, p):
-        h1, s1, v1 = Color._rgb_to_hsv(c1.r, c1.g, c1.b)
-        h2, s2, v2 = Color._rgb_to_hsv(c2.r, c2.g, c2.b)
+        h1, s1, v1 = cls._rgb_to_hsv(c1.r, c1.g, c1.b)
+        h2, s2, v2 = cls._rgb_to_hsv(c2.r, c2.g, c2.b)
 
-        return Color.from_hsv(
+        return cls.from_hsv(
             int(utils.interpolate(h1, h2, p)),
             utils.interpolate(s1, s2, p),
             utils.interpolate(v1, v2, p),
         )
 
     def _interpolate_rgb(c1, c2, p):
-        return Color.from_rgb(
+        return cls.from_rgb(
             int(utils.interpolate(c1.r, c2.r, p)),
             int(utils.interpolate(c1.g, c2.g, p)),
             int(utils.interpolate(c1.b, c2.b, p)),
