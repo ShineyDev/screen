@@ -20,6 +20,15 @@ screen.drawing
     drawing/style
 
 
+Other
+-----
+
+.. toctree::
+    :maxdepth: 1
+
+    utils
+
+
 Still can't find what you're looking for?
 
 * :ref:`genindex`
