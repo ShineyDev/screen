@@ -119,6 +119,16 @@ class Style(metaclass=StyleMeta):
     def __str__(self):
         return self.build()
 
+    def __add__(self, other):
+        if isinstance(other, str):
+            return self.build() + other
+        elif isinstance(other, self.__class__):
+            return self.__or__(other)
+
+        return NotImplemented
+
+    __radd__ = __add__
+
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.values == other.values
 
