@@ -22,12 +22,12 @@ class Color:
 
     Parameters
     ----------
-    value: int
+    value: :class:`int`
         The color value.
 
     Attributes
     ----------
-    value: int
+    value: :class:`int`
         The color value.
     """
 
