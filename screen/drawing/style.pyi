@@ -22,4 +22,6 @@ class Style:
     overline_on: Style
     overline_off: Style
 
+    reset_color: Style
+
     def __init__(self, *values: int) -> None: ...
