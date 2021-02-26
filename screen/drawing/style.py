@@ -145,5 +145,5 @@ class Style(metaclass=StyleMeta):
         return cls(*self.values, *other.values)
 
     def build(self):
-        value = ";".join([str(v) for v in sorted(self.values)])
+        value = ";".join(str(v) for v in sorted(self.values))
         return f"\x1B[{value}m"
