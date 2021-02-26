@@ -7,9 +7,8 @@ class StyleMeta(type):
                 setattr(cls, name, cls(value))
 
                 cls.__doc__ += (
-                    f"\n"
-                    f"    {name}: :class:`.Style`\n"
-                    f"        A style with a value of ``{value}``."
+                    f"\n    {name}: :class:`.Style`"
+                    f"\n        A style with a value of ``{value}``."
                 )
 
         return cls
