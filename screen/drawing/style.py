@@ -116,6 +116,9 @@ class Style(metaclass=StyleMeta):
         value = self.build()
         return f"<{self.__class__.__name__} \\ESC{value[1:]}\x1B[0m>"
 
+    def __str__(self):
+        return self.build()
+
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.values == other.values
 
