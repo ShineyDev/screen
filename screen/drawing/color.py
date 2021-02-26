@@ -168,8 +168,9 @@ class Color:
         .. tip::
 
             This method can create unsatisfactory colors. It is
-            recommended to use :meth:`~.from_random_hsv` with
-            custom-bound saturation and brightness values instead.
+            recommended to use :meth:`~.from_random_hsl` or
+            :meth:`~.from_random_hsv` with custom-bound saturation and
+            lightness/brightness values instead.
         """
 
         return cls(int(random.random() * 0xFFFFFFFF))
@@ -233,8 +234,9 @@ class Color:
         .. tip::
 
             This method can create unsatisfactory colors. It is
-            recommended to use :meth:`~.from_random_hsv` with
-            custom-bound saturation and brightness values instead.
+            recommended to use :meth:`~.from_random_hsl` or
+            :meth:`~.from_random_hsv` with custom-bound saturation and
+            lightness/brightness values instead.
 
         Parameters
         ----------
@@ -306,8 +308,9 @@ class Color:
         .. tip::
 
             This method can create unsatisfactory colors. It is
-            recommended to use :meth:`~.from_random_hsv` with
-            custom-bound saturation and brightness values instead.
+            recommended to use :meth:`~.from_random_hsl` or
+            :meth:`~.from_random_hsv` with custom-bound saturation and
+            lightness/brightness values instead.
 
         Parameters
         ----------
