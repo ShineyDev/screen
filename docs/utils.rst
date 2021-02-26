@@ -4,4 +4,6 @@
 Utilities
 =========
 
+.. autofunction:: distance
+
 .. autofunction:: interpolate

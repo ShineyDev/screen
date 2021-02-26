@@ -367,6 +367,26 @@ class Color:
         return self.value & 0xFF
 
     @classmethod
+    def distance(cls, c1, c2):
+        """
+        Calculates euclidean distance.
+
+        Parameters
+        ----------
+        c1: :class:`~.Color`
+            The start color.
+        c2: :class:`~.Color`
+            The end color.
+
+        Returns
+        -------
+        :class:`float`
+            The euclidean distance in the range ``[0, 441.673...]``.
+        """
+
+        return utils.distance((c1.r, c2.r), (c1.g, c2.g), (c1.b, c2.b))
+
+    @classmethod
     def interpolate(cls, c1, c2, p, *, method=None):
         """
         Calculates linear interpolation.

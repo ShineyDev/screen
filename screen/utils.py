@@ -1,3 +1,24 @@
+import math
+
+
+def distance(*pairs):
+    """
+    Calculates euclidean distance.
+
+    Parameters
+    ----------
+    *pairs: ` Tuple[:class:`int`, :class:`int`]
+        An iterable of pairs to compare.
+
+    Returns
+    -------
+    :class:`float`
+        The euclidean distance.
+    """
+
+    return math.sqrt(sum((p[0] - p[1]) ** 2 for p in pairs))
+
+
 def interpolate(v1, v2, p):
     """
     Calculates linear interpolation.
