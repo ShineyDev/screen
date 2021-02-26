@@ -9,6 +9,12 @@ class Color:
     """
     Represents a drawable color.
 
+    Parameters
+    ----------
+    value: :class:`int`
+        The color value.
+
+
     .. container:: operations
 
         .. describe:: x == y
@@ -19,11 +25,6 @@ class Color:
         .. describe:: hash(x)
 
             Returns the hash of the color :attr:`~.value`.
-
-    Parameters
-    ----------
-    value: :class:`int`
-        The color value.
 
     Attributes
     ----------

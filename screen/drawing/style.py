@@ -26,6 +26,12 @@ class Style(metaclass=StyleMeta):
     """
     Represents an ANSI SGR sequence.
 
+    Parameters
+    ----------
+    *values: ` Iterable[:class:`int`]
+        The style values.
+
+
     .. container:: operations
 
         .. describe:: x == y
@@ -38,11 +44,6 @@ class Style(metaclass=StyleMeta):
             Combines the :attr:`value <.values>` of ``x`` and ``y``.
             Raises :class:`ArithmeticError` when combining with
             :attr:`.reset`.
-
-    Parameters
-    ----------
-    *values: ` Iterable[:class:`int`]
-        The style values.
 
     Attributes
     ----------
