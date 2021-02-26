@@ -39,6 +39,12 @@ class Style(metaclass=StyleMeta):
 
             Compares the :attr:`value <.values>` of ``x`` and ``y``.
 
+        .. describe:: x + y
+
+            Combines two :class:`.Style` objects (not unlike binary or)
+            or combines a :class:`.Style` and a :class:`str` (and
+            returns the new :class:`str`).
+
         .. describe:: x | y
 
             Combines the :attr:`value <.values>` of ``x`` and ``y``.
