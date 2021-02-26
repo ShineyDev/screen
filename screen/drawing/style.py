@@ -24,7 +24,7 @@ class StyleMeta(type):
 
 class Style(metaclass=StyleMeta):
     """
-    Represents a drawable style.
+    Represents an ANSI SGR sequence.
 
     .. container:: operations
 
