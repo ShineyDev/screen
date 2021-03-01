@@ -26,7 +26,7 @@ Other
 .. toctree::
     :maxdepth: 1
 
-    utils
+    utils/math
 
 
 Still can't find what you're looking for?

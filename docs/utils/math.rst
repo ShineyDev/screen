@@ -1,8 +1,8 @@
 .. currentmodule:: screen.utils
 
 
-Utilities
-=========
+Math Utilities
+==============
 
 .. autofunction:: distance
 
