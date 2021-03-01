@@ -32,7 +32,7 @@ class Style(metaclass=AttributeFactoryMeta):
 
     Attributes
     ----------
-    values: ` Set[:class:`int`]
+    values: ` Tuple[:class:`int`, ...]
         The style values.
     """
 
@@ -102,7 +102,7 @@ class Style(metaclass=AttributeFactoryMeta):
     __slots__ = ("values",)
 
     def __init__(self, *values):
-        self.values = set(values)
+        self.values = tuple(set(values))
 
     def __repr__(self):
         value = self.build()
