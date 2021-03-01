@@ -1,28 +1,7 @@
-import collections
+from screen.utils.internal import AttributeFactoryMeta
 
 
-class StyleMeta(type):
-    def __new__(cls, name, bases, attrs):
-        cls = super().__new__(cls, name, bases, attrs)
-
-        for (name, value) in attrs.items():
-            if name.startswith("_") or not isinstance(value, (int, collections.abc.Iterable)):
-                continue
-
-            try:
-                setattr(cls, name, cls(*value))
-            except TypeError as e:
-                setattr(cls, name, cls(value))
-
-            cls.__doc__ += (
-                f"\n    {name}: :class:`.Style`"
-                f"\n        A style with a :attr:`value <.values>` of ``{value}``."
-            )
-
-        return cls
-
-
-class Style(metaclass=StyleMeta):
+class Style(metaclass=AttributeFactoryMeta):
     """
     Represents an ANSI SGR sequence.
 
@@ -56,6 +35,12 @@ class Style(metaclass=StyleMeta):
     values: ` Set[:class:`int`]
         The style values.
     """
+
+    def __attr_init__(cls, value):
+        try:
+            return cls(*value)
+        except TypeError as e:
+            return cls(value)
 
     reset = 0
     intensity_increased = 1
