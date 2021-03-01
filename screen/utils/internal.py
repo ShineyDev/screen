@@ -1,6 +1,9 @@
 import types
 
 
+factory_ignore_types = (classmethod, property, staticmethod, types.FunctionType)
+
+
 class AttributeFactoryMeta(type):
     def __new__(cls, cls_name, bases, attrs):
         attr_init = attrs.pop("__attr_init__", lambda c, v: c(v))
@@ -9,7 +12,7 @@ class AttributeFactoryMeta(type):
         cls = super().__new__(cls, cls_name, bases, attrs)
 
         for (attr_name, attr_value) in attrs.items():
-            if attr_name.startswith("_") or isinstance(attr_value, types.FunctionType):
+            if attr_name.startswith("_") or isinstance(attr_value, factory_ignore_types):
                 continue
 
             setattr(cls, attr_name, attr_init(cls, attr_value))

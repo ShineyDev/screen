@@ -3,9 +3,10 @@ import enum
 import random
 
 from screen import utils
+from screen.utils.internal import AttributeFactoryMeta
 
 
-class Color:
+class Color(metaclass=AttributeFactoryMeta):
     """
     Represents a drawable color.
 
@@ -31,6 +32,27 @@ class Color:
     value: :class:`int`
         The color value.
     """
+
+    def __attr_repr__(value):
+        return f"0x{value:08X}"
+
+    black = 0xFF000000
+    blue = 0xFF000080
+    bright_black = 0xFF555555
+    bright_blue = 0xFF0000FF
+    bright_cyan = 0xFF00FFFF
+    bright_green = 0xFF00FF00
+    bright_magenta = 0xFFFF00FF
+    bright_red = 0xFFFF0000
+    bright_yellow = 0xFFFFFF00
+    bright_white = 0xFFFFFFFF
+    cyan = 0xFF008080
+    green = 0xFF008000
+    magenta = 0xFF800080
+    red = 0xFF800000
+    transparent = 0x00FFFFFF
+    yellow = 0xFF808000
+    white = 0xFFAAAAAA
 
     __slots__ = ("value",)
 

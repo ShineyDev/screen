@@ -1,4 +1,4 @@
-from typing import Type, TypeVar
+from typing import ClassVar, Type, TypeVar
 
 from enum import IntEnum
 
@@ -12,6 +12,24 @@ class ColorInterpolationMethod(IntEnum):
     rgb: int
 
 class Color:
+    black: ClassVar[Color]
+    blue: ClassVar[Color]
+    bright_black: ClassVar[Color]
+    bright_blue: ClassVar[Color]
+    bright_cyan: ClassVar[Color]
+    bright_green: ClassVar[Color]
+    bright_magenta: ClassVar[Color]
+    bright_red: ClassVar[Color]
+    bright_yellow: ClassVar[Color]
+    bright_white: ClassVar[Color]
+    cyan: ClassVar[Color]
+    green: ClassVar[Color]
+    magenta: ClassVar[Color]
+    red: ClassVar[Color]
+    transparent: ClassVar[Color]
+    yellow: ClassVar[Color]
+    white: ClassVar[Color]
+
     value: int
 
     def __init__(self, value: int) -> None: ...
