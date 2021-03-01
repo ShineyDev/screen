@@ -131,7 +131,7 @@ class Style(metaclass=AttributeFactoryMeta):
             return NotImplemented
 
         if self == cls.reset or other == cls.reset:
-            raise ArithmeticError(f"cannot combine with {self.__class__.__name__}.reset")
+            raise ArithmeticError(f"cannot combine with {cls.__name__}.reset")
 
         return cls(*self.values, *other.values)
 
