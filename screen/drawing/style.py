@@ -30,6 +30,10 @@ class Style(metaclass=AttributeFactoryMeta):
             Raises :class:`ArithmeticError` when combining with
             :attr:`.reset`.
 
+        .. describe:: hash(x)
+
+            Returns the hash of the style :attr:`value <.values>`.
+
     Attributes
     ----------
     values: ` Tuple[:class:`int`, ...]
@@ -103,6 +107,9 @@ class Style(metaclass=AttributeFactoryMeta):
 
     def __init__(self, *values):
         self.values = tuple(set(values))
+
+    def __hash__(self):
+        return hash(self.values)
 
     def __repr__(self):
         value = self.build()
