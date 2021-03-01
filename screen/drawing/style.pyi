@@ -1,27 +1,31 @@
-class Style:
-    reset: Style
-    intensity_increased: Style
-    intensity_decreased: Style
-    italic_on: Style
-    underline_on: Style
-    blink_slow_on: Style
-    blink_fast_on: Style
-    invert_on: Style
-    conceal_on: Style
-    strikethrough_on: Style
-    underline_double_on: Style
-    intensity_normal: Style
-    italic_off: Style
-    underline_off: Style
-    blink_off: Style
-    invert_off: Style
-    conceal_off: Style
-    strikethrough_off: Style
-    reset_foreground_color: Style
-    reset_background_color: Style
-    overline_on: Style
-    overline_off: Style
+from typing import ClassVar, Tuple
 
-    reset_color: Style
+
+class Style:
+    reset: ClassVar[Style]
+    intensity_increased: ClassVar[Style]
+    intensity_decreased: ClassVar[Style]
+    italic_on: ClassVar[Style]
+    underline_on: ClassVar[Style]
+    blink_slow_on: ClassVar[Style]
+    blink_fast_on: ClassVar[Style]
+    invert_on: ClassVar[Style]
+    conceal_on: ClassVar[Style]
+    strikethrough_on: ClassVar[Style]
+    underline_double_on: ClassVar[Style]
+    intensity_normal: ClassVar[Style]
+    italic_off: ClassVar[Style]
+    underline_off: ClassVar[Style]
+    blink_off: ClassVar[Style]
+    invert_off: ClassVar[Style]
+    conceal_off: ClassVar[Style]
+    strikethrough_off: ClassVar[Style]
+    reset_foreground_color: ClassVar[Style]
+    reset_background_color: ClassVar[Style]
+    overline_on: ClassVar[Style]
+    overline_off: ClassVar[Style]
+    reset_color: ClassVar[Style]
+
+    values: Tuple[int, ...]
 
     def __init__(self, *values: int) -> None: ...
