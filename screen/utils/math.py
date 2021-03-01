@@ -7,7 +7,7 @@ def distance(*pairs):
 
     Parameters
     ----------
-    *pairs: ` Tuple[:class:`int`, :class:`int`]
+    *pairs: Tuple[:class:`int`, :class:`int`]
         An iterable of pairs to compare.
 
     Returns

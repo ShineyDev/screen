@@ -7,7 +7,7 @@ class Style(metaclass=AttributeFactoryMeta):
 
     Parameters
     ----------
-    *values: ` Iterable[:class:`int`]
+    *values: Iterable[:class:`int`]
         The style values.
 
 
@@ -36,7 +36,7 @@ class Style(metaclass=AttributeFactoryMeta):
 
     Attributes
     ----------
-    values: ` Tuple[:class:`int`, ...]
+    values: Tuple[:class:`int`, ...]
         The style values.
     """
 
