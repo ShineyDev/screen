@@ -57,6 +57,7 @@ setuptools.setup(
     name="screen",
     packages=["screen", "screen.drawing", "screen.utils"],
     project_urls=project_urls,
+    python_requires=">=3.6.0",
     url="https://github.com/ShineyDev/screen",
     version=version,
 )
