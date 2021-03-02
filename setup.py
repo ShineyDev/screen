@@ -43,9 +43,9 @@ extras_require = {
 }
 
 project_urls = {
-    "Documentation": "https://screen.readthedocs.io/en/latest/",
-    "Issue Tracker": "https://github.com/ShineyDev/screen/issues/",
-    "Source": "https://github.com/ShineyDev/screen/",
+    "Documentation": "https://screen.readthedocs.io",
+    "Issue Tracker": "https://github.com/ShineyDev/screen/issues",
+    "Source": "https://github.com/ShineyDev/screen",
 }
 
 setuptools.setup(
