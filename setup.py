@@ -55,7 +55,7 @@ setuptools.setup(
     extras_require=extras_require,
     license="Apache Software License",
     name="screen",
-    packages=["screen", "screen.drawing"],
+    packages=["screen", "screen.drawing", "screen.utils"],
     project_urls=project_urls,
     url="https://github.com/ShineyDev/screen",
     version=version,
