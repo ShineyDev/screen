@@ -126,7 +126,11 @@ class Style(metaclass=AttributeFactoryMeta):
 
         return NotImplemented
 
-    __radd__ = __add__
+    def __radd__(self, other):
+        if isinstance(other, str):
+            return other + self.build()
+        else:
+            return self.__add__(other)
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.values == other.values
