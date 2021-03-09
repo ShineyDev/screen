@@ -3,6 +3,7 @@ import collections
 
 __all__ = [
     "drawing",
+    "primitives",
 ]
 
 
