@@ -1,12 +1,8 @@
 import collections
 
-from screen.drawing import *
-from screen.drawing import __all__ as _drawing__all__
-
 
 __all__ = [
     "drawing",
-    *_drawing__all__,
 ]
 
 
