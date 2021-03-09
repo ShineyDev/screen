@@ -4,7 +4,7 @@ from typing import NamedTuple
 class _VersionInfo(NamedTuple):
     major: int
     minor: int
-    patch: int
+    micro: int
     release: str
     serial: int
 
