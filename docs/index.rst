@@ -20,6 +20,15 @@ screen.drawing
     drawing/style
 
 
+screen.primitives
+-----------------
+
+.. toctree::
+    :maxdepth: 1
+
+    primitives/alignment
+
+
 Other
 -----
 
