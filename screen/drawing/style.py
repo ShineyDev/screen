@@ -16,19 +16,20 @@ class Style(metaclass=AttributeFactoryMeta):
         .. describe:: x == y
         .. describe:: x != y
 
-            Compares the :attr:`value <.values>` of ``x`` and ``y``.
+            Compares the :attr:`value <.values>` of two
+            :class:`~.Style` objects.
 
         .. describe:: x + y
 
-            Combines two :class:`.Style` objects (not unlike binary or)
-            or combines a :class:`.Style` and a :class:`str` (and
+            Combines two :class:`~.Style` objects (not unlike binary
+            or) or combines a :class:`~.Style` and a :class:`str` (and
             returns the new :class:`str`).
 
         .. describe:: x | y
 
-            Combines the :attr:`value <.values>` of ``x`` and ``y``.
-            Raises :class:`ArithmeticError` when combining with
-            :attr:`.reset`.
+            Combines the :attr:`value <.values>` of two
+            :class:`~.Style` objects. Raises :class:`ArithmeticError`
+            when combining with :attr:`.reset`.
 
         .. describe:: hash(x)
 
