@@ -59,14 +59,14 @@ class Color(metaclass=AttributeFactoryMeta):
     def __init__(self, value):
         self.value = value
 
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.value == other.value
-
     def __hash__(self):
         return hash(self.value)
 
     def __repr__(self):
         return f"<{self.__class__.__name__} r={self.r} g={self.g} b={self.b}>"
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.value == other.value
 
     @classmethod
     def from_ahsl(cls, a, h, s, l):
