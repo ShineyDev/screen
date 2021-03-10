@@ -21,7 +21,8 @@ class Color(metaclass=AttributeFactoryMeta):
         .. describe:: x == y
         .. describe:: x != y
 
-            Compares the :attr:`~.value` of ``x`` and ``y``.
+            Compares the :attr:`~.value` of two :class:`~.Color`
+            objects.
 
         .. describe:: hash(x)
 
