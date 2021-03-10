@@ -27,6 +27,7 @@ screen.primitives
     :maxdepth: 1
 
     primitives/alignment
+    primitives/thickness
 
 
 Other
