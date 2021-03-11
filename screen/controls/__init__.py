@@ -23,7 +23,7 @@ def {attr_name}(self, value):
 
 """.strip()
 
-_option_setter_remeasurable = """
+_option_setter_remeasure = """
 
 def {attr_name}(self, value):
     value = value if value is not None else self.__class__.default_{attr_name}
@@ -59,7 +59,7 @@ def option(attr_name, attr_type, attr_default, attr_optional, attr_remeasure):
         getter = compile_function(_option_getter)
 
         if attr_remeasure:
-            setter = compile_function(_option_setter_remeasurable)
+            setter = compile_function(_option_setter_remeasure)
         else:
             setter = compile_function(_option_setter_simple)
 
