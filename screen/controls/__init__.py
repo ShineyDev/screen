@@ -7,7 +7,7 @@ from screen.primitives import Thickness
 from screen.primitives import VerticalAlignment
 
 
-_option = collections.namedtuple("_option", "attr_name attr_type attr_default attr_remeasure")
+_option = collections.namedtuple("_option", "name type default optional remeasure")
 
 _option_getter = """
 
@@ -34,11 +34,11 @@ def {attr_name}(self, value):
 """.strip()
 
 
-def option(attr_name, attr_type, attr_default, attr_remeasure):
+def option(attr_name, attr_type, attr_default, attr_optional, attr_remeasure):
     def wrapper(cls):
         # set cls.__control_options__
 
-        option = _option(attr_name, attr_type, attr_default, attr_remeasure)
+        option = _option(attr_name, attr_type, attr_default, attr_optional, attr_remeasure)
         try:
             cls.__control_options__.append(option)
         except (AttributeError) as e:
@@ -71,27 +71,31 @@ def option(attr_name, attr_type, attr_default, attr_remeasure):
 
 
 # fmt: off
-@option("background",           Color,               None,                     False)
-@option("foreground",           Color,               None,                     False)
-@option("height",               int,                 None,                     True)
-@option("horizontal_alignment", HorizontalAlignment, HorizontalAlignment.left, True)
-@option("margin",               Thickness,           Thickness(0),             True)
-@option("max_height",           int,                 sys.maxsize,              True)
-@option("max_width",            int,                 sys.maxsize,              True)
-@option("min_height",           int,                 0,                        True)
-@option("min_width",            int,                 0,                        True)
-@option("padding",              Thickness,           Thickness(0),             True)
-@option("vertical_alignment",   VerticalAlignment,   VerticalAlignment.top,    True)
-@option("width",                int,                 None,                     True)
+@option("background",           Color,               None,                     True, False)
+@option("foreground",           Color,               None,                     True, False)
+@option("height",               int,                 None,                     True, True)
+@option("horizontal_alignment", HorizontalAlignment, HorizontalAlignment.left, True, True)
+@option("margin",               Thickness,           Thickness(0),             True, True)
+@option("max_height",           int,                 sys.maxsize,              True, True)
+@option("max_width",            int,                 sys.maxsize,              True, True)
+@option("min_height",           int,                 0,                        True, True)
+@option("min_width",            int,                 0,                        True, True)
+@option("padding",              Thickness,           Thickness(0),             True, True)
+@option("vertical_alignment",   VerticalAlignment,   VerticalAlignment.top,    True, True)
+@option("width",                int,                 None,                     True, True)
 # fmt: on
 class Control:
     def __init__(self, **kwargs):
         cls_options = getattr(self.__class__, "__control_options__", [])
-        new_options = dict()
-        for (attr_name, _, attr_default, _) in cls_options:
-            new_options[attr_name] = kwargs.pop(attr_name, attr_default)
+        for (attr_name, _, attr_default, attr_optional, _) in cls_options:
+            try:
+                attr_value = kwargs.pop(attr_name)
+            except (KeyError) as e:
+                if attr_optional:
+                    attr_value = attr_default
+                else:
+                    raise TypeError(f"__init__ missing a required argument: '{attr_name}'")
 
-        for (attr_name, attr_value) in new_options.items():
             setattr(self, f"_{attr_name}", attr_value)
 
         self._size = None
