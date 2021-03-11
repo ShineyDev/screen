@@ -1,4 +1,4 @@
-.. currentmodule:: screen.primitives.thickness
+.. currentmodule:: screen.primitives
 
 
 Thickness

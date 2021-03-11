@@ -1,4 +1,4 @@
-.. currentmodule:: screen.drawing.style
+.. currentmodule:: screen.drawing
 
 
 Style

@@ -1,4 +1,4 @@
-.. currentmodule:: screen.drawing.color
+.. currentmodule:: screen.drawing
 
 
 Color
