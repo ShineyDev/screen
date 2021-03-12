@@ -28,6 +28,7 @@ screen.primitives
 
     primitives/alignment
     primitives/orientation
+    primitives/size
     primitives/thickness
 
 
