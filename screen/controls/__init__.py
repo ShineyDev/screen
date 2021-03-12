@@ -11,63 +11,58 @@ _option = collections.namedtuple("_option", "name type default optional remeasur
 
 _option_getter = """
 
-def {attr_name}(self):
-    return self._{attr_name}
+def {name}(self):
+    return self._{name}
 
 """.strip()
 
 _option_setter_simple = """
 
-def {attr_name}(self, value):
-    self._{attr_name} = value if value is not None else self.__class__.default_{attr_name}
+def {name}(self, value):
+    self._{name} = value if value is not None else self.__class__.default_{name}
 
 """.strip()
 
 _option_setter_remeasure = """
 
-def {attr_name}(self, value):
-    value = value if value is not None else self.__class__.default_{attr_name}
-    if value != self._{attr_name}:
-        self._{attr_name} = value
+def {name}(self, value):
+    value = value if value is not None else self.__class__.default_{name}
+    if value != self._{name}:
+        self._{name} = value
         self._size = None
 
 """.strip()
 
 
-def option(attr_name, attr_type, attr_default, attr_optional, attr_remeasure):
-    def wrapper(cls):
-        # set cls.__control_options__
+def option(name, type, default, optional, remeasure):
+    def deco(cls):
+        option = _option(name, type, default, optional, remeasure)
 
-        option = _option(attr_name, attr_type, attr_default, attr_optional, attr_remeasure)
         try:
             cls.__control_options__.append(option)
         except (AttributeError) as e:
             cls.__control_options__ = [option]
 
-        # set cls.default_* for the below data descriptors
-
-        setattr(cls, f"default_{attr_name}", attr_default)
-
-        # set cls.* data descriptors
+        setattr(cls, f"default_{name}", default)
 
         def compile_function(source):
-            source = source.format(attr_name=attr_name)
+            source = source.format(name=name)
             code = compile(source, "<string>", "exec")
             exec(code)
-            return locals()[attr_name]
+            return locals()[name]
 
         getter = compile_function(_option_getter)
 
-        if attr_remeasure:
+        if remeasure:
             setter = compile_function(_option_setter_remeasure)
         else:
             setter = compile_function(_option_setter_simple)
 
-        setattr(cls, attr_name, property(getter, setter))
+        setattr(cls, name, property(getter, setter))
 
         return cls
 
-    return wrapper
+    return deco
 
 
 # fmt: off
@@ -86,17 +81,17 @@ def option(attr_name, attr_type, attr_default, attr_optional, attr_remeasure):
 # fmt: on
 class Control:
     def __init__(self, **kwargs):
-        cls_options = getattr(self.__class__, "__control_options__", [])
-        for (attr_name, _, attr_default, attr_optional, _) in cls_options:
+        options = getattr(self.__class__, "__control_options__", [])
+        for (name, _, default, optional, _) in options:
             try:
-                attr_value = kwargs.pop(attr_name)
+                value = kwargs.pop(name)
             except (KeyError) as e:
-                if attr_optional:
-                    attr_value = attr_default
+                if optional:
+                    value = default
                 else:
-                    raise TypeError(f"__init__ missing a required argument: '{attr_name}'")
+                    raise TypeError(f"__init__ missing a required argument: '{name}'")
 
-            setattr(self, f"_{attr_name}", attr_value)
+            setattr(self, f"_{name}", value)
 
         self._size = None
 
