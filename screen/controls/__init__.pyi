@@ -1,10 +1,15 @@
-from typing import ClassVar, Iterator, Optional
+from typing import Any, Callable, ClassVar, Iterator, Optional, Type, TypeVar
 
 from screen.drawing import Color
 from screen.primitives import HorizontalAlignment
 from screen.primitives import Thickness
 from screen.primitives import VerticalAlignment
 
+
+C = TypeVar("C", bound=Control)
+
+
+def option(name: str, type: Type[Any], default: Any, optional: bool, remeasure: bool) -> Callable[[Type[C]], Type[C]]: ...
 
 class Control:
     default_background: ClassVar[Optional[Color]]
