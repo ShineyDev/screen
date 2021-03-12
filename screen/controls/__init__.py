@@ -89,7 +89,7 @@ class Control:
                 if optional:
                     value = default
                 else:
-                    raise TypeError(f"__init__ missing a required argument: '{name}'")
+                    raise TypeError(f"__init__ missing a required argument: '{name}'") from e
 
             setattr(self, f"_{name}", value)
 
