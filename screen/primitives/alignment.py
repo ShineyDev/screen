@@ -8,11 +8,11 @@ class HorizontalAlignment(IntEnum):
     Attributes
     ----------
     left
-        Align to the left.
+        Align to left.
     center
-        Align to the center.
+        Align to center.
     right
-        Align to the right.
+        Align to right.
     stretch
         Stretch to fit.
     """
@@ -29,11 +29,11 @@ class VerticalAlignment(IntEnum):
     Attributes
     ----------
     top
-        Align to the top.
+        Align to top.
     center
-        Align to the center.
+        Align to center.
     bottom
-        Align to the bottom.
+        Align to bottom.
     stretch
         Stretch to fit.
     """
