@@ -1,6 +1,6 @@
 class Thickness():
     """
-    Represents rectangular thickness.
+    Represents the thickness of a frame around a rectangle.
 
     Parameters
     ----------

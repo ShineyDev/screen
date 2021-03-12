@@ -8,7 +8,7 @@ from screen.utils.internal import AttributeFactoryMeta
 
 class Color(metaclass=AttributeFactoryMeta):
     """
-    Represents a drawable color.
+    Represents a color.
 
     Parameters
     ----------
