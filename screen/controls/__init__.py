@@ -39,7 +39,7 @@ def option(name, type, default, optional, remeasure):
         option = _option(name, type, default, optional, remeasure)
 
         try:
-            cls.__control_options__.append(option)
+            cls.__control_options__ = [*cls.__control_options__, option]
         except (AttributeError) as e:
             cls.__control_options__ = [option]
 
