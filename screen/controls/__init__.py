@@ -29,7 +29,7 @@ def {name}(self, value):
     value = value if value is not None else self.__class__.default_{name}
     if value != self._{name}:
         self._{name} = value
-        self._size = None
+        self._measure_cache = dict()
 
 """.strip()
 
@@ -93,13 +93,15 @@ class Control:
 
             setattr(self, f"_{name}", value)
 
-        self._size = None
+        self._measure_cache = dict()
 
     def measure(self, h, w, **kwargs):
-        if not self._size:
-            self._size = self.measure_core(h, w, **kwargs)
-
-        return self._size
+        try:
+            return self._measure_cache[h, w]
+        except (KeyError) as e:
+            value = self.measure_core(h, w, **kwargs)
+            self._measure_cache[h, w] = value
+            return value
 
     def measure_core(self, h, w, **kwargs):
         raise NotImplementedError
