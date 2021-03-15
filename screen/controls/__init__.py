@@ -3,10 +3,10 @@ import collections
 import sys
 import typing
 
+from screen.controls.primitives import HorizontalAlignment
+from screen.controls.primitives import Thickness
+from screen.controls.primitives import VerticalAlignment
 from screen.drawing import Color
-from screen.primitives import HorizontalAlignment
-from screen.primitives import Thickness
-from screen.primitives import VerticalAlignment
 
 
 _option = collections.namedtuple("_option", "name type default optional remeasure")

@@ -19,6 +19,18 @@ screen.controls
     controls/control
 
 
+screen.controls.primitives
+--------------------------
+
+.. toctree::
+    :maxdepth: 1
+
+    controls/primitives/alignment
+    controls/primitives/orientation
+    controls/primitives/size
+    controls/primitives/thickness
+
+
 screen.drawing
 --------------
 
@@ -27,18 +39,6 @@ screen.drawing
 
     drawing/color
     drawing/style
-
-
-screen.primitives
------------------
-
-.. toctree::
-    :maxdepth: 1
-
-    primitives/alignment
-    primitives/orientation
-    primitives/size
-    primitives/thickness
 
 
 Other

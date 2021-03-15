@@ -2,14 +2,12 @@ import collections
 
 from screen import controls
 from screen import drawing
-from screen import primitives
 from screen import utils
 
 
 __all__ = [
     "controls",
     "drawing",
-    "primitives",
     "utils",
 ]
 

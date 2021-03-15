@@ -1,9 +1,9 @@
 from typing import Any, Callable, ClassVar, Iterator, Optional, Type, TypeVar
 
+from screen.controls.primitives import HorizontalAlignment
+from screen.controls.primitives import Thickness
+from screen.controls.primitives import VerticalAlignment
 from screen.drawing import Color
-from screen.primitives import HorizontalAlignment
-from screen.primitives import Thickness
-from screen.primitives import VerticalAlignment
 
 
 C = TypeVar("C", bound=Control)
