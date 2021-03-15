@@ -1,3 +1,4 @@
+import abc
 import collections
 import sys
 
@@ -79,7 +80,7 @@ def option(name, type, default, optional, remeasure):
 @option("vertical_alignment",   VerticalAlignment,   VerticalAlignment.top,    True, True)
 @option("width",                int,                 None,                     True, True)
 # fmt: on
-class Control:
+class Control(metaclass=abc.ABCMeta):
     def __init__(self, **kwargs):
         options = getattr(self.__class__, "__control_options__", [])
         for (name, _, default, optional, _) in options:
@@ -103,9 +104,11 @@ class Control:
             self._measure_cache[h, w] = value
             return value
 
+    @abc.abstractmethod
     def measure_core(self, h, w, **kwargs):
         raise NotImplementedError
 
+    @abc.abstractmethod
     def render(self, h, w, **kwargs):
         raise NotImplementedError
 
