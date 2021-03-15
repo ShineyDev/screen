@@ -9,7 +9,7 @@ from screen.primitives import VerticalAlignment
 C = TypeVar("C", bound=Control)
 
 
-def option(name: str, type: Type[Any], default: Any, optional: bool, remeasure: bool) -> Callable[[Type[C]], Type[C]]: ...
+def option(name: str, type: Type[Any], default: Optional[Any], optional: bool, remeasure: bool) -> Callable[[Type[C]], Type[C]]: ...
 
 class Control:
     default_background: ClassVar[Optional[Color]]
