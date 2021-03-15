@@ -1,6 +1,7 @@
 import abc
 import collections
 import sys
+import typing
 
 from screen.drawing import Color
 from screen.primitives import HorizontalAlignment
@@ -36,6 +37,34 @@ def {name}(self, value):
 
 
 def option(name, type, default, optional, remeasure):
+    """
+    Adds an option to a :class:`~.Control`.
+
+    Parameters
+    ----------
+    name: :class:`str`
+        The name of the option. The string should pass the
+        :meth:`~str.isidentifier` check.
+    type: Type[Any]
+        The type of the option value.
+    default: Optional[Any]
+        The default value for the option.
+    optional: :class:`bool`
+        Whether the option should be an optional argument to
+        :meth:`Control.__init__ <Control>`.
+    remeasure: :class:`bool`
+        Whether modifying the option should invalidate cached measures.
+
+    Example
+    -------
+
+    .. code-block:: python3
+
+        @option("content", str, None, False, True)
+        class Text(Control):
+            ...
+    """
+
     def deco(cls):
         option = _option(name, type, default, optional, remeasure)
 
@@ -59,7 +88,40 @@ def option(name, type, default, optional, remeasure):
         else:
             setter = compile_function(_option_setter_simple)
 
-        setattr(cls, name, property(getter, setter))
+        def get_type_doc(t):
+            try:
+                if isinstance(t, typing._GenericAlias):
+                    origin = t.__origin__
+                    if isinstance(origin, typing._SpecialForm):
+                        name = origin._name
+                    else:
+                        # PEP 585
+                        name = origin.__name__.capitalize()
+
+                    args = ", ".join(get_type_doc(a) for a in t.__args__)
+                    return f"{name}[{args}]"
+                elif t.__module__ == cls.__module__:
+                    return f":class:`~.{t.__name__}`"
+                elif t.__module__ == "builtins":
+                    return f":class:`~{t.__name__}`"
+                elif t.__module__ == "screen.controls":
+                    return f":class:`~{module}.{t.__name__}`"
+                else:
+                    module = t.__module__.rsplit(".", 1)[0]
+                    return f":class:`~{module}.{t.__name__}`"
+            except (BaseException) as e:
+                return ""
+
+        type_doc = get_type_doc(type)
+        doc = f"The {cls.__name__.lower()}'s {name.replace('_', ' ')}."
+
+        descriptor = property(getter, setter)
+        descriptor.__doc__ = f"\n    {doc}\n\n    :type: {type_doc}\n    "
+
+        setattr(cls, name, descriptor)
+
+        if cls.__doc__:
+            cls.__doc__ += f"{name}: {type_doc}\n        {doc}\n    "
 
         return cls
 
@@ -81,6 +143,13 @@ def option(name, type, default, optional, remeasure):
 @option("width",                int,                 None,                     True, True)
 # fmt: on
 class Control(metaclass=abc.ABCMeta):
+    """
+    Represents the base class for TUI controls.
+
+    Parameters
+    ----------
+    """
+
     def __init__(self, **kwargs):
         options = getattr(self.__class__, "__control_options__", [])
         for (name, _, default, optional, _) in options:
@@ -97,6 +166,19 @@ class Control(metaclass=abc.ABCMeta):
         self._measure_cache = dict()
 
     def measure(self, h, w, **kwargs):
+        """
+        Calculates the desired size of the control. This method is a
+        cached implementation of :meth:`~.measure_core`.
+
+        Parameters to this method are identical to
+        :meth:`~.measure_core`.
+
+        Returns
+        -------
+        Tuple[:class:`int`, :class:`int`]
+            The desired size of the control.
+        """
+
         try:
             return self._measure_cache[h, w]
         except (KeyError) as e:
@@ -106,10 +188,52 @@ class Control(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def measure_core(self, h, w, **kwargs):
+        """
+        Calculates the desired size of the control.
+
+        Parameters
+        ----------
+        h: Optional[:class:`int`]
+            The available height. Can be ``None`` when the parent wants
+            to measure the child. This is a soft constraint and this
+            method may return a smaller or larger integer and hope the
+            parent can accommodate.
+        w: Optional[:class:`int`]
+            The available width. Can be ``None`` when the parent wants
+            to measure the child. This is a soft constraint and this
+            method may return a smaller or larger integer and hope the
+            parent can accommodate.
+
+        Returns
+        -------
+        Tuple[:class:`int`, :class:`int`]
+            The desired size of the control.
+        """
+
         raise NotImplementedError
 
     @abc.abstractmethod
     def render(self, h, w, **kwargs):
+        """
+        Renders the control.
+
+        Parameters
+        ----------
+        h: :class:`int`
+            The available height. This is a hard constraint and the
+            iterator returned by this method is expected to yield a
+            correctly sized block.
+        w: :class:`int`
+            The available width. This is a hard constraint and the
+            iterator returned by this method is expected to yield a
+            correctly sized block.
+
+        Returns
+        -------
+        Iterator[:class:`str`]
+            An iterator yielding lines.
+        """
+
         raise NotImplementedError
 
 
