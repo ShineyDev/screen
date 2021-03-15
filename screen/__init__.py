@@ -1,12 +1,13 @@
 import collections
 
-from screen.controls import *
-from screen.controls import __all__ as _controls__all__
+from screen import controls
+from screen import drawing
+from screen import primitives
+from screen import utils
 
 
 __all__ = [
     "controls",
-    *_controls__all__,
     "drawing",
     "primitives",
 ]

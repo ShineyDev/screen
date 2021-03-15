@@ -1,7 +1,5 @@
 from typing import NamedTuple
 
-from screen.controls import *
-
 
 class _VersionInfo(NamedTuple):
     major: int
