@@ -18,9 +18,9 @@ class AttributeFactoryMeta(type):
             setattr(cls, attr_name, attr_init(cls, attr_value))
 
             cls.__doc__ += (
-                f"\n    {attr_name}: :class:`.{cls_name}`"
-                f"\n        A {cls_name.lower()} with a :attr:`value <.{cls.__slots__[0]}>` "
-                f"of ``{attr_repr(attr_value)}``."
+                f"{attr_name}: :class:`.{cls_name}`\n    "
+                f"    A {cls_name.lower()} with a :attr:`value <.{cls.__slots__[0]}>` of "
+                f"``{attr_repr(attr_value)}``.\n    "
             )
 
         return cls
