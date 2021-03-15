@@ -10,6 +10,7 @@ __all__ = [
     "controls",
     "drawing",
     "primitives",
+    "utils",
 ]
 
 
