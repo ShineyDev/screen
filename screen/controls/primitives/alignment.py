@@ -22,6 +22,7 @@ class HorizontalAlignment(IntEnum):
     right = 3
     stretch = 4
 
+
 class VerticalAlignment(IntEnum):
     """
     Represents the vertical alignment of a control.

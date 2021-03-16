@@ -1,4 +1,4 @@
-class Thickness():
+class Thickness:
     """
     Represents the thickness of a frame around a rectangle.
 
@@ -54,7 +54,9 @@ class Thickness():
         return hash((self.left, self.top, self.right, self.bottom))
 
     def __repr__(self):
-        return f"<Thickness left={self.left} top={self.top} right={self.right} bottom={self.bottom}>"
+        return (
+            f"<Thickness left={self.left} top={self.top} right={self.right} bottom={self.bottom}>"
+        )
 
     def __add__(self, other):
         cls = self.__class__
@@ -64,10 +66,16 @@ class Thickness():
                 self.left + other.left,
                 self.top + other.top,
                 self.right + other.right,
-                self.bottom + other.bottom
+                self.bottom + other.bottom,
             )
 
         return NotImplemented
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.left == other.left and self.top == other.top and self.right == other.right and self.bottom == other.bottom
+        return (
+            isinstance(other, self.__class__)
+            and self.left == other.left
+            and self.top == other.top
+            and self.right == other.right
+            and self.bottom == other.bottom
+        )

@@ -50,7 +50,12 @@ class Size:
         return f"<{self.__class__.__name__} value={value!r}>"
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.is_auto == other.is_auto and self.is_star == other.is_star and self.value == other.value
+        return (
+            isinstance(other, self.__class__)
+            and self.is_auto == other.is_auto
+            and self.is_star == other.is_star
+            and self.value == other.value
+        )
 
     @property
     def is_auto(self):
