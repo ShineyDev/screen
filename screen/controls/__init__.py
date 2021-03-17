@@ -121,6 +121,9 @@ def option(name, type, default, optional, remeasure):
         setattr(cls, name, descriptor)
 
         if cls.__doc__:
+            if optional:
+                doc += " This parameter is optional."
+
             cls.__doc__ += f"{name}: {type_doc}\n        {doc}\n    "
 
         return cls
