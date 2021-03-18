@@ -10,41 +10,34 @@ A Python library for creating TUI inspired by WPF.
     introduction
 
 
-screen.controls
----------------
-
 .. toctree::
+    :caption: Controls
     :maxdepth: 1
 
     controls/control
 
 
-screen.controls.primitives
---------------------------
-
 .. toctree::
+    :caption: Primitives
     :maxdepth: 1
 
     controls/primitives/alignment
     controls/primitives/orientation
+    controls/primitives/placement
     controls/primitives/size
     controls/primitives/thickness
 
 
-screen.drawing
---------------
-
 .. toctree::
+    :caption: Drawing
     :maxdepth: 1
 
     drawing/color
     drawing/style
 
 
-Other
------
-
 .. toctree::
+    :caption: Utilities
     :maxdepth: 1
 
     utils/math
