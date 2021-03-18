@@ -27,6 +27,13 @@ intersphinx_mapping = {
 
 highlight_language = "python3"
 html_theme = "sphinx_rtd_theme"
+html_theme_options = {
+    "collapse_navigation": False,
+    "includehidden": False,
+    "navigation_depth": -1,
+    "prev_next_buttons_location": None,
+    "titles_only": True,
+}
 master_doc = "index"
 pygments_style = "friendly"
 source_suffix = ".rst"
