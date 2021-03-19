@@ -1,3 +1,5 @@
+from typing import Optional
+
 import abc
 import collections
 import sys
@@ -132,9 +134,9 @@ def option(name, type, default, optional, remeasure):
 
 
 # fmt: off
-@option("background",           Color,               None,                     True, False)
-@option("foreground",           Color,               None,                     True, False)
-@option("height",               int,                 None,                     True, True)
+@option("background",           Optional[Color],     None,                     True, False)
+@option("foreground",           Optional[Color],     None,                     True, False)
+@option("height",               Optional[int],       None,                     True, True)
 @option("horizontal_alignment", HorizontalAlignment, HorizontalAlignment.left, True, True)
 @option("margin",               Thickness,           Thickness(0),             True, True)
 @option("max_height",           int,                 sys.maxsize,              True, True)
@@ -143,7 +145,7 @@ def option(name, type, default, optional, remeasure):
 @option("min_width",            int,                 0,                        True, True)
 @option("padding",              Thickness,           Thickness(0),             True, True)
 @option("vertical_alignment",   VerticalAlignment,   VerticalAlignment.top,    True, True)
-@option("width",                int,                 None,                     True, True)
+@option("width",                Optional[int],       None,                     True, True)
 # fmt: on
 class Control(metaclass=abc.ABCMeta):
     """
