@@ -103,7 +103,7 @@ class ControlMeta(abc.ABCMeta):
             if isinstance(attr_value, property):
                 properties.append(_property(attr_name, *attr_value))
 
-        for (cls_base) in cls_bases:
+        for cls_base in cls_bases:
             try:
                 properties.extend(cls_base.__control_properties__)
             except (AttributeError) as e:
@@ -161,7 +161,7 @@ class ControlMeta(abc.ABCMeta):
             if match:
                 cls_doc = cls_doc.replace(
                     " " * len(match.group(1)) + "|parameters|",
-                    textwrap.indent(parameters_doc, " " * len(match.group(1)))
+                    textwrap.indent(parameters_doc, " " * len(match.group(1))),
                 )
             else:
                 cls_doc += "\n\n\n" + textwrap.indent(parameters_doc, "    ")
