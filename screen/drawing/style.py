@@ -150,3 +150,8 @@ class Style(metaclass=AttributeFactoryMeta):
     def build(self):
         value = ";".join(str(v) for v in sorted(self.values))
         return f"\x1B[{value}m"
+
+
+__all__ = [
+    "Style",
+]

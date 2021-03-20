@@ -89,3 +89,8 @@ class Size:
         """
 
         return int(self._match.group(2) or 1)
+
+
+__all__ = [
+    "Size",
+]

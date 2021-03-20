@@ -525,3 +525,9 @@ class ColorInterpolationMethod(enum.IntEnum):
     hsl = 1
     hsv = 2
     rgb = 3
+
+
+__all__ = [
+    "Color",
+    "ColorInterpolationMethod",
+]

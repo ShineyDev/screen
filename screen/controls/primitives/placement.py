@@ -19,3 +19,8 @@ class Placement(IntEnum):
     cursor = 1
     parent = 2
     screen = 3
+
+
+__all__ = [
+    "Placement",
+]

@@ -15,3 +15,8 @@ class Orientation(IntEnum):
 
     horizontal = 1
     vertical = 2
+
+
+__all__ = [
+    "Orientation",
+]

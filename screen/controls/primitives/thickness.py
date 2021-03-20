@@ -79,3 +79,8 @@ class Thickness:
             and self.right == other.right
             and self.bottom == other.bottom
         )
+
+
+__all__ = [
+    "Thickness",
+]
