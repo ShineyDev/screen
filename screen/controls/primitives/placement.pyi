@@ -2,6 +2,6 @@ from enum import IntEnum
 
 
 class Placement(IntEnum):
-    mouse: int
+    cursor: int
     parent: int
     screen: int
