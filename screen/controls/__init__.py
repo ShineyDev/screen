@@ -284,5 +284,6 @@ class Control(metaclass=ControlMeta):
 
 
 __all__ = [
+    "property",
     "Control",
 ]
