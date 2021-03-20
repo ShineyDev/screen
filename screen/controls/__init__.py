@@ -45,7 +45,7 @@ Examples
 .. code-block:: python3
 
     class Border(Control):
-        header = property(Optional[str], None, True, lambda c, v: len(c) == len(v))
+        header = property(Optional[str], None, True, lambda c, v: len(c) != len(v))
 """
 
 _property = collections.namedtuple("_property", "name type default optional remeasure")
