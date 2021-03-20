@@ -176,7 +176,7 @@ class ControlMeta(abc.ABCMeta):
 
 class Control(metaclass=ControlMeta):
     """
-    Represents the base class for a TUI control.
+    Represents the base class for a control.
     """
 
     # fmt: off
