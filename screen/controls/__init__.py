@@ -283,7 +283,11 @@ class Control(metaclass=ControlMeta):
         raise NotImplementedError
 
 
+from screen.controls.popup import Popup
+
+
 __all__ = [
     "property",
     "Control",
+    "Popup",
 ]
