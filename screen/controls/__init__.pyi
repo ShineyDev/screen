@@ -1,4 +1,4 @@
-from typing import Any, Callable, ClassVar, Iterator, Optional, Type, TypeVar
+from typing import Any, Callable, ClassVar, Iterator, NamedTuple, Optional, Type, Union
 
 from screen.controls.primitives import HorizontalAlignment
 from screen.controls.primitives import Thickness
@@ -6,23 +6,27 @@ from screen.controls.primitives import VerticalAlignment
 from screen.drawing import Color
 
 
-C = TypeVar("C", bound=Control)
+class property(NamedTuple):
+    type: Type[Any]
+    default: Optional[Any]
+    optional: bool
+    remeasure: Union[bool, Callable[[Any, Any], bool]]
 
-
-def option(name: str, type: Type[Any], default: Optional[Any], optional: bool, remeasure: bool) -> Callable[[Type[C]], Type[C]]: ...
 
 class Control:
     default_background: ClassVar[Optional[Color]]
     default_foreground: ClassVar[Optional[Color]]
     default_height: ClassVar[Optional[int]]
-    default_horizontal_alignment: ClassVar[Optional[HorizontalAlignment]]
-    default_margin: ClassVar[Optional[Thickness]]
+    default_horizontal_alignment: ClassVar[HorizontalAlignment]
+    default_is_resizable: ClassVar[bool]
+    default_layer: ClassVar[int]
+    default_margin: ClassVar[Thickness]
     default_max_height: ClassVar[Optional[int]]
     default_max_width: ClassVar[Optional[int]]
     default_min_height: ClassVar[Optional[int]]
     default_min_width: ClassVar[Optional[int]]
-    default_padding: ClassVar[Optional[Thickness]]
-    default_vertical_alignment: ClassVar[Optional[VerticalAlignment]]
+    default_padding: ClassVar[Thickness]
+    default_vertical_alignment: ClassVar[VerticalAlignment]
     default_width: ClassVar[Optional[int]]
 
     def __init__(
@@ -32,6 +36,8 @@ class Control:
         foreground: Color=...,
         height: int=...,
         horizontal_alignment: HorizontalAlignment=...,
+        is_resizable: bool=...,
+        layer: int=...,
         margin: Thickness=...,
         max_height: int=...,
         max_width: int=...,
@@ -58,6 +64,14 @@ class Control:
     def horizontal_alignment(self) -> HorizontalAlignment: ...
     @horizontal_alignment.setter
     def horizontal_alignment(self, value: Optional[HorizontalAlignment]): ...
+    @property
+    def is_resizable(self) -> bool: ...
+    @is_resizable.setter
+    def is_resizable(self, value: Optional[bool]): ...
+    @property
+    def layer(self) -> int: ...
+    @layer.setter
+    def layer(self, value: Optional[int]): ...
     @property
     def margin(self) -> Thickness: ...
     @margin.setter

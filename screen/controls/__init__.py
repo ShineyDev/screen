@@ -2,34 +2,77 @@ from typing import Optional
 
 import abc
 import collections
-import sys
-import typing
+import re
+import textwrap
 
 from screen.controls.primitives import HorizontalAlignment
 from screen.controls.primitives import Thickness
 from screen.controls.primitives import VerticalAlignment
 from screen.drawing import Color
+from screen.utils.internal import get_type_doc
 
 
-_option = collections.namedtuple("_option", "name type default optional remeasure")
+_builtins_property = property
 
-_option_getter = """
+
+property = collections.namedtuple("property", "type default optional remeasure")
+property.__doc__ = """
+Registers a property on a :class:`~.Control`.
+
+Parameters
+----------
+type: Type[Any]
+    The value type.
+default: Any
+    The default value for the property. This can be accessed,
+    overwritten, and overridden by inheriting classes as ``default_*``.
+optional: :class:`bool`
+    A boolean indicating whether the property should be an optional
+    parameter to :meth:`Control.__init__ <Control>`.
+remeasure: Union[:class:`bool`, Callable[[Any, Any], :class:`bool`]]
+    A boolean (or a callable taking the current and modified values and
+    returning a boolean) indicating whether modifying the property
+    should invalidate cached measures.
+
+Examples
+--------
+
+.. code-block:: python3
+
+    class Text(Control):
+        content = property(str, None, False, True)
+
+.. code-block:: python3
+
+    class Border(Control):
+        header = property(Optional[str], None, True, lambda c, v: len(c) == len(v))
+"""
+
+_property = collections.namedtuple("_property", "name type default optional remeasure")
+
+_property_getter = """
 
 def {name}(self):
     return self._{name}
 
 """.strip()
 
-_option_setter_simple = """
+_property_setter_simple = """
 
 def {name}(self, value):
+    if value is not None and not isinstance(value, type):
+        raise ValueError
+
     self._{name} = value if value is not None else self.__class__.default_{name}
 
 """.strip()
 
-_option_setter_remeasure = """
+_property_setter_remeasure_simple = """
 
 def {name}(self, value):
+    if value is not None and not isinstance(value, type):
+        raise ValueError
+
     value = value if value is not None else self.__class__.default_{name}
     if value != self._{name}:
         self._{name} = value
@@ -37,136 +80,135 @@ def {name}(self, value):
 
 """.strip()
 
+_property_setter_remeasure_callable = """
 
-def option(name, type, default, optional, remeasure):
-    """
-    Adds an option to a :class:`~.Control`.
+def {name}(self, value):
+    if value is not None and not isinstance(value, type):
+        raise ValueError
 
-    Parameters
-    ----------
-    name: :class:`str`
-        The name of the option. The string should pass the
-        :meth:`~str.isidentifier` check.
-    type: Type[Any]
-        The type of the option value.
-    default: Optional[Any]
-        The default value for the option.
-    optional: :class:`bool`
-        Whether the option should be an optional argument to
-        :meth:`Control.__init__ <Control>`.
-    remeasure: :class:`bool`
-        Whether modifying the option should invalidate cached measures.
+    value = value if value is not None else self.__class__.default_{name}
+    if value != self._{name}:
+        self._{name} = value
 
-    Example
-    -------
+        if remeasure():
+            self._measure_cache = dict()
 
-    .. code-block:: python3
+"""
 
-        @option("content", str, None, False, True)
-        class Text(Control):
-            ...
-    """
 
-    def deco(cls):
-        option = _option(name, type, default, optional, remeasure)
+class ControlMeta(abc.ABCMeta):
+    def __new__(cls_meta, cls_name, cls_bases, cls_attrs, **kwargs):
+        properties = list()
+        for (attr_name, attr_value) in cls_attrs.items():
+            if isinstance(attr_value, property):
+                properties.append(_property(attr_name, *attr_value))
 
-        try:
-            cls.__control_options__ = [*cls.__control_options__, option]
-        except (AttributeError) as e:
-            cls.__control_options__ = [option]
-
-        setattr(cls, f"default_{name}", default)
-
-        def compile_function(source):
-            source = source.format(name=name)
-            code = compile(source, "<string>", "exec")
-            exec(code)
-            return locals()[name]
-
-        getter = compile_function(_option_getter)
-
-        if remeasure:
-            setter = compile_function(_option_setter_remeasure)
-        else:
-            setter = compile_function(_option_setter_simple)
-
-        def get_type_doc(t):
+        for (cls_base) in cls_bases:
             try:
-                if isinstance(t, typing._GenericAlias):
-                    origin = t.__origin__
-                    if isinstance(origin, typing._SpecialForm):
-                        name = origin._name
-                    else:
-                        # PEP 585
-                        name = origin.__name__.capitalize()
+                properties.extend(cls_base.__control_properties__)
+            except (AttributeError) as e:
+                pass
 
-                    args = ", ".join(get_type_doc(a) for a in t.__args__)
-                    return f"{name}[{args}]"
-                elif t.__module__ == cls.__module__:
-                    return f":class:`~.{t.__name__}`"
-                elif t.__module__ == "builtins":
-                    return f":class:`~{t.__name__}`"
-                elif t.__module__ == "screen.controls":
-                    return f":class:`~{module}.{t.__name__}`"
-                else:
-                    module = t.__module__.rsplit(".", 1)[0]
-                    return f":class:`~{module}.{t.__name__}`"
-            except (BaseException) as e:
-                return ""
+        properties.sort(key=lambda p: (p.optional, p.name))
 
-        type_doc = get_type_doc(type)
-        doc = f"The {cls.__name__.lower()}'s {name.replace('_', ' ')}."
+        cls_attrs["__control_properties__"] = properties
 
-        descriptor = property(getter, setter)
-        descriptor.__doc__ = f"\n    {doc}\n\n    :type: {type_doc}\n    "
+        def _compile(source, p):
+            source = source.format(name=p.name)
+            code = compile(source, "<string>", "exec")
+            exec(code, p._asdict(), locals())
+            return locals()[p.name]
 
-        setattr(cls, name, descriptor)
+        slots = list(cls_attrs.get("__slots__", []))
 
-        if cls.__doc__:
-            if optional:
-                doc += " This parameter is optional."
+        parameters_doc = "Parameters\n----------\n"
 
-            cls.__doc__ += f"{name}: {type_doc}\n        {doc}\n    "
+        properties = cls_attrs["__control_properties__"]
+        for p in properties:
+            slots.append(f"_{p.name}")
 
-        return cls
+            cls_attrs[f"default_{p.name}"] = p.default
 
-    return deco
+            getter = _compile(_property_getter, p)
+
+            if callable(p.remeasure):
+                _property_setter = _property_setter_remeasure_callable
+            elif p.remeasure:
+                _property_setter = _property_setter_remeasure_simple
+            else:
+                _property_setter = _property_setter_simple
+
+            setter = _compile(_property_setter, p)
+
+            descriptor_doc = f"The {cls_name.lower()}'s {p.name.replace('_', ' ')}."
+            type_doc = get_type_doc(p.type)
+
+            descriptor = _builtins_property(getter, setter)
+            descriptor.__doc__ = f"{descriptor_doc}\n\n:type: {type_doc}"
+
+            cls_attrs[p.name] = descriptor
+
+            type_doc = get_type_doc(p.type, optional=False)
+
+            if not p.optional:
+                descriptor_doc += " This parameter is not optional."
+
+            parameters_doc += f"{p.name}: {type_doc}\n    {descriptor_doc}\n"
+
+        cls_doc = cls_attrs["__doc__"]
+        if cls_doc:
+            match = re.search(r"\n( *)\|parameters\|\n", cls_doc)
+            if match:
+                cls_doc = cls_doc.replace(
+                    " " * len(match.group(1)) + "|parameters|",
+                    textwrap.indent(parameters_doc, " " * len(match.group(1)))
+                )
+            else:
+                cls_doc += "\n\n\n" + textwrap.indent(parameters_doc, "    ")
+        else:
+            cls_doc = parameters_doc
+
+        cls_attrs["__doc__"] = cls_doc
+        cls_attrs["__slots__"] = tuple(set(slots))
+
+        return super().__new__(cls_meta, cls_name, cls_bases, cls_attrs, **kwargs)
 
 
-# fmt: off
-@option("background",           Optional[Color],     None,                     True, False)
-@option("foreground",           Optional[Color],     None,                     True, False)
-@option("height",               Optional[int],       None,                     True, True)
-@option("horizontal_alignment", HorizontalAlignment, HorizontalAlignment.left, True, True)
-@option("margin",               Thickness,           Thickness(0),             True, True)
-@option("max_height",           Optional[int],       None,                     True, True)
-@option("max_width",            Optional[int],       None,                     True, True)
-@option("min_height",           Optional[int],       None,                     True, True)
-@option("min_width",            Optional[int],       None,                     True, True)
-@option("padding",              Thickness,           Thickness(0),             True, True)
-@option("vertical_alignment",   VerticalAlignment,   VerticalAlignment.top,    True, True)
-@option("width",                Optional[int],       None,                     True, True)
-# fmt: on
-class Control(metaclass=abc.ABCMeta):
+class Control(metaclass=ControlMeta):
     """
-    Represents the base class for TUI controls.
-
-    Parameters
-    ----------
+    Represents the base class for a TUI control.
     """
+
+    # fmt: off
+    background           = property(Optional[Color],     None,                     True, False)
+    foreground           = property(Optional[Color],     None,                     True, False)
+    height               = property(Optional[int],       None,                     True, True)
+    horizontal_alignment = property(HorizontalAlignment, HorizontalAlignment.left, True, True)
+    is_resizable         = property(bool,                False,                    True, False)
+    layer                = property(int,                 0,                        True, True)
+    margin               = property(Thickness,           Thickness(0),             True, True)
+    max_height           = property(Optional[int],       None,                     True, True)
+    max_width            = property(Optional[int],       None,                     True, True)
+    min_height           = property(Optional[int],       None,                     True, True)
+    min_width            = property(Optional[int],       None,                     True, True)
+    padding              = property(Thickness,           Thickness(0),             True, True)
+    vertical_alignment   = property(VerticalAlignment,   VerticalAlignment.top,    True, True)
+    width                = property(Optional[int],       None,                     True, True)
+    # fmt: on
+
+    __slots__ = ("_measure_cache",)
 
     def __init__(self, **kwargs):
-        options = getattr(self.__class__, "__control_options__", [])
-        for (name, _, default, optional, _) in options:
+        for p in self.__class__.__control_properties__:
             try:
-                value = kwargs.pop(name)
+                value = kwargs.pop(p.name)
             except (KeyError) as e:
-                if optional:
-                    value = default
+                if p.optional:
+                    value = getattr(self.__class__, f"default_{p.name}")
                 else:
-                    raise TypeError(f"__init__ missing a required argument: '{name}'") from e
+                    raise TypeError(f"__init__ missing a required argument: '{p.name}'") from e
 
-            setattr(self, f"_{name}", value)
+            setattr(self, f"_{p.name}", value)
 
         self._measure_cache = dict()
 
@@ -187,8 +229,7 @@ class Control(metaclass=abc.ABCMeta):
         try:
             return self._measure_cache[h, w]
         except (KeyError) as e:
-            value = self.measure_core(h, w, **kwargs)
-            self._measure_cache[h, w] = value
+            self._measure_cache[h, w] = value = self.measure_core(h, w, **kwargs)
             return value
 
     @abc.abstractmethod

@@ -4,7 +4,7 @@
 Control
 =======
 
-.. autofunction:: option
+.. autofunction:: property
 
 .. autoclass:: Control
     :members:
