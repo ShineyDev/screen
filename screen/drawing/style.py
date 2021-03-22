@@ -22,8 +22,7 @@ class Style(metaclass=AttributeFactoryMeta):
         .. describe:: x | y
 
             Combines the :attr:`value <.values>` of two
-            :class:`~.Style` objects. Raises :class:`ArithmeticError`
-            when combining with :attr:`.reset`.
+            :class:`~.Style` objects.
 
         .. describe:: hash(x)
 
@@ -121,9 +120,6 @@ class Style(metaclass=AttributeFactoryMeta):
 
         if not isinstance(other, cls):
             return NotImplemented
-
-        if self == cls.reset or other == cls.reset:
-            raise ArithmeticError(f"cannot combine with {cls.__name__}.reset")
 
         return cls(*self.values, *other.values)
 
