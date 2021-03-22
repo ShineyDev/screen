@@ -115,3 +115,4 @@ class Control:
 
 
 from screen.controls.popup import Popup as Popup
+from screen.controls.text import Text as Text

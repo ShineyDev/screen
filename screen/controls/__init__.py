@@ -287,10 +287,12 @@ class Control(metaclass=ControlMeta):
 
 
 from screen.controls.popup import Popup
+from screen.controls.text import Text
 
 
 __all__ = [
     "property",
     "Control",
     "Popup",
+    "Text",
 ]

@@ -18,6 +18,8 @@ A Python library for creating TUI inspired by WPF.
 
     controls/popup
 
+    controls/text
+
 
 .. toctree::
     :caption: Primitives
