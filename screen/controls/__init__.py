@@ -5,9 +5,7 @@ import collections
 import re
 import textwrap
 
-from screen.controls.primitives import HorizontalAlignment
-from screen.controls.primitives import Thickness
-from screen.controls.primitives import VerticalAlignment
+from screen.controls.primitives import HorizontalAlignment, Thickness, VerticalAlignment
 from screen.drawing import Color
 from screen.utils.internal import get_type_doc
 
