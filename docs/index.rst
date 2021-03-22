@@ -24,6 +24,7 @@ A Python library for creating TUI inspired by WPF.
     :maxdepth: 1
 
     controls/primitives/alignment
+    controls/primitives/bullet
     controls/primitives/orientation
     controls/primitives/placement
     controls/primitives/size
