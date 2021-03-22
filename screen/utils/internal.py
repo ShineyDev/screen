@@ -26,6 +26,8 @@ def get_type_doc(t, *, optional=True):
         return f"{name}[{args}]"
     elif t.__module__ == "builtins":
         return f":class:`{t.__name__}`"
+    elif t.__module__ == "screen.controls":
+        return f":class:`~{t.__module__}.{t.__name__}`"
     elif t.__module__.startswith("screen."):
         return f":class:`~{t.__module__.rsplit('.', 1)[0]}.{t.__name__}`"
     else:
