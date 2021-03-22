@@ -1,9 +1,7 @@
 from typing import Any, Callable, ClassVar, Iterator, NamedTuple, Optional, Type, Union
 
-from screen.controls.primitives import HorizontalAlignment
-from screen.controls.primitives import Thickness
-from screen.controls.primitives import VerticalAlignment
-from screen.drawing import Color
+from screen.controls.primitives import HorizontalAlignment, Thickness, VerticalAlignment
+from screen.drawing import Color, Style
 
 
 class property(NamedTuple):
@@ -26,6 +24,7 @@ class Control:
     default_min_height: ClassVar[Optional[int]]
     default_min_width: ClassVar[Optional[int]]
     default_padding: ClassVar[Thickness]
+    default_style: ClassVar[Optional[Style]]
     default_vertical_alignment: ClassVar[VerticalAlignment]
     default_width: ClassVar[Optional[int]]
 
@@ -44,6 +43,7 @@ class Control:
         min_height: int=...,
         min_width: int=...,
         padding: Thickness=...,
+        style: Style=...,
         vertical_alignment: VerticalAlignment=...,
         width: int=...,
     ) -> None: ...
@@ -96,6 +96,10 @@ class Control:
     def padding(self) -> Thickness: ...
     @padding.setter
     def padding(self, value: Optional[Thickness]) -> None: ...
+    @property
+    def style(self) -> Style: ...
+    @style.setter
+    def style(self, value: Optional[Style]) -> None: ...
     @property
     def vertical_alignment(self) -> VerticalAlignment: ...
     @vertical_alignment.setter

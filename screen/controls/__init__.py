@@ -6,7 +6,7 @@ import re
 import textwrap
 
 from screen.controls.primitives import HorizontalAlignment, Thickness, VerticalAlignment
-from screen.drawing import Color
+from screen.drawing import Color, Style
 from screen.utils.internal import get_type_doc
 
 
@@ -194,6 +194,7 @@ class Control(metaclass=ControlMeta):
     min_height           = property(Optional[int],       None,                     True, True)
     min_width            = property(Optional[int],       None,                     True, True)
     padding              = property(Thickness,           Thickness(0),             True, True)
+    style                = property(Optional[Style],     None,                     True, False)
     vertical_alignment   = property(VerticalAlignment,   VerticalAlignment.top,    True, True)
     width                = property(Optional[int],       None,                     True, True)
     # fmt: on
