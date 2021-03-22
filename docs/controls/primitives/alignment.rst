@@ -1,8 +1,8 @@
 .. currentmodule:: screen.controls.primitives
 
 
-Horizontal and Vertical Alignment
-=================================
+Alignment
+=========
 
 .. autoclass:: HorizontalAlignment()
 
