@@ -12,9 +12,9 @@ class Popup(Control):
     def __init__(
         self,
         *,
-        horizontal_offset: int,
-        placement: Placement,
-        vertical_offset: int,
+        horizontal_offset: int=...,
+        placement: Placement=...,
+        vertical_offset: int=...,
         **kwargs,
     ) -> None: ...
 
