@@ -140,7 +140,11 @@ class ControlMeta(abc.ABCMeta):
 
             setter = _compile(_property_setter, p)
 
-            descriptor_doc = f"The {cls_name.lower()}'s {p.name.replace('_', ' ')}."
+            if p.name.startswith("is_"):
+                descriptor_doc = f"Whether the {cls_name.lower()} {p.name.replace('_', ' ')}."
+            else:
+                descriptor_doc = f"The {cls_name.lower()}'s {p.name.replace('_', ' ')}."
+
             type_doc = get_type_doc(p.type)
 
             descriptor = _builtins_property(getter, setter)
