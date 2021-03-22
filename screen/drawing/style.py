@@ -19,12 +19,6 @@ class Style(metaclass=AttributeFactoryMeta):
             Compares the :attr:`value <.values>` of two
             :class:`~.Style` objects.
 
-        .. describe:: x + y
-
-            Combines two :class:`~.Style` objects (not unlike binary
-            or) or combines a :class:`~.Style` and a :class:`str` (and
-            returns the new :class:`str`).
-
         .. describe:: x | y
 
             Combines the :attr:`value <.values>` of two
@@ -118,20 +112,6 @@ class Style(metaclass=AttributeFactoryMeta):
 
     def __str__(self):
         return self.build()
-
-    def __add__(self, other):
-        if isinstance(other, str):
-            return self.build() + other
-        elif isinstance(other, self.__class__):
-            return self.__or__(other)
-
-        return NotImplemented
-
-    def __radd__(self, other):
-        if isinstance(other, str):
-            return other + self.build()
-        else:
-            return self.__add__(other)
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.values == other.values
