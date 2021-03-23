@@ -12,12 +12,17 @@ class Popup(Control):
     def __init__(
         self,
         *,
+        child: Control,
         horizontal_offset: int=...,
         placement: Placement=...,
         vertical_offset: int=...,
         **kwargs,
     ) -> None: ...
 
+    @property
+    def child(self) -> Control: ...
+    @child.setter
+    def child(self, value: Control) -> None: ...
     @property
     def horizontal_offset(self) -> int: ...
     @horizontal_offset.setter

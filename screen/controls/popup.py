@@ -4,14 +4,21 @@ from screen.controls.primitives import Placement
 
 class Popup(Control):
     """
-    Represents the base class for a pop-up control.
+    Represents a pop-up control.
     """
 
     # fmt: off
-    horizontal_offset = property(int,       0,                True, False, False)
-    placement         = property(Placement, Placement.cursor, True, False, False)
-    vertical_offset   = property(int,       0,                True, False, False)
+    child             = property(Control,   None,             False, True,  True)
+    horizontal_offset = property(int,       0,                True,  False, False)
+    placement         = property(Placement, Placement.cursor, True,  False, False)
+    vertical_offset   = property(int,       0,                True,  False, False)
     # fmt: on
+
+    def measure_core(self, h, w, **kwargs):
+        raise NotImplementedError
+
+    def render_core(self, h, w, **kwargs):
+        raise NotImplementedError
 
 
 __all__ = [
