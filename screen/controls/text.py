@@ -1,5 +1,5 @@
 from screen.controls import Control, property
-from screen.controls.primitives import Boundary, HorizontalAlignment, VerticalAlignment
+from screen.controls.primitives import Boundary, Case, HorizontalAlignment, VerticalAlignment
 
 
 class Text(Control):
@@ -8,6 +8,7 @@ class Text(Control):
     """
 
     # fmt: off
+    case                      = property(Case,                Case.normal,              True,  True,  True)
     content                   = property(str,                 None,                     False, True,  True)
     horizontal_text_alignment = property(HorizontalAlignment, HorizontalAlignment.left, True,  False, True)
     is_editable               = property(bool,                False,                    True,  False, False)

@@ -1,10 +1,11 @@
 from typing import ClassVar, Optional
 
 from screen.controls import Control
-from screen.controls.primitives import Boundary, HorizontalAlignment, VerticalAlignment
+from screen.controls.primitives import Boundary, Case, HorizontalAlignment, VerticalAlignment
 
 
 class Text(Control):
+    default_case: ClassVar[Case]
     default_horizontal_text_alignment: ClassVar[HorizontalAlignment]
     default_is_editable: ClassVar[bool]
     default_trim_boundary: ClassVar[Boundary]
@@ -15,6 +16,7 @@ class Text(Control):
         self,
         *,
         content: str,
+        case: Case=...,
         horizontal_text_alignment: HorizontalAlignment=...,
         is_editable: bool=...,
         trim_boundary: Boundary=...,
@@ -23,6 +25,10 @@ class Text(Control):
         **kwargs,
     ) -> None: ...
 
+    @property
+    def case(self) -> Case: ...
+    @case.setter
+    def case(self, value: Optional[Case]) -> None: ...
     @property
     def content(self) -> str: ...
     @content.setter
