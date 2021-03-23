@@ -29,6 +29,7 @@ A Python library for creating TUI inspired by WPF.
     controls/primitives/alignment
     controls/primitives/boundary
     controls/primitives/bullet
+    controls/primitives/case
     controls/primitives/orientation
     controls/primitives/placement
     controls/primitives/size
