@@ -69,6 +69,9 @@ def {name}(self, value):
 
     value = value if value is not None else self.__class__.default_{name}
 
+    if value == self._{name}:
+        return
+
     if not invalidate_measure and not invalidate_render:
         self._{name} = value
         return
