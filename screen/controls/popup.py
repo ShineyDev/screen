@@ -8,9 +8,9 @@ class Popup(Control):
     """
 
     # fmt: off
-    horizontal_offset = property(int,       0,                True, False)
-    placement         = property(Placement, Placement.cursor, True, False)
-    vertical_offset   = property(int,       0,                True, False)
+    horizontal_offset = property(int,       0,                True, False, False)
+    placement         = property(Placement, Placement.cursor, True, False, False)
+    vertical_offset   = property(int,       0,                True, False, False)
     # fmt: on
 
 

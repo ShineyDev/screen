@@ -8,7 +8,8 @@ class property(NamedTuple):
     type: Type[Any]
     default: Optional[Any]
     optional: bool
-    remeasure: Union[bool, Callable[[Any, Any], bool]]
+    invalidate_measure: Union[bool, Callable[[Any, Any], bool]]
+    invalidate_render: Union[bool, Callable[[Any, Any], bool]]
 
 
 class Control:
@@ -112,6 +113,7 @@ class Control:
     def measure(self, h: int, w: int, **kwargs) -> tuple[int, int]: ...
     def measure_core(self, h: int, w: int, **kwargs) -> tuple[int, int]: ...
     def render(self, h: int, w: int, **kwargs) -> Iterator[str]: ...
+    def render_core(self, h: int, w: int, **kwargs) -> Iterator[str]: ...
 
 
 from screen.controls.popup import Popup as Popup
