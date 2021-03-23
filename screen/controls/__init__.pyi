@@ -117,4 +117,5 @@ class Control:
 
 
 from screen.controls.popup import Popup as Popup
+from screen.controls.stack import Stack as Stack
 from screen.controls.text import Text as Text

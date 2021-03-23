@@ -289,6 +289,7 @@ class Control(metaclass=ControlMeta):
 
 
 from screen.controls.popup import Popup
+from screen.controls.stack import Stack
 from screen.controls.text import Text
 
 
