@@ -5,7 +5,6 @@ from screen.controls.primitives import Boundary, HorizontalAlignment, VerticalAl
 
 
 class Text(Control):
-    default_content: ClassVar[Optional[str]]
     default_horizontal_text_alignment: ClassVar[HorizontalAlignment]
     default_is_editable: ClassVar[bool]
     default_trim_boundary: ClassVar[Boundary]
@@ -27,7 +26,7 @@ class Text(Control):
     @property
     def content(self) -> str: ...
     @content.setter
-    def content(self, value: Optional[str]) -> None: ...
+    def content(self, value: str) -> None: ...
     @property
     def horizontal_text_alignment(self) -> HorizontalAlignment: ...
     @horizontal_text_alignment.setter
