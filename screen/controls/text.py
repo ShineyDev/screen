@@ -14,7 +14,7 @@ class Text(Control):
     is_editable               = property(bool,                False,                    True,  False, False)
     trim_boundary             = property(Boundary,            Boundary.word,            True,  False, True)
     vertical_text_alignment   = property(VerticalAlignment,   VerticalAlignment.top,    True,  False, True)
-    wrap_boundary             = property(Boundary,            Boundary.word,            True,  False, True)
+    wrap_boundary             = property(Boundary,            Boundary.word,            True,  True,  True)
     # fmt: on
 
     def measure_core(self, h, w, **kwargs):
