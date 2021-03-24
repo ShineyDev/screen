@@ -49,7 +49,7 @@ Examples
 .. code-block:: python3
 
     class Border(Control):
-        header = property(Optional[str], None, True, lambda c, v: len(c) != len(v), True)
+        header = property(Optional[str], None, True, lambda b, a: len(b) != len(a), True)
 """
 
 _property = collections.namedtuple("_property", ["name", *_property_attrs])
