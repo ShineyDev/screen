@@ -8,6 +8,7 @@ class Text(Control):
     default_case: ClassVar[Case]
     default_horizontal_text_alignment: ClassVar[HorizontalAlignment]
     default_is_editable: ClassVar[bool]
+    default_max_length: ClassVar[Optional[int]]
     default_trim_boundary: ClassVar[Boundary]
     default_vertical_text_alignment: ClassVar[VerticalAlignment]
     default_wrap_boundary: ClassVar[Boundary]
@@ -19,6 +20,7 @@ class Text(Control):
         case: Case=...,
         horizontal_text_alignment: HorizontalAlignment=...,
         is_editable: bool=...,
+        max_length: int=...,
         trim_boundary: Boundary=...,
         vertical_text_alignment: VerticalAlignment=...,
         wrap_boundary: Boundary=...,
@@ -41,6 +43,10 @@ class Text(Control):
     def is_editable(self) -> bool: ...
     @is_editable.setter
     def is_editable(self, value: Optional[bool]) -> None: ...
+    @property
+    def max_length(self) -> Optional[int]: ...
+    @max_length.setter
+    def max_length(self, value: Optional[int]) -> None: ...
     @property
     def trim_boundary(self) -> Boundary: ...
     @trim_boundary.setter
