@@ -224,9 +224,9 @@ class Control(metaclass=ControlMeta):
 
     def __eq__(self, other):
         return (
-            isinstance(other, self.__class__) and
-            self.__class__.__control_properties__ == other.__class__.__control_properties__ and
-            all(
+            isinstance(other, self.__class__)
+            and self.__class__.__control_properties__ == other.__class__.__control_properties__
+            and all(
                 getattr(self, name) == getattr(other, name)
                 for (name, *_) in self.__control_properties__
             )
