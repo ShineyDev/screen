@@ -1,10 +1,17 @@
-from typing import Union, _GenericAlias, _SpecialForm
+from types import FunctionType
+from typing import List, Union, _GenericAlias as typing_GenericAlias, _SpecialForm as SpecialForm
 
-import types
+try:
+    from types import GenericAlias as types_GenericAlias
+except (ImportError) as e:
+    types_GenericAlias = typing_GenericAlias
+
+
+builtins_isinstance = isinstance
 
 
 def get_type_doc(t, *, optional=True):
-    if isinstance(t, _GenericAlias):
+    if isinstance(t, typing_GenericAlias) or isinstance(t, types_GenericAlias):
         origin = t.__origin__
 
         if origin is Union and type(None) in t.__args__:
@@ -17,7 +24,7 @@ def get_type_doc(t, *, optional=True):
             else:
                 return doc
 
-        if isinstance(origin, _SpecialForm):
+        if isinstance(origin, SpecialForm):
             name = origin._name
         else:
             name = origin.__name__.capitalize()
@@ -34,7 +41,20 @@ def get_type_doc(t, *, optional=True):
         return t.__name__
 
 
-factory_ignore_types = (classmethod, property, staticmethod, types.FunctionType)
+def isinstance(obj, t):
+    if builtins_isinstance(t, tuple):
+        return any(isinstance(obj, t) for t in t)
+
+    if builtins_isinstance(t, typing_GenericAlias) or builtins_isinstance(t, types_GenericAlias):
+        if t.__origin__ is Union:
+            return isinstance(obj, t.__args__)
+        elif t.__origin__ is List or t.__origin__ is list:
+            return isinstance(obj, list) and all(isinstance(obj, t.__args__[0]) for obj in obj)
+
+    return builtins_isinstance(obj, t)
+
+
+factory_ignore_types = (classmethod, property, staticmethod, FunctionType)
 
 
 class AttributeFactoryMeta(type):

@@ -7,7 +7,7 @@ import textwrap
 
 from screen.controls.primitives import HorizontalAlignment, Thickness, VerticalAlignment
 from screen.drawing import Color, Style
-from screen.utils.internal import get_type_doc
+from screen.utils.internal import get_type_doc, isinstance
 
 
 _builtins_property = property
@@ -64,7 +64,7 @@ def {name}(self):
 _property_setter = """
 
 def {name}(self, value):
-    if value is not None and not isinstance(value, type):
+    if not isinstance(value, type):
         raise ValueError(f"expected {{type}}, got {{value.__class__}}")
 
     value = value if value is not None else self.__class__.default_{name}
@@ -113,7 +113,8 @@ class ControlMeta(abc.ABCMeta):
         def _compile(source, p):
             source = source.format(name=p.name)
             code = compile(source, "<string>", "exec")
-            exec(code, p._asdict(), locals())
+            globals = {**p._asdict(), "isinstance": isinstance}
+            exec(code, globals, locals())
             return locals()[p.name]
 
         slots = list(cls_attrs.get("__slots__", []))
