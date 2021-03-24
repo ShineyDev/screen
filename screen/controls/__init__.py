@@ -108,7 +108,7 @@ class ControlMeta(abc.ABCMeta):
 
         properties.sort(key=lambda p: (p.optional, p.name))
 
-        cls_attrs["__control_properties__"] = properties
+        cls_attrs["__control_properties__"] = tuple(properties)
 
         def _compile(source, p):
             source = source.format(name=p.name)
@@ -170,6 +170,17 @@ class ControlMeta(abc.ABCMeta):
 class Control(metaclass=ControlMeta):
     """
     Represents the base class for a control.
+
+    .. container:: operations
+
+        .. describe:: x == y
+        .. describe:: x != y
+
+            Compares two :class:`~.Control` objects.
+
+        .. describe:: hash(x)
+
+            Returns the hash of the :class:`~.Control` object.
     """
 
     # fmt: off
@@ -206,6 +217,19 @@ class Control(metaclass=ControlMeta):
 
         self._measure_cache = dict()
         self._render_cache = dict()
+
+    def __hash__(self):
+        return hash(self.__class__.__control_properties__)
+
+    def __eq__(self, other):
+        return (
+            isinstance(other, self.__class__) and
+            self.__class__.__control_properties__ == other.__class__.__control_properties__ and
+            all(
+                getattr(self, name) == getattr(other, name)
+                for (name, *_) in self.__control_properties__
+            )
+        )
 
     def measure(self, h, w, **kwargs):
         """
