@@ -214,6 +214,9 @@ class Control(metaclass=ControlMeta):
                 else:
                     raise TypeError(f"__init__ missing a required argument: '{p.name}'") from e
 
+            if not isinstance(value, p.type):
+                raise ValueError(f"expected {p.type}, got {value.__class__}")
+
             setattr(self, f"_{p.name}", value)
 
         self._measure_cache = dict()
