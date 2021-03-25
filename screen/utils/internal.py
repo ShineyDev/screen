@@ -105,13 +105,17 @@ def isinstance(obj, t):
                 isinstance(k, k_T) and isinstance(v, v_T) for (k, v) in obj.items()
             )
         elif t.__origin__ in (FrozenSet, frozenset):
-            return isinstance(obj, frozenset) and all(isinstance(e, t.__args__[0]) for e in obj)
+            return builtins_isinstance(obj, frozenset) and all(
+                isinstance(e, t.__args__[0]) for e in obj
+            )
         elif t.__origin__ in (List, list):
-            return isinstance(obj, list) and all(isinstance(e, t.__args__[0]) for e in obj)
+            return builtins_isinstance(obj, list) and all(
+                isinstance(e, t.__args__[0]) for e in obj
+            )
         elif t.__origin__ is Literal:
             return obj in t.__args__
         elif t.__origin__ in (Set, set):
-            return isinstance(obj, set) and all(isinstance(e, t.__args__[0]) for e in obj)
+            return builtins_isinstance(obj, set) and all(isinstance(e, t.__args__[0]) for e in obj)
         elif t is tuple or t.__origin__ in (Tuple, tuple):
             try:
                 args = t.__args__
@@ -124,7 +128,7 @@ def isinstance(obj, t):
                 args = (Any,)
                 variable = True
 
-            if not isinstance(obj, tuple):
+            if not builtins_isinstance(obj, tuple):
                 return False
 
             if variable:
