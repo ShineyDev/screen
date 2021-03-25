@@ -9,6 +9,12 @@ from typing import (
     Union,
 )
 
+import sys
+
+
+PY36 = (3, 7) > sys.version_info >= (3, 6)
+
+
 try:
     # 3.7+
     from typing import _GenericAlias as typing_GenericAlias
@@ -34,7 +40,14 @@ builtins_isinstance = isinstance
 
 
 def get_type_doc(t, *, optional=True):
-    if isinstance(t, (types_GenericAlias, typing_GenericAlias)):
+    if (
+        isinstance(t, (types_GenericAlias, typing_GenericAlias))
+        or (
+            PY36
+            and hasattr(t, "__origin__")
+            and t.__origin__ in (Dict, FrozenSet, List, Set, Tuple, Union)
+        )
+    ):
         origin = t.__origin__
 
         if origin is Union and type(None) in t.__args__:
@@ -47,7 +60,9 @@ def get_type_doc(t, *, optional=True):
             else:
                 return doc
 
-        if isinstance(origin, SpecialForm):
+        if PY36:
+            name = repr(t).rsplit(".")[1].split("[")[0]
+        elif isinstance(origin, SpecialForm):
             name = origin._name
         else:
             name = origin.__name__.capitalize()
@@ -61,7 +76,16 @@ def get_type_doc(t, *, optional=True):
     elif t.__module__.startswith("screen."):
         return f":class:`~{t.__module__.rsplit('.', 1)[0]}.{t.__name__}`"
     else:
-        return t.__name__
+        if PY36:
+            try:
+                return repr(t).rsplit(".")[1]
+            except (IndexError) as e:
+                pass
+
+        if isinstance(t, SpecialForm):
+            return t._name
+        else:
+            return t.__name__
 
 
 def isinstance(obj, t):
