@@ -11,7 +11,7 @@ builtins_isinstance = isinstance
 
 
 def get_type_doc(t, *, optional=True):
-    if isinstance(t, typing_GenericAlias) or isinstance(t, types_GenericAlias):
+    if isinstance(t, (types_GenericAlias, typing_GenericAlias)):
         origin = t.__origin__
 
         if origin is Union and type(None) in t.__args__:
@@ -45,7 +45,7 @@ def isinstance(obj, t):
     if builtins_isinstance(t, tuple):
         return any(isinstance(obj, t) for t in t)
 
-    if builtins_isinstance(t, typing_GenericAlias) or builtins_isinstance(t, types_GenericAlias):
+    if builtins_isinstance(t, (types_GenericAlias, typing_GenericAlias)):
         if t.__origin__ is Union:
             return isinstance(obj, t.__args__)
         elif t.__origin__ is List or t.__origin__ is list:
