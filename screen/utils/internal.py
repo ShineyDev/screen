@@ -20,14 +20,22 @@ try:
     from typing import _GenericAlias as typing_GenericAlias
     from typing import _SpecialForm as SpecialForm
 except (ImportError) as e:
-    class typing_GenericAlias: pass
-    class SpecialForm: pass
+
+    class typing_GenericAlias:
+        pass
+
+    class SpecialForm:
+        pass
+
 
 try:
     # 3.8+
     from typing import Literal
 except (ImportError) as e:
-    class Literal: pass
+
+    class Literal:
+        pass
+
 
 try:
     # 3.9+
@@ -40,13 +48,10 @@ builtins_isinstance = isinstance
 
 
 def get_type_doc(t, *, optional=True):
-    if (
-        isinstance(t, (types_GenericAlias, typing_GenericAlias))
-        or (
-            PY36
-            and hasattr(t, "__origin__")
-            and t.__origin__ in (Dict, FrozenSet, List, Set, Tuple, Union)
-        )
+    if isinstance(t, (types_GenericAlias, typing_GenericAlias)) or (
+        PY36
+        and hasattr(t, "__origin__")
+        and t.__origin__ in (Dict, FrozenSet, List, Set, Tuple, Union)
     ):
         origin = t.__origin__
 
@@ -96,9 +101,8 @@ def isinstance(obj, t):
         if t.__origin__ in (Dict, dict):
             k_T, v_T = t.__args__
 
-            return (
-                isinstance(obj, dict)
-                and all(isinstance(k, k_T) and isinstance(v, v_T) for (k, v) in obj.items())
+            return isinstance(obj, dict) and all(
+                isinstance(k, k_T) and isinstance(v, v_T) for (k, v) in obj.items()
             )
         elif t.__origin__ in (FrozenSet, frozenset):
             return isinstance(obj, frozenset) and all(isinstance(e, t.__args__[0]) for e in obj)
@@ -117,7 +121,7 @@ def isinstance(obj, t):
                     args = args[:-1]
                     variable = True
             except (AttributeError) as e:
-                args = (Any, )
+                args = (Any,)
                 variable = True
 
             if not isinstance(obj, tuple):
@@ -126,7 +130,9 @@ def isinstance(obj, t):
             if variable:
                 return all(isinstance(e, args) for e in obj)
             else:
-                return len(obj) == len(args) and all(isinstance(obj[i], args[i]) for i in range(len(args)))
+                return len(obj) == len(args) and all(
+                    isinstance(obj[i], args[i]) for i in range(len(args))
+                )
         elif t.__origin__ is Union:
             return isinstance(obj, t.__args__)
 
