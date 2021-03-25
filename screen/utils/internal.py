@@ -1,5 +1,16 @@
 from types import FunctionType
-from typing import List, Union, _GenericAlias as typing_GenericAlias, _SpecialForm as SpecialForm
+from typing import (
+    Any,
+    Dict,
+    FrozenSet,
+    List,
+    Literal,
+    Set,
+    Tuple,
+    Union,
+    _GenericAlias as typing_GenericAlias,
+    _SpecialForm as SpecialForm,
+)
 
 try:
     from types import GenericAlias as types_GenericAlias
@@ -46,10 +57,45 @@ def isinstance(obj, t):
         return any(isinstance(obj, t) for t in t)
 
     if builtins_isinstance(t, (types_GenericAlias, typing_GenericAlias)):
-        if t.__origin__ is Union:
+        if t.__origin__ in (Dict, dict):
+            k_T, v_T = t.__args__
+
+            return (
+                isinstance(obj, dict)
+                and all(isinstance(k, k_T) and isinstance(v, v_T) for (k, v) in obj.items())
+            )
+        elif t.__origin__ in (FrozenSet, frozenset):
+            return isinstance(obj, frozenset) and all(isinstance(e, t.__args__[0]) for e in obj)
+        elif t.__origin__ in (List, list):
+            return isinstance(obj, list) and all(isinstance(e, t.__args__[0]) for e in obj)
+        elif t.__origin__ is Literal:
+            return obj in t.__args__
+        elif t.__origin__ in (Set, set):
+            return isinstance(obj, set) and all(isinstance(e, t.__args__[0]) for e in obj)
+        elif t is tuple or t.__origin__ in (Tuple, tuple):
+            try:
+                args = t.__args__
+                variable = False
+
+                if args[-1] is Ellipsis:
+                    args = args[:-1]
+                    variable = True
+            except (AttributeError) as e:
+                args = (Any, )
+                variable = True
+
+            if not isinstance(obj, tuple):
+                return False
+
+            if variable:
+                return all(isinstance(e, args) for e in obj)
+            else:
+                return len(obj) == len(args) and all(isinstance(obj[i], args[i]) for i in range(len(args)))
+        elif t.__origin__ is Union:
             return isinstance(obj, t.__args__)
-        elif t.__origin__ is List or t.__origin__ is list:
-            return isinstance(obj, list) and all(isinstance(obj, t.__args__[0]) for obj in obj)
+
+    if builtins_isinstance(t, SpecialForm) and t._name == "Any":
+        return True
 
     return builtins_isinstance(obj, t)
 
