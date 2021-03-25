@@ -4,15 +4,27 @@ from typing import (
     Dict,
     FrozenSet,
     List,
-    Literal,
     Set,
     Tuple,
     Union,
-    _GenericAlias as typing_GenericAlias,
-    _SpecialForm as SpecialForm,
 )
 
 try:
+    # 3.7+
+    from typing import _GenericAlias as typing_GenericAlias
+    from typing import _SpecialForm as SpecialForm
+except (ImportError) as e:
+    class typing_GenericAlias: pass
+    class SpecialForm: pass
+
+try:
+    # 3.8+
+    from typing import Literal
+except (ImportError) as e:
+    class Literal: pass
+
+try:
+    # 3.9+
     from types import GenericAlias as types_GenericAlias
 except (ImportError) as e:
     types_GenericAlias = typing_GenericAlias
