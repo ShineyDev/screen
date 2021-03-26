@@ -64,7 +64,7 @@ def {name}(self):
 _property_setter = """
 
 def {name}(self, value):
-    if not isinstance(value, type):
+    if not optional and not isinstance(value, type):
         raise ValueError(f"expected {{type}}, got {{value.__class__}}")
 
     value = value if value is not None else self.__class__.default_{name}
