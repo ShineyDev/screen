@@ -109,9 +109,7 @@ def isinstance(obj, t):
                 isinstance(e, t.__args__[0]) for e in obj
             )
         elif t.__origin__ in (List, list):
-            return builtins_isinstance(obj, list) and all(
-                isinstance(e, t.__args__[0]) for e in obj
-            )
+            return builtins_isinstance(obj, list) and all(isinstance(e, t.__args__[0]) for e in obj)
         elif t.__origin__ is Literal:
             return obj in t.__args__
         elif t.__origin__ in (Set, set):
