@@ -13,9 +13,9 @@ from screen.utils.internal import get_type_doc, isinstance
 _builtins_property = property
 
 
-_property_attrs = ["type", "default", "optional", "invalidate_measure", "invalidate_render"]
+_property_attrs = ["type", "default", "optional", "invalidate_measure", "invalidate_render", "doc"]
 
-property = collections.namedtuple("property", _property_attrs)
+property = collections.namedtuple("property", _property_attrs, defaults=(None,))
 property.__doc__ = """
 Registers a property on a :class:`~.Control`.
 
@@ -93,12 +93,53 @@ def {name}(self, value):
 """
 
 
+def _compile(source, p):
+    source = source.format(name=p.name)
+    code = compile(source, "<string>", "exec")
+    globals = {**p._asdict(), "isinstance": isinstance}
+    exec(code, globals, locals())
+    return locals()[p.name]
+
+
 class ControlMeta(abc.ABCMeta):
     def __new__(cls_meta, cls_name, cls_bases, cls_attrs, **kwargs):
         properties = list()
-        for (attr_name, attr_value) in cls_attrs.items():
+        slots = list(cls_attrs.get("__slots__", []))
+
+        for (attr_name, attr_value) in cls_attrs.copy().items():
             if isinstance(attr_value, property):
-                properties.append(_property(attr_name, *attr_value))
+                p = _property(attr_name, *attr_value)
+
+                if not p.doc:
+                    if p.type is bool:
+                        p = _property(
+                            *p[:-1],
+                            f"Whether the {cls_name.lower()} {p.name.replace('_', ' ')}."
+                        )
+                    else:
+                        p = _property(
+                            *p[:-1],
+                            f"The {cls_name.lower()}'s {p.name.replace('_', ' ')}."
+                        )
+
+                properties.append(p)
+                slots.append(f"_{p.name}")
+
+                if p.optional:
+                    cls_attrs[f"default_{p.name}"] = p.default
+
+                getter = _compile(_property_getter, p)
+                setter = _compile(_property_setter, p)
+                descriptor = _builtins_property(getter, setter)
+
+                type_doc = get_type_doc(p.type)
+
+                if p.doc:
+                    descriptor.__doc__ = f"{p.doc}\n\n:type: {type_doc}"
+                else:
+                    descriptor.__doc__ = f":type: {type_doc}"
+
+                cls_attrs[p.name] = descriptor
 
         for cls_base in cls_bases:
             try:
@@ -109,41 +150,14 @@ class ControlMeta(abc.ABCMeta):
         properties.sort(key=lambda p: (p.optional, p.name))
 
         cls_attrs["__control_properties__"] = tuple(properties)
-
-        def _compile(source, p):
-            source = source.format(name=p.name)
-            code = compile(source, "<string>", "exec")
-            globals = {**p._asdict(), "isinstance": isinstance}
-            exec(code, globals, locals())
-            return locals()[p.name]
-
-        slots = list(cls_attrs.get("__slots__", []))
+        cls_attrs["__slots__"] = tuple(set(slots))
 
         parameters_doc = "Parameters\n----------\n"
 
-        properties = cls_attrs["__control_properties__"]
         for p in properties:
-            slots.append(f"_{p.name}")
-
-            cls_attrs[f"default_{p.name}"] = p.default
-
-            getter = _compile(_property_getter, p)
-            setter = _compile(_property_setter, p)
-            descriptor = _builtins_property(getter, setter)
-
-            if p.name.startswith("is_"):
-                descriptor_doc = f"Whether the {cls_name.lower()} {p.name.replace('_', ' ')}."
-            else:
-                descriptor_doc = f"The {cls_name.lower()}'s {p.name.replace('_', ' ')}."
-
-            type_doc = get_type_doc(p.type)
-
-            descriptor.__doc__ = f"{descriptor_doc}\n\n:type: {type_doc}"
-
-            cls_attrs[p.name] = descriptor
-
             type_doc = get_type_doc(p.type, optional=False)
 
+            descriptor_doc = p.doc
             if not p.optional:
                 descriptor_doc += " This parameter is not optional."
 
@@ -163,7 +177,6 @@ class ControlMeta(abc.ABCMeta):
             cls_doc = parameters_doc
 
         cls_attrs["__doc__"] = cls_doc
-        cls_attrs["__slots__"] = tuple(set(slots))
 
         return super().__new__(cls_meta, cls_name, cls_bases, cls_attrs, **kwargs)
 
@@ -171,6 +184,8 @@ class ControlMeta(abc.ABCMeta):
 class Control(metaclass=ControlMeta):
     """
     Represents the base class for a control.
+
+    |parameters|
 
     .. container:: operations
 
