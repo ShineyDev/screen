@@ -244,7 +244,7 @@ class Control(metaclass=ControlMeta):
             and self.__class__.__control_properties__ == other.__class__.__control_properties__
             and all(
                 getattr(self, name) == getattr(other, name)
-                for (name, *_) in self.__control_properties__
+                for (name, *_) in self.__class__.__control_properties__
             )
         )
 
