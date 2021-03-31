@@ -113,7 +113,10 @@ class Style(metaclass=AttributeFactoryMeta):
         return self.build()
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.values == other.values
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+
+        return self.values == other.values
 
     def __or__(self, other):
         cls = self.__class__

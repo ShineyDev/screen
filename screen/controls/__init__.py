@@ -239,9 +239,11 @@ class Control(metaclass=ControlMeta):
         return hash(self.__class__.__control_properties__)
 
     def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+
         return (
-            isinstance(other, self.__class__)
-            and self.__class__.__control_properties__ == other.__class__.__control_properties__
+            self.__class__.__control_properties__ == other.__class__.__control_properties__
             and all(
                 getattr(self, name) == getattr(other, name)
                 for (name, *_) in self.__class__.__control_properties__

@@ -72,9 +72,11 @@ class Thickness:
         return NotImplemented
 
     def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+
         return (
-            isinstance(other, self.__class__)
-            and self.left == other.left
+            self.left == other.left
             and self.top == other.top
             and self.right == other.right
             and self.bottom == other.bottom
