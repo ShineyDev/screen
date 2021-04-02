@@ -33,3 +33,4 @@
 
     <h1 align="center">screen</h1>
     <p align="center">A Python library for creating TUI inspired by WPF.</p>
+    <h6 align="center">Copyright 2021-present ShineyDev</h6>
