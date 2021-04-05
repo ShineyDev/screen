@@ -1,7 +1,7 @@
 import colorsys
-import enum
 import random
 
+from .colorinterpolationmethod import ColorInterpolationMethod
 from screen import utils
 from screen.utils.internal import AttributeFactoryMeta
 
@@ -511,26 +511,6 @@ class Color(metaclass=AttributeFactoryMeta):
         return (h, s, v)
 
 
-class ColorInterpolationMethod(enum.IntEnum):
-    """
-    Represents the method used to interpolate a color.
-
-    Attributes
-    ----------
-    hsl
-        Interpolate via HSL values.
-    hsv
-        Interpolate via HSV values.
-    rgb
-        Interpolate via RGB values.
-    """
-
-    hsl = 1
-    hsv = 2
-    rgb = 3
-
-
 __all__ = [
     "Color",
-    "ColorInterpolationMethod",
 ]

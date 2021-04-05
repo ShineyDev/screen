@@ -41,6 +41,7 @@ A Python library for creating TUI inspired by WPF.
     :maxdepth: 1
 
     drawing/color
+    drawing/colorinterpolationmethod
     drawing/style
 
 

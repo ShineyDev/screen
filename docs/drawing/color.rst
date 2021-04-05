@@ -6,5 +6,3 @@ Color
 
 .. autoclass:: Color
     :members:
-
-.. autoclass:: ColorInterpolationMethod()
