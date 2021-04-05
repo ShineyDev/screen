@@ -331,14 +331,19 @@ class Control(metaclass=ControlMeta):
         raise NotImplementedError
 
 
-from screen.controls.popup import Popup
-from screen.controls.stack import Stack
-from screen.controls.text import Text
+from screen.controls import primitives
+from screen.controls.popup import *
+from screen.controls.popup import __all__ as _popup__all__
+from screen.controls.stack import *
+from screen.controls.stack import __all__ as _stack__all__
+from screen.controls.text import *
+from screen.controls.text import __all__ as _text__all__
 
 
 __all__ = [
     "property",
     "Control",
-    "Popup",
-    "Text",
+    *_popup__all__,
+    *_stack__all__,
+    *_text__all__,
 ]
