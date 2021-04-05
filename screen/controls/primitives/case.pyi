@@ -1,11 +1,13 @@
-from enum import IntEnum
+from typing import Callable
+
+from enum import Enum
 
 
-class Case(IntEnum):
-    capital: int
-    fold: int
-    lower: int
-    normal: int
-    swap: int
-    title: int
-    upper: int
+class Case(Enum):
+    capital: Callable[[str], str]
+    fold: Callable[[str], str]
+    lower: Callable[[str], str]
+    normal: Callable[[str], str]
+    swap: Callable[[str], str]
+    title: Callable[[str], str]
+    upper: Callable[[str], str]

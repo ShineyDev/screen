@@ -1,10 +1,12 @@
-from enum import IntEnum
+from typing import Callable
+
+from enum import Enum
 
 
-class Bullet(IntEnum):
-    decimal: int
-    latin_lower: int
-    latin_upper: int
-    none: int
-    roman_lower: int
-    roman_upper: int
+class Bullet(Enum):
+    decimal: Callable[[int], str]
+    latin_lower: Callable[[int], str]
+    latin_upper: Callable[[int], str]
+    none: Callable[[int], str]
+    roman_lower: Callable[[int], str]
+    roman_upper: Callable[[int], str]

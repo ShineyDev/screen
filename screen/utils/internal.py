@@ -9,6 +9,7 @@ from typing import (
     Union,
 )
 
+import collections
 import sys
 
 
@@ -169,7 +170,62 @@ class AttributeFactoryMeta(type):
         return cls
 
 
+class EnumMeta(type):
+    def __new__(cls_meta, cls_name, cls_bases, cls_attrs, **kwargs):
+        member_type = collections.namedtuple(f"_{cls_name}_member", ["name", "value"])
+        for (key, value) in kwargs.items():
+            setattr(member_type, key, value)
+
+        member_map = dict()
+
+        value_map = dict()
+        for (key, value) in cls_attrs.items():
+            if key[0] == "_" or isinstance(value, classmethod):
+                continue
+
+            try:
+                member = value_map[value]
+            except KeyError:
+                member = member_type(key, value)
+                value_map[value] = member
+
+            member_map[key] = member
+            cls_attrs[key] = member
+
+        cls_attrs["_members_"] = member_map
+
+        cls = super().__new__(cls_meta, cls_name, cls_bases, cls_attrs)
+
+        member_type._cls_ = cls
+
+        return cls
+
+    def __instancecheck__(cls, instance):
+        try:
+            return instance._cls_ is cls
+        except AttributeError:
+            return False
+
+    def __iter__(cls):
+        yield from cls._members_.values()
+
+    def __len__(cls):
+        return len(cls._members_)
+
+    def __delattr__(cls, key):
+        raise TypeError("enums are immutable")
+
+    def __setattr__(cls, key, value):
+        raise TypeError("enums are immutable")
+
+
+class Enum(metaclass=EnumMeta):
+    pass
+
+
 __all__ = [
     "get_type_doc",
     "AttributeFactoryMeta",
+    "EnumMeta",
+    "Enum",
 ]

@@ -1,7 +1,8 @@
-from enum import IntEnum
+from screen.utils import decimal_to_latin, decimal_to_roman
+from screen.utils.internal import Enum
 
 
-class Bullet(IntEnum):
+class Bullet(Enum, __call__=lambda s, a: s.value(a)):
     """
     Represents a dynamic bullet type.
 
@@ -21,12 +22,12 @@ class Bullet(IntEnum):
         I, II, III, IV, V, ...
     """
 
-    decimal = 1
-    latin_lower = 2
-    latin_upper = 3
-    none = 4
-    roman_lower = 5
-    roman_upper = 6
+    decimal = str
+    latin_lower = decimal_to_latin
+    latin_upper = lambda s: decimal_to_latin(s).upper()
+    none = lambda _: ""
+    roman_lower = decimal_to_roman
+    roman_upper = lambda s: decimal_to_roman(s).upper()
 
 
 __all__ = [

@@ -1,7 +1,7 @@
-from enum import IntEnum
+from screen.utils.internal import Enum
 
 
-class Case(IntEnum):
+class Case(Enum, __call__=lambda s, a: s.value(a)):
     """
     Represents a character case.
 
@@ -23,13 +23,13 @@ class Case(IntEnum):
         :meth:`str.upper`
     """
 
-    capital = 1
-    fold = 2
-    lower = 3
-    normal = 4
-    swap = 5
-    title = 6
-    upper = 7
+    capital = str.capitalize
+    fold = str.casefold
+    lower = str.lower
+    normal = lambda s: s
+    swap = str.swapcase
+    title = str.title
+    upper = str.upper
 
 
 __all__ = [

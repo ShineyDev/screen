@@ -1,6 +1,6 @@
-from enum import IntEnum
+from enum import Enum
 
 
-class Orientation(IntEnum):
+class Orientation(Enum):
     horizontal: int
     vertical: int

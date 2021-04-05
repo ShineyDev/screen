@@ -1,7 +1,7 @@
-from enum import IntEnum
+from screen.utils.internal import Enum
 
 
-class Orientation(IntEnum):
+class Orientation(Enum):
     """
     Represents the orientation of a control.
 

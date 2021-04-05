@@ -1,6 +1,6 @@
-from enum import IntEnum
+from enum import Enum
 
 
-class Boundary(IntEnum):
+class Boundary(Enum):
     character: int
     word: int

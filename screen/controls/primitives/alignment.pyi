@@ -1,13 +1,13 @@
-from enum import IntEnum
+from enum import Enum
 
 
-class HorizontalAlignment(IntEnum):
+class HorizontalAlignment(Enum):
     left: int
     center: int
     right: int
     stretch: int
 
-class VerticalAlignment(IntEnum):
+class VerticalAlignment(Enum):
     top: int
     center: int
     bottom: int

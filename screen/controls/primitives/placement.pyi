@@ -1,7 +1,7 @@
-from enum import IntEnum
+from enum import Enum
 
 
-class Placement(IntEnum):
+class Placement(Enum):
     cursor: int
     parent: int
     screen: int

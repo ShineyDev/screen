@@ -1,7 +1,7 @@
-from enum import IntEnum
+from screen.utils.internal import Enum
 
 
-class HorizontalAlignment(IntEnum):
+class HorizontalAlignment(Enum):
     """
     Represents the horizontal alignment of a control.
 
@@ -23,7 +23,7 @@ class HorizontalAlignment(IntEnum):
     stretch = 4
 
 
-class VerticalAlignment(IntEnum):
+class VerticalAlignment(Enum):
     """
     Represents the vertical alignment of a control.
 

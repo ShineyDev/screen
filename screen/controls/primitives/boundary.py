@@ -1,7 +1,7 @@
-from enum import IntEnum
+from screen.utils.internal import Enum
 
 
-class Boundary(IntEnum):
+class Boundary(Enum):
     """
     Represents a text boundary.
 
