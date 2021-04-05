@@ -15,6 +15,7 @@ A Python library for creating TUI inspired by WPF.
     :maxdepth: 1
 
     controls/control
+    controls/property
 
     controls/popup
     controls/stack
