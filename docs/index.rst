@@ -48,6 +48,7 @@ A Python library for creating TUI inspired by WPF.
     :maxdepth: 1
 
     utils/math
+    utils/text
 
 
 Still can't find what you're looking for?

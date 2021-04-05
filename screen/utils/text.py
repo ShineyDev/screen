@@ -1,0 +1,132 @@
+import re
+import unicodedata
+
+
+def len(s):
+    """
+    Calculates the length of a string. The string is expected to be
+    :attr:`normalized <normalize>`. This function takes into account
+    CJK and zero-width characters.
+
+    Parameters
+    ----------
+    s: :class:`str`
+        The string to calculate the length of.
+
+    Returns
+    -------
+    :class:`int`
+        The calculated length of the string.
+    """
+
+    # NOTE: unicode characters 0001-0006, 0010-001A, 001C-001F appear
+    #       to be replaced in WT by 263A-263B, 2665-2666, 2663, 2660,
+    #       25BA, 25C4, 2195, 203C, 00B6, 00A7, 25AC, 21A8, 2191, 2193,
+    #       2192, 221F, 2194, 25B2, and 25BC respectively.
+
+    l = 0
+
+    for c in s:
+        # NOTE: unicode characters 0000-001F, and 007F-009F get special
+        #       cased to zero-width
+        if ord(c) <= 31 or 127 <= ord(c) <= 159:
+            continue
+
+        w = unicodedata.east_asian_width(c)
+
+        if w in "FW":
+            l += 2
+        else:
+            l += 1
+
+    return l
+
+
+def normalize(s):
+    """
+    Normalizes a string.
+
+    This function does the following, in order:
+
+    - Calls :func:`unicodedata.normalize("NFC", ...) \
+      <unicodedata.normalize>`.
+    - Normalizes line endings.
+    - Expands horizontal tabs with a width of four columns.
+    - Expands vertical tabs with a height of one row, and emulates
+      carriage return.
+    - Emulates backspace and delete.
+
+    Parameters
+    ----------
+    s: :class:`str`
+        The string to normalize.
+
+    Returns
+    -------
+    :class:`str`
+        The normalized string.
+    """
+
+    s = unicodedata.normalize("NFC", s)
+
+    s = s.replace("\r\n", "\n")
+    s = s.replace("\f", "\n")
+
+    s = s.expandtabs(4)
+
+    if "\r" in s or "\v" in s:
+        s = re.sub(r"\r|\v", "\f\\g<0>", s)
+
+        lines = s.split("\n")
+        for (i, line) in enumerate(lines):
+            if "\f" in line:
+                parts = line.split("\f")
+
+                line = ""
+                column = 0
+
+                for part in parts:
+                    if not part:
+                        continue
+
+                    code, part = part[0], part[1:]
+
+                    if code == "\r":
+                        try:
+                            line, current_line = line.rsplit("\n", 1)
+                            line += "\n"
+                        except (ValueError) as e:
+                            line, current_line = "", line
+
+                        remaining = ""
+                        for c in reversed(current_line):
+                            if len(current_line) - (len(remaining) + len(part)) < len(c):
+                                break
+
+                            remaining = c + remaining
+
+                        line += part + remaining
+                        column = len(part)
+                    elif code == "\v":
+                        line += "\n" + " " * column + part
+                        column += len(part)
+                    else:
+                        line += code + part
+                        column = len(code + part)
+
+                lines[i] = line
+
+        s = "\n".join(lines)
+
+    while "\b" in s or "\u007F" in s:
+        s = re.sub(r".?((?:\u0008|\u007F)*)\u0008|\u007F((?:\u0008|\u007F)*).?", r"\1\2", s)
+
+    s = s.replace("\n", "\r\n")
+
+    return s
+
+
+__all__ = [
+    "len",
+    "normalize",
+]
