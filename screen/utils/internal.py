@@ -149,13 +149,13 @@ factory_ignore_types = (classmethod, property, staticmethod, FunctionType)
 
 
 class AttributeFactoryMeta(type):
-    def __new__(cls, cls_name, bases, attrs):
-        attr_init = attrs.pop("__attr_init__", lambda c, v: c(v))
-        attr_repr = attrs.pop("__attr_repr__", repr)
+    def __new__(cls_meta, cls_name, cls_bases, cls_attrs, **kwargs):
+        attr_init = cls_attrs.pop("__attr_init__", lambda c, v: c(v))
+        attr_repr = cls_attrs.pop("__attr_repr__", repr)
 
-        cls = super().__new__(cls, cls_name, bases, attrs)
+        cls = super().__new__(cls_meta, cls_name, cls_bases, cls_attrs)
 
-        for (attr_name, attr_value) in attrs.items():
+        for (attr_name, attr_value) in cls_attrs.items():
             if attr_name.startswith("_") or isinstance(attr_value, factory_ignore_types):
                 continue
 
