@@ -250,7 +250,7 @@ class Control(metaclass=ControlMeta):
             )
         )
 
-    def measure(self, h, w, **kwargs):
+    def measure(self, h, w):
         """
         Calculates the desired size of the control. This method is a
         cached implementation of :meth:`~.measure_core`.
@@ -266,7 +266,7 @@ class Control(metaclass=ControlMeta):
             return value
 
     @abc.abstractmethod
-    def measure_core(self, h, w, **kwargs):
+    def measure_core(self, h, w):
         """
         Calculates the desired size of the control.
 
@@ -291,7 +291,7 @@ class Control(metaclass=ControlMeta):
 
         raise NotImplementedError
 
-    def render(self, h, w, **kwargs):
+    def render(self, h, w):
         """
         Renders the control. This method is a cached implementation of
         :meth:`~.render_core`.
@@ -307,7 +307,7 @@ class Control(metaclass=ControlMeta):
             return value
 
     @abc.abstractmethod
-    def render_core(self, h, w, **kwargs):
+    def render_core(self, h, w):
         """
         Renders the control.
 

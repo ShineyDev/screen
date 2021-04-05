@@ -14,10 +14,10 @@ class Popup(Control):
     vertical_offset   = property(int,       0,                True,  False, False)
     # fmt: on
 
-    def measure_core(self, h, w, **kwargs):
+    def measure_core(self, h, w):
         raise NotImplementedError
 
-    def render_core(self, h, w, **kwargs):
+    def render_core(self, h, w):
         raise NotImplementedError
 
 

@@ -20,10 +20,10 @@ class Stack(Control):
     spacing     = property(int,                0,                      True,  True,                       True)
     # fmt: on
 
-    def measure_core(self, h, w, **kwargs):
+    def measure_core(self, h, w):
         raise NotImplementedError
 
-    def render_core(self, h, w, **kwargs):
+    def render_core(self, h, w):
         raise NotImplementedError
 
 

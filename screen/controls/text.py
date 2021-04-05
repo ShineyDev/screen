@@ -20,10 +20,10 @@ class Text(Control):
     wrap_boundary             = property(Boundary,            Boundary.word,            True,  True,  True)
     # fmt: on
 
-    def measure_core(self, h, w, **kwargs):
+    def measure_core(self, h, w):
         raise NotImplementedError
 
-    def render_core(self, h, w, **kwargs):
+    def render_core(self, h, w):
         raise NotImplementedError
 
 
