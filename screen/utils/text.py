@@ -10,12 +10,23 @@ def decimal_to_latin(d):
     Parameters
     ----------
     d: :class:`int`
-        A decimal.
+        A decimal in the range ``[1..]``.
 
     Returns
     -------
     :class:`str`
         A latin string.
+
+    Examples
+    --------
+
+    .. code-block:: python3
+
+        >>> decimal_to_latin(15)
+        "o"
+
+        >>> decimal_to_latin(29)
+        "ac"
     """
 
     r = list()
@@ -52,12 +63,23 @@ def decimal_to_roman(d):
     Parameters
     ----------
     d: :class:`int`
-        A decimal.
+        A decimal in the range ``[1..]``.
 
     Returns
     -------
     :class:`str`
         A Roman numeral string.
+
+    Examples
+    --------
+
+    .. code-block:: python3
+
+        >>> decimal_to_roman(15)
+        "xv"
+
+        >>> decimal_to_roman(29)
+        "xxix"
     """
 
     r = list()
@@ -71,9 +93,13 @@ def decimal_to_roman(d):
 
 def len(s):
     """
-    Calculates the length of a string. The string is expected to be
-    :attr:`normalized <normalize>`. This function takes into account
+    Calculates the length of a string. This function takes into account
     CJK and zero-width characters.
+
+    .. note::
+
+        The string passed to this function should be
+        :attr:`normalized <normalize>`.
 
     Parameters
     ----------
@@ -84,6 +110,26 @@ def len(s):
     -------
     :class:`int`
         The calculated length of the string.
+
+    Examples
+    --------
+
+    .. code-block:: python3
+
+        >>> len("oranges")
+        7
+
+        >>> len("\\x00")
+        0
+
+        >>> len("\u65E5\u672C\u8A9E")
+        6
+
+        >>> len("\\u0061\\u0301")  # \u0061\u0301
+        2
+
+        >>> len(normalize("\\u0061\\u0301"))  # \u00E1
+        1
     """
 
     # NOTE: unicode characters 0001-0006, 0010-001A, 001C-001F appear
@@ -132,6 +178,20 @@ def normalize(s):
     -------
     :class:`str`
         The normalized string.
+
+    Examples
+    --------
+
+    .. code-block:: python3
+
+        >>> normalize("\\u0061\\u0301")  # \u0061\u0301
+        "\\u00E1"
+
+        >>> normalize("cool text\\vtext")
+        "cool text\\r\\n         text"
+
+        >>> normalize("text text\\rcool")
+        "cool text"
     """
 
     s = unicodedata.normalize("NFC", s)
