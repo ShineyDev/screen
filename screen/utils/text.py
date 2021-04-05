@@ -1,5 +1,72 @@
 import re
+import string
 import unicodedata
+
+
+def decimal_to_latin(d):
+    """
+    Translates a decimal to a latin string.
+
+    Parameters
+    ----------
+    d: :class:`int`
+        A decimal.
+
+    Returns
+    -------
+    :class:`str`
+        A latin string.
+    """
+
+    r = list()
+
+    while d:
+        d -= 1
+        d, m = divmod(d, 26)
+        r.append(string.ascii_lowercase[m])
+
+    return "".join(reversed(r))
+
+
+_decimal_roman_map = {
+    1000: "m",
+    900: "cm",
+    500: "d",
+    400: "cd",
+    100: "c",
+    90: "xc",
+    50: "l",
+    40: "xl",
+    10: "x",
+    9: "ix",
+    5: "v",
+    4: "iv",
+    1: "i",
+}
+
+
+def decimal_to_roman(d):
+    """
+    Translates a decimal to a Roman numeral string.
+
+    Parameters
+    ----------
+    d: :class:`int`
+        A decimal.
+
+    Returns
+    -------
+    :class:`str`
+        A Roman numeral string.
+    """
+
+    r = list()
+
+    for (i, n) in _decimal_roman_map.items():
+        i, d = divmod(d, i)
+        r.append(n * i)
+
+    return "".join(r)
 
 
 def len(s):
@@ -127,6 +194,8 @@ def normalize(s):
 
 
 __all__ = [
+    "decimal_to_latin",
+    "decimal_to_roman",
     "len",
     "normalize",
 ]
