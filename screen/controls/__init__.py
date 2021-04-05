@@ -113,11 +113,11 @@ class ControlMeta(abc.ABCMeta):
                 if not p.doc:
                     if p.type is bool:
                         p = p._replace(
-                            doc=f"Whether the {cls_name.lower()} {p.name.replace('_', ' ')}."
+                            doc=f"Whether the {cls_name.lower()} {p.name.replace('_', ' ')}.",
                         )
                     else:
                         p = p._replace(
-                            doc=f"The {cls_name.lower()}'s {p.name.replace('_', ' ')}."
+                            doc=f"The {cls_name.lower()}'s {p.name.replace('_', ' ')}.",
                         )
 
                 properties.append(p)
