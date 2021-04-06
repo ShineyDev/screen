@@ -28,7 +28,7 @@ class Size:
             Returns the hash of the size :attr:`~.value`.
     """
 
-    __slots__ = ("_match", "_value")
+    __slots__ = ("_match",)
 
     def __init__(self, value):
         try:
