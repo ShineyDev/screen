@@ -202,7 +202,6 @@ class Control(metaclass=ControlMeta):
     foreground_color     = property(Optional[Color],     None,                     True, False, True)
     height               = property(Optional[int],       None,                     True, True,  False)
     horizontal_alignment = property(HorizontalAlignment, HorizontalAlignment.left, True, True,  False)
-    is_resizable         = property(bool,                False,                    True, False, True)
     layer                = property(int,                 0,                        True, True,  False)
     margin               = property(Thickness,           Thickness(0),             True, True,  True)
     max_height           = property(Optional[int],       None,                     True, True,  False)
@@ -332,8 +331,6 @@ class Control(metaclass=ControlMeta):
 
 
 from screen.controls import primitives
-from screen.controls.popup import *
-from screen.controls.popup import __all__ as _popup__all__
 from screen.controls.stack import *
 from screen.controls.stack import __all__ as _stack__all__
 from screen.controls.text import *
@@ -343,7 +340,6 @@ from screen.controls.text import __all__ as _text__all__
 __all__ = [
     "property",
     "Control",
-    *_popup__all__,
     *_stack__all__,
     *_text__all__,
 ]

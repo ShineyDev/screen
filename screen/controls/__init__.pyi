@@ -17,7 +17,6 @@ class Control:
     default_foreground: ClassVar[Optional[Color]]
     default_height: ClassVar[Optional[int]]
     default_horizontal_alignment: ClassVar[HorizontalAlignment]
-    default_is_resizable: ClassVar[bool]
     default_layer: ClassVar[int]
     default_margin: ClassVar[Thickness]
     default_max_height: ClassVar[Optional[int]]
@@ -36,7 +35,6 @@ class Control:
         foreground: Color=...,
         height: int=...,
         horizontal_alignment: HorizontalAlignment=...,
-        is_resizable: bool=...,
         layer: int=...,
         margin: Thickness=...,
         max_height: int=...,
@@ -65,10 +63,6 @@ class Control:
     def horizontal_alignment(self) -> HorizontalAlignment: ...
     @horizontal_alignment.setter
     def horizontal_alignment(self, value: Optional[HorizontalAlignment]) -> None: ...
-    @property
-    def is_resizable(self) -> bool: ...
-    @is_resizable.setter
-    def is_resizable(self, value: Optional[bool]) -> None: ...
     @property
     def layer(self) -> int: ...
     @layer.setter
@@ -116,6 +110,5 @@ class Control:
     def render_core(self, h: int, w: int) -> Iterator[str]: ...
 
 
-from screen.controls.popup import Popup as Popup
 from screen.controls.stack import Stack as Stack
 from screen.controls.text import Text as Text

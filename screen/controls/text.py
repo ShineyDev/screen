@@ -13,8 +13,6 @@ class Text(Control):
     case                      = property(Case,                Case.normal,              True,  True,  True)
     content                   = property(str,                 None,                     False, True,  True)
     horizontal_text_alignment = property(HorizontalAlignment, HorizontalAlignment.left, True,  False, True)
-    is_editable               = property(bool,                False,                    True,  False, False)
-    max_length                = property(Optional[int],       None,                     True,  True,  True)
     trim_boundary             = property(Boundary,            Boundary.word,            True,  False, True)
     vertical_text_alignment   = property(VerticalAlignment,   VerticalAlignment.top,    True,  False, True)
     wrap_boundary             = property(Boundary,            Boundary.word,            True,  True,  True)
