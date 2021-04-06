@@ -17,6 +17,7 @@ A Python library for creating TUI inspired by WPF.
     controls/control
     controls/property
 
+    controls/border
     controls/stack
     controls/text
 

@@ -331,6 +331,8 @@ class Control(metaclass=ControlMeta):
 
 
 from screen.controls import primitives
+from screen.controls.border import *
+from screen.controls.border import __all__ as _border__all__
 from screen.controls.stack import *
 from screen.controls.stack import __all__ as _stack__all__
 from screen.controls.text import *
@@ -340,6 +342,7 @@ from screen.controls.text import __all__ as _text__all__
 __all__ = [
     "property",
     "Control",
+    *_border__all__,
     *_stack__all__,
     *_text__all__,
 ]

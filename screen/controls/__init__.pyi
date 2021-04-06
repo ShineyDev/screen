@@ -111,5 +111,6 @@ class Control:
     def render_core(self, h: int, w: int) -> Iterator[str]: ...
 
 
+from screen.controls.border import Border as Border
 from screen.controls.stack import Stack as Stack
 from screen.controls.text import Text as Text
