@@ -198,8 +198,8 @@ class Control(metaclass=ControlMeta):
     """
 
     # fmt: off
-    background_color     = property(Optional[Color],     None,                     True, False, True)
-    foreground_color     = property(Optional[Color],     None,                     True, False, True)
+    background           = property(Optional[Color],     None,                     True, False, True)
+    foreground           = property(Optional[Color],     None,                     True, False, True)
     height               = property(Optional[int],       None,                     True, True,  False)
     horizontal_alignment = property(HorizontalAlignment, HorizontalAlignment.left, True, True,  False)
     layer                = property(int,                 0,                        True, True,  False)
