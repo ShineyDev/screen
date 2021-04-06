@@ -10,6 +10,7 @@ class property(NamedTuple):
     optional: bool
     invalidate_measure: Union[bool, Callable[[Any, Any], bool]]
     invalidate_render: Union[bool, Callable[[Any, Any], bool]]
+    doc: Optional[str]
 
 
 class Control:
