@@ -2,6 +2,7 @@ from typing import List, Union
 
 from screen.controls import Control, property
 from screen.controls.primitives import Bullet, Orientation
+from screen.utils import len
 
 
 def _bullet_invalidate_measure(before, after):
