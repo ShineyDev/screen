@@ -206,6 +206,9 @@ class EnumMeta(type):
         except AttributeError:
             return False
 
+    def __bool__(cls):
+        return True
+
     def __iter__(cls):
         yield from cls._members_.values()
 
