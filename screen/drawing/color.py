@@ -187,7 +187,7 @@ class Color(metaclass=AttributeFactoryMeta):
         return cls.from_argb(1, r, g, b)
 
     @classmethod
-    def from_random(cls):
+    def from_random(cls, *, seed=None):
         """
         Constructs a random :class:`~.Color`.
 
@@ -197,12 +197,23 @@ class Color(metaclass=AttributeFactoryMeta):
             recommended to use :meth:`~.from_random_hsl` or
             :meth:`~.from_random_hsv` with custom-bound saturation and
             lightness/brightness values instead.
+
+        Parameters
+        ----------
+        seed: Union[:class:`bytearray`, \
+                    :class:`bytes`, \
+                    :class:`float`, \
+                    :class:`int`, \
+                    :class:`str`]
+            The seed to initialize the random number generator with.
         """
 
-        return cls(int(random.random() * 0xFFFFFFFF))
+        gen = random if seed is None else random.Random(seed)
+
+        return cls(int(gen.random() * 0xFFFFFFFF))
 
     @classmethod
-    def from_random_ahsl(cls, a=None, h=None, s=None, l=None):
+    def from_random_ahsl(cls, a=None, h=None, s=None, l=None, *, seed=None):
         """
         Constructs a partially random :class:`~.Color` from an AHSL
         tuple.
@@ -217,17 +228,30 @@ class Color(metaclass=AttributeFactoryMeta):
             The saturation value in the range ``[0, 1]``.
         l: :class:`float`
             The lightness value in the range ``[0, 1]``.
+        seed: Union[:class:`bytearray`, \
+                    :class:`bytes`, \
+                    :class:`float`, \
+                    :class:`int`, \
+                    :class:`str`]
+            The seed to initialize the random number generator with.
         """
 
+        gen = random if seed is None else random.Random(seed)
+
+        random_a = gen.random()
+        random_h = int(gen.random() * 360)
+        random_s = gen.random()
+        random_l = gen.random()
+
         return cls.from_ahsl(
-            a or random.random(),
-            h or int(random.random() * 360),
-            s or random.random(),
-            l or random.random(),
+            a if a is not None else random_a,
+            h if h is not None else random_h,
+            s if s is not None else random_s,
+            l if l is not None else random_l,
         )
 
     @classmethod
-    def from_random_ahsv(cls, a=None, h=None, s=None, v=None):
+    def from_random_ahsv(cls, a=None, h=None, s=None, v=None, *, seed=None):
         """
         Constructs a partially random :class:`~.Color` from an AHSV
         tuple.
@@ -242,17 +266,30 @@ class Color(metaclass=AttributeFactoryMeta):
             The saturation value in the range ``[0, 1]``.
         v: :class:`float`
             The brightness value in the range ``[0, 1]``.
+        seed: Union[:class:`bytearray`, \
+                    :class:`bytes`, \
+                    :class:`float`, \
+                    :class:`int`, \
+                    :class:`str`]
+            The seed to initialize the random number generator with.
         """
 
+        gen = random if seed is None else random.Random(seed)
+
+        random_a = gen.random()
+        random_h = int(gen.random() * 360)
+        random_s = gen.random()
+        random_v = gen.random()
+
         return cls.from_ahsv(
-            a or random.random(),
-            h or int(random.random() * 360),
-            s or random.random(),
-            v or random.random(),
+            a if a is not None else random_a,
+            h if h is not None else random_h,
+            s if s is not None else random_s,
+            v if v is not None else random_v,
         )
 
     @classmethod
-    def from_random_argb(cls, a=None, r=None, g=None, b=None):
+    def from_random_argb(cls, a=None, r=None, g=None, b=None, *, seed=None):
         """
         Constructs a partially random :class:`~.Color` from an ARGB
         tuple.
@@ -274,17 +311,30 @@ class Color(metaclass=AttributeFactoryMeta):
             The green value in the range ``[0, 255]``.
         b: :class:`float`
             The blue value in the range ``[0, 255]``.
+        seed: Union[:class:`bytearray`, \
+                    :class:`bytes`, \
+                    :class:`float`, \
+                    :class:`int`, \
+                    :class:`str`]
+            The seed to initialize the random number generator with.
         """
 
+        gen = random if seed is None else random.Random(seed)
+
+        random_a = gen.random()
+        random_r = int(gen.random() * 255)
+        random_g = int(gen.random() * 255)
+        random_b = int(gen.random() * 255)
+
         return cls.from_argb(
-            a or random.random(),
-            r or int(random.random() * 255),
-            g or int(random.random() * 255),
-            b or int(random.random() * 255),
+            a if a is not None else random_a,
+            r if r is not None else random_r,
+            g if g is not None else random_g,
+            b if b is not None else random_b,
         )
 
     @classmethod
-    def from_random_hsl(cls, h=None, s=None, l=None):
+    def from_random_hsl(cls, h=None, s=None, l=None, *, seed=None):
         """
         Constructs a partially random :class:`~.Color` from an HSL
         tuple.
@@ -299,12 +349,18 @@ class Color(metaclass=AttributeFactoryMeta):
             The saturation value in the range ``[0, 1]``.
         l: :class:`float`
             The lightness value in the range ``[0, 1]``.
+        seed: Union[:class:`bytearray`, \
+                    :class:`bytes`, \
+                    :class:`float`, \
+                    :class:`int`, \
+                    :class:`str`]
+            The seed to initialize the random number generator with.
         """
 
-        return cls.from_random_ahsl(1, h, s, l)
+        return cls.from_random_ahsl(1, h, s, l, seed=seed)
 
     @classmethod
-    def from_random_hsv(cls, h=None, s=None, v=None):
+    def from_random_hsv(cls, h=None, s=None, v=None, *, seed=None):
         """
         Constructs a partially random :class:`~.Color` from an HSV
         tuple.
@@ -319,12 +375,18 @@ class Color(metaclass=AttributeFactoryMeta):
             The saturation value in the range ``[0, 1]``.
         v: :class:`float`
             The brightness value in the range ``[0, 1]``.
+        seed: Union[:class:`bytearray`, \
+                    :class:`bytes`, \
+                    :class:`float`, \
+                    :class:`int`, \
+                    :class:`str`]
+            The seed to initialize the random number generator with.
         """
 
-        return cls.from_random_ahsv(1, h, s, v)
+        return cls.from_random_ahsv(1, h, s, v, seed=seed)
 
     @classmethod
-    def from_random_rgb(cls, r=None, g=None, b=None):
+    def from_random_rgb(cls, r=None, g=None, b=None, *, seed=None):
         """
         Constructs a partially random :class:`~.Color` from an RGB
         tuple.
@@ -346,9 +408,15 @@ class Color(metaclass=AttributeFactoryMeta):
             The green value in the range ``[0, 255]``.
         b: :class:`float`
             The blue value in the range ``[0, 255]``.
+        seed: Union[:class:`bytearray`, \
+                    :class:`bytes`, \
+                    :class:`float`, \
+                    :class:`int`, \
+                    :class:`str`]
+            The seed to initialize the random number generator with.
         """
 
-        return cls.from_random_argb(1, r, g, b)
+        return cls.from_random_argb(1, r, g, b, seed=seed)
 
     @property
     def a(self):
