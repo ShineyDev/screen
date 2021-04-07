@@ -12,6 +12,19 @@ def _bullet_invalidate_measure(before, after):
 class Stack(Control):
     """
     Represents a control used to display a stack of controls.
+
+    |parameters|
+
+    .. container:: operations
+
+        .. describe:: x == y
+        .. describe:: x != y
+
+            Compares two :class:`~.Stack` objects.
+
+        .. describe:: hash(x)
+
+            Returns the hash of the :class:`~.Stack` object.
     """
 
     # fmt: off

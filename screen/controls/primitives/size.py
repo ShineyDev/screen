@@ -20,12 +20,11 @@ class Size:
         .. describe:: x == y
         .. describe:: x != y
 
-            Compares the :attr:`~.value` of two :class:`~.Size`
-            objects.
+            Compares two :class:`~.Size` objects.
 
         .. describe:: hash(x)
 
-            Returns the hash of the size :attr:`~.value`.
+            Returns the hash of the :class:`~.Size` object.
     """
 
     __slots__ = ("_match",)

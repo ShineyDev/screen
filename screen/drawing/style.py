@@ -16,17 +16,15 @@ class Style(metaclass=AttributeFactoryMeta):
         .. describe:: x == y
         .. describe:: x != y
 
-            Compares the :attr:`value <.values>` of two
-            :class:`~.Style` objects.
+            Compares two :class:`~.Style` objects.
 
         .. describe:: x | y
 
-            Combines the :attr:`value <.values>` of two
-            :class:`~.Style` objects.
+            Combines two :class:`~.Style` objects.
 
         .. describe:: hash(x)
 
-            Returns the hash of the style :attr:`value <.values>`.
+            Returns the hash of the :class:`~.Style` object.
 
     Attributes
     ----------

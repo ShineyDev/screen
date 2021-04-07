@@ -16,19 +16,18 @@ class Thickness:
 
     .. container:: operations
 
-        .. describe:: x == y
-        .. describe:: x != y
-
-            Compares the :attr:`values <.left>` of two
-            :class:`~.Thickness` objects.
-
         .. describe:: x + y
 
             Combines two :class:`~.Thickness` objects.
 
+        .. describe:: x == y
+        .. describe:: x != y
+
+            Compares two :class:`~.Thickness` objects.
+
         .. describe:: hash(x)
 
-            Returns the hash of the thickness :attr:`values <.left>`.
+            Returns the hash of the :class:`~.Control` object.
 
     Attributes
     ----------

@@ -7,6 +7,19 @@ from screen.controls.primitives import Boundary, Case, HorizontalAlignment, Vert
 class Text(Control):
     """
     Represents a control used to display text.
+
+    |parameters|
+
+    .. container:: operations
+
+        .. describe:: x == y
+        .. describe:: x != y
+
+            Compares two :class:`~.Text` objects.
+
+        .. describe:: hash(x)
+
+            Returns the hash of the :class:`~.Text` object.
     """
 
     # fmt: off

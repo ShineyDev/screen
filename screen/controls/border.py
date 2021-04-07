@@ -9,6 +9,19 @@ from screen.utils import len
 class Border(Control):
     """
     Represents a control used to display a border around another.
+
+    |parameters|
+
+    .. container:: operations
+
+        .. describe:: x == y
+        .. describe:: x != y
+
+            Compares two :class:`~.Border` objects.
+
+        .. describe:: hash(x)
+
+            Returns the hash of the :class:`~.Border` object.
     """
 
     # fmt: off
