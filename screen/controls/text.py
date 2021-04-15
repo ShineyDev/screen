@@ -23,12 +23,12 @@ class Text(Control):
     """
 
     # fmt: off
-    case                      = property(Case,                Case.normal,              True,  True,  True)
-    content                   = property(str,                 None,                     False, True,  True)
-    horizontal_text_alignment = property(HorizontalAlignment, HorizontalAlignment.left, True,  False, True)
-    trim_boundary             = property(Boundary,            Boundary.word,            True,  False, True)
-    vertical_text_alignment   = property(VerticalAlignment,   VerticalAlignment.top,    True,  False, True)
-    wrap_boundary             = property(Boundary,            Boundary.word,            True,  True,  True)
+    case                      = property(Case,                Case.normal,              False, True,  True)
+    content                   = property(str,                 None,                     True,  True,  True)
+    horizontal_text_alignment = property(HorizontalAlignment, HorizontalAlignment.left, False, False, True)
+    trim_boundary             = property(Boundary,            Boundary.word,            False, False, True)
+    vertical_text_alignment   = property(VerticalAlignment,   VerticalAlignment.top,    False, False, True)
+    wrap_boundary             = property(Boundary,            Boundary.word,            False, True,  True)
     # fmt: on
 
     def measure_core(self, h, w):

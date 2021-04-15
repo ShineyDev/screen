@@ -13,7 +13,7 @@ from screen.utils.internal import get_type_doc, isinstance
 _builtins_property = property
 
 
-_property_attrs = ["type", "default", "optional", "invalidate_measure", "invalidate_render", "doc"]
+_property_attrs = ["type", "default", "required", "invalidate_measure", "invalidate_render", "doc"]
 
 property = collections.namedtuple("property", _property_attrs, defaults=(None,))
 property.__doc__ = """
@@ -26,9 +26,10 @@ type: Type[Any]
 default: Any
     The default value for the property. This can be accessed,
     overwritten, and overridden by inheriting classes as ``default_*``.
-optional: :class:`bool`
-    A boolean indicating whether the property should be an optional
-    parameter to :meth:`Control.__init__ <Control>`.
+required: :class:`bool`
+    A boolean indicating whether the property should be a required
+    parameter to :meth:`Control.__init__ <Control>` and a non-nullable
+    type match in the property setter.
 invalidate_measure: Union[:class:`bool`, Callable[[Any, Any], :class:`bool`]]
     A boolean (or a callable taking the current and modified values and
     returning a boolean) indicating whether modifying the property
@@ -46,12 +47,12 @@ Examples
 .. code-block:: python3
 
     class Text(Control):
-        content = property(str, None, False, True, True)
+        content = property(str, None, True, True, True)
 
 .. code-block:: python3
 
     class Border(Control):
-        header = property(Optional[str], None, True, lambda b, a: len(b) != len(a), True)
+        header = property(Optional[str], None, False, lambda b, a: len(b) != len(a), True)
 """
 
 _property = collections.namedtuple("_property", ["name", *_property_attrs])
@@ -66,7 +67,10 @@ def {name}(self):
 _property_setter = """
 
 def {name}(self, value):
-    if optional and value is not None and not isinstance(value, type):
+    if (
+        not required and value is not None and not isinstance(value, type)
+        or required and not isinstance(value, type)
+    ):
         raise ValueError(f"expected {{type}}, got {{value.__class__}}")
 
     value = value if value is not None else self.__class__.default_{name}
@@ -125,7 +129,7 @@ class ControlMeta(abc.ABCMeta):
                 properties.append(p)
                 slots.append(f"_{p.name}")
 
-                if p.optional:
+                if not p.required:
                     cls_attrs[f"default_{p.name}"] = p.default
 
                 type_doc = get_type_doc(p.type)
@@ -143,7 +147,7 @@ class ControlMeta(abc.ABCMeta):
             except (AttributeError) as e:
                 pass
 
-        properties.sort(key=lambda p: (p.optional, p.name))
+        properties.sort(key=lambda p: (not p.required, p.name))
 
         cls_attrs["__control_properties__"] = tuple(properties)
         cls_attrs["__slots__"] = tuple(set(slots))
@@ -154,8 +158,8 @@ class ControlMeta(abc.ABCMeta):
             type_doc = get_type_doc(p.type, optional=False)
 
             parameter_doc = p.doc
-            if not p.optional:
-                parameter_doc += " This parameter is not optional."
+            if p.required:
+                parameter_doc += " This parameter is required."
 
             parameters_doc += f"{p.name}: {type_doc}\n    {parameter_doc}\n"
 
@@ -196,20 +200,20 @@ class Control(metaclass=ControlMeta):
     """
 
     # fmt: off
-    background           = property(Optional[Color],     None,                     True, False, True)
-    foreground           = property(Optional[Color],     None,                     True, False, True)
-    height               = property(Optional[int],       None,                     True, True,  False)
-    horizontal_alignment = property(HorizontalAlignment, HorizontalAlignment.left, True, True,  False)
-    layer                = property(int,                 0,                        True, True,  False)
-    margin               = property(Thickness,           Thickness(0),             True, True,  True)
-    max_height           = property(Optional[int],       None,                     True, True,  False)
-    max_width            = property(Optional[int],       None,                     True, True,  False)
-    min_height           = property(Optional[int],       None,                     True, True,  False)
-    min_width            = property(Optional[int],       None,                     True, True,  False)
-    padding              = property(Thickness,           Thickness(0),             True, True,  True)
-    style                = property(Optional[Style],     None,                     True, False, True)
-    vertical_alignment   = property(VerticalAlignment,   VerticalAlignment.top,    True, True,  False)
-    width                = property(Optional[int],       None,                     True, True,  False)
+    background           = property(Optional[Color],     None,                     False, False, True)
+    foreground           = property(Optional[Color],     None,                     False, False, True)
+    height               = property(Optional[int],       None,                     False, True,  False)
+    horizontal_alignment = property(HorizontalAlignment, HorizontalAlignment.left, False, True,  False)
+    layer                = property(int,                 0,                        False, True,  False)
+    margin               = property(Thickness,           Thickness(0),             False, True,  True)
+    max_height           = property(Optional[int],       None,                     False, True,  False)
+    max_width            = property(Optional[int],       None,                     False, True,  False)
+    min_height           = property(Optional[int],       None,                     False, True,  False)
+    min_width            = property(Optional[int],       None,                     False, True,  False)
+    padding              = property(Thickness,           Thickness(0),             False, True,  True)
+    style                = property(Optional[Style],     None,                     False, False, True)
+    vertical_alignment   = property(VerticalAlignment,   VerticalAlignment.top,    False, True,  False)
+    width                = property(Optional[int],       None,                     False, True,  False)
     # fmt: on
 
     __slots__ = ("_measure_cache", "_render_cache")
@@ -219,10 +223,10 @@ class Control(metaclass=ControlMeta):
             try:
                 value = kwargs.pop(p.name)
             except (KeyError) as e:
-                if p.optional:
-                    value = getattr(self.__class__, f"default_{p.name}")
-                else:
+                if p.required:
                     raise TypeError(f"__init__ missing a required argument: '{p.name}'") from e
+                else:
+                    value = getattr(self.__class__, f"default_{p.name}")
 
             if not isinstance(value, p.type):
                 raise ValueError(f"expected {p.type}, got {value.__class__}")

@@ -7,7 +7,7 @@ from screen.drawing import Color, Style
 class property(NamedTuple):
     type: Type[Any]
     default: Optional[Any]
-    optional: bool
+    required: bool
     invalidate_measure: Union[bool, Callable[[Any, Any], bool]]
     invalidate_render: Union[bool, Callable[[Any, Any], bool]]
     doc: Optional[str]

@@ -28,10 +28,10 @@ class Stack(Control):
     """
 
     # fmt: off
-    bullet      = property(Union[Bullet, str], Bullet.none,            True,  _bullet_invalidate_measure, True)
-    children    = property(List[Control],      None,                   False, True,                       True)
-    orientation = property(Orientation,        Orientation.horizontal, True,  True,                       True)
-    spacing     = property(int,                0,                      True,  True,                       True)
+    bullet      = property(Union[Bullet, str], Bullet.none,            False, _bullet_invalidate_measure, True)
+    children    = property(List[Control],      None,                   True,  True,                       True)
+    orientation = property(Orientation,        Orientation.horizontal, False, True,                       True)
+    spacing     = property(int,                0,                      False, True,                       True)
     # fmt: on
 
     def measure_core(self, h, w):
