@@ -157,11 +157,11 @@ class ControlMeta(abc.ABCMeta):
         for p in properties:
             type_doc = get_type_doc(p.type, optional=False)
 
-            descriptor_doc = p.doc
+            parameter_doc = p.doc
             if not p.optional:
-                descriptor_doc += " This parameter is not optional."
+                parameter_doc += " This parameter is not optional."
 
-            parameters_doc += f"{p.name}: {type_doc}\n    {descriptor_doc}\n"
+            parameters_doc += f"{p.name}: {type_doc}\n    {parameter_doc}\n"
 
         cls_doc = cls_attrs["__doc__"]
         if cls_doc:
