@@ -128,16 +128,12 @@ class ControlMeta(abc.ABCMeta):
                 if p.optional:
                     cls_attrs[f"default_{p.name}"] = p.default
 
+                type_doc = get_type_doc(p.type)
+
                 getter = _compile(_property_getter, p)
                 setter = _compile(_property_setter, p)
                 descriptor = _builtins_property(getter, setter)
-
-                type_doc = get_type_doc(p.type)
-
-                if p.doc:
-                    descriptor.__doc__ = f"{p.doc}\n\n:type: {type_doc}"
-                else:
-                    descriptor.__doc__ = f":type: {type_doc}"
+                descriptor.__doc__ = f"{p.doc}\n\n:type: {type_doc}"
 
                 cls_attrs[p.name] = descriptor
 
