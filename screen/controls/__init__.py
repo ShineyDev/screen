@@ -37,6 +37,8 @@ invalidate_render: Union[:class:`bool`, Callable[[Any, Any], :class:`bool`]]
     A boolean (or a callable taking the current and modified values and
     returning a boolean) indicating whether modifying the property
     should invalidate cached renders.
+doc: :class:`str`
+    The property documentation. Defaults to ``None``.
 
 Examples
 --------
