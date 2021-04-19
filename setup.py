@@ -2,30 +2,6 @@ import re
 import setuptools
 
 
-classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
-    "Natural Language :: English",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: Implementation :: CPython",
-    "Topic :: Documentation",
-    "Topic :: Documentation :: Sphinx",
-    "Topic :: Software Development",
-    "Topic :: Software Development :: Libraries",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: User Interfaces",
-    "Typing :: Typed",
-]
-
 extras_require = {
     "docs": [
         "sphinx",
@@ -41,12 +17,6 @@ packages = [
     "screen.drawing",
     "screen.utils",
 ]
-
-project_urls = {
-    "Documentation": "https://screen.readthedocs.io",
-    "Issue Tracker": "https://github.com/ShineyDev/screen/issues",
-    "Source": "https://github.com/ShineyDev/screen",
-}
 
 _version_regex = r"^version = ('|\")((?:[0-9]+\.)*[0-9]+(?:\.?([a-z]+)(?:\.?[0-9])?)?)\1$"
 
@@ -74,13 +44,11 @@ if match.group(3) is not None:
 
 setuptools.setup(
     author="ShineyDev",
-    classifiers=classifiers,
     description="A Python library for creating TUI inspired by WPF.",
     extras_require=extras_require,
     license="Apache Software License",
     name="screen",
     packages=packages,
-    project_urls=project_urls,
     python_requires=">=3.6.0",
     url="https://github.com/ShineyDev/screen",
     version=version,
