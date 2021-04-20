@@ -98,7 +98,7 @@ def len(s):
 
     .. note::
 
-        The string passed to this function should be
+        The string passed to this function is expected to have been
         :attr:`normalized <normalize>`.
 
     Parameters
