@@ -91,6 +91,29 @@ def decimal_to_roman(d):
     return "".join(r)
 
 
+def height(s):
+    """
+    Calculates the height of a string.
+
+    .. note::
+
+        The string passed to this function is expected to have been
+        :attr:`normalized <normalize>`.
+
+    Parameters
+    ----------
+    s: :class:`str`
+        The string to calculate the height of.
+
+    Returns
+    -------
+    :class:`int`
+        The calculated height of the string.
+    """
+
+    return s.count("\n") + 1
+
+
 def len(s):
     """
     Calculates the length of a string. This function takes into account
@@ -253,9 +276,34 @@ def normalize(s):
     return s
 
 
+def width(s):
+    """
+    Calculates the width of a string.
+
+    .. note::
+
+        The string passed to this function is expected to have been
+        :attr:`normalized <normalize>`.
+
+    Parameters
+    ----------
+    s: :class:`str`
+        The string to calculate the width of.
+
+    Returns
+    -------
+    :class:`int`
+        The calculated width of the string.
+    """
+
+    return max(len(s) for s in s.split("\n"))
+
+
 __all__ = [
     "decimal_to_latin",
     "decimal_to_roman",
+    "height",
     "len",
     "normalize",
+    "width",
 ]
