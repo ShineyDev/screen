@@ -1,4 +1,3 @@
-import colorsys
 import random
 
 from .colorinterpolationmethod import ColorInterpolationMethod
@@ -88,7 +87,7 @@ class Color(metaclass=AttributeFactoryMeta):
             The lightness value in the range ``[0, 1]``.
         """
 
-        return cls.from_argb(a, *cls._hsl_to_rgb(h, s, l))
+        return cls.from_argb(a, *utils.hsl_to_rgb(h, s, l))
 
     @classmethod
     def from_ahsv(cls, a, h, s, v):
@@ -107,7 +106,7 @@ class Color(metaclass=AttributeFactoryMeta):
             The brightness value in the range ``[0, 1]``.
         """
 
-        return cls.from_argb(a, *cls._hsv_to_rgb(h, s, v))
+        return cls.from_argb(a, *utils.hsv_to_rgb(h, s, v))
 
     @classmethod
     def from_argb(cls, a, r, g, b):
@@ -459,8 +458,8 @@ class Color(metaclass=AttributeFactoryMeta):
 
         return self.value & 0xFF
 
-    @classmethod
-    def distance(cls, c1, c2):
+    @staticmethod
+    def distance(c1, c2):
         """
         Calculates euclidean distance.
 
@@ -506,9 +505,10 @@ class Color(metaclass=AttributeFactoryMeta):
         meth = getattr(cls, f"_interpolate_{name}")
         return meth(cls, c1, c2, p)
 
+    @classmethod
     def _interpolate_hsl(cls, c1, c2, p):
-        h1, s1, l1 = cls._rgb_to_hsl(c1.r, c1.g, c1.b)
-        h2, s2, l2 = cls._rgb_to_hsl(c2.r, c2.g, c2.b)
+        h1, s1, l1 = utils.rgb_to_hsl(c1.r, c1.g, c1.b)
+        h2, s2, l2 = utils.rgb_to_hsl(c2.r, c2.g, c2.b)
 
         return cls.from_hsl(
             int(utils.interpolate(h1, h2, p)),
@@ -516,9 +516,10 @@ class Color(metaclass=AttributeFactoryMeta):
             utils.interpolate(l1, l2, p),
         )
 
+    @classmethod
     def _interpolate_hsv(cls, c1, c2, p):
-        h1, s1, v1 = cls._rgb_to_hsv(c1.r, c1.g, c1.b)
-        h2, s2, v2 = cls._rgb_to_hsv(c2.r, c2.g, c2.b)
+        h1, s1, v1 = utils.rgb_to_hsv(c1.r, c1.g, c1.b)
+        h2, s2, v2 = utils.rgb_to_hsv(c2.r, c2.g, c2.b)
 
         return cls.from_hsv(
             int(utils.interpolate(h1, h2, p)),
@@ -526,57 +527,13 @@ class Color(metaclass=AttributeFactoryMeta):
             utils.interpolate(v1, v2, p),
         )
 
+    @classmethod
     def _interpolate_rgb(cls, c1, c2, p):
         return cls.from_rgb(
             int(utils.interpolate(c1.r, c2.r, p)),
             int(utils.interpolate(c1.g, c2.g, p)),
             int(utils.interpolate(c1.b, c2.b, p)),
         )
-
-    def _hsl_to_rgb(h, s, l):
-        h /= 360
-
-        r, g, b = colorsys.hls_to_rgb(h, l, s)
-
-        r = int(round(r * 255, 0))
-        g = int(round(g * 255, 0))
-        b = int(round(b * 255, 0))
-
-        return (r, g, b)
-
-    def _rgb_to_hsl(r, g, b):
-        r /= 255
-        g /= 255
-        b /= 255
-
-        h, l, s = colorsys.rgb_to_hls(r, g, b)
-
-        h = int(h * 360)
-
-        return (h, s, l)
-
-    def _hsv_to_rgb(h, s, v):
-        h /= 360
-
-        r, g, b = colorsys.hsv_to_rgb(h, s, v)
-
-        r = int(round(r * 255, 0))
-        g = int(round(g * 255, 0))
-        b = int(round(b * 255, 0))
-
-        return (r, g, b)
-
-    def _rgb_to_hsv(r, g, b):
-        r /= 255
-        g /= 255
-        b /= 255
-
-        h, s, v = colorsys.rgb_to_hsv(r, g, b)
-
-        h = int(h * 360)
-
-        return (h, s, v)
-
 
 __all__ = [
     "Color",
