@@ -458,8 +458,7 @@ class Color(metaclass=AttributeFactoryMeta):
 
         return self.value & 0xFF
 
-    @staticmethod
-    def distance(c1, c2):
+    def distance(cls, c1, c2):
         """
         Calculates euclidean distance.
 
@@ -505,7 +504,6 @@ class Color(metaclass=AttributeFactoryMeta):
         meth = getattr(cls, f"_interpolate_{name}")
         return meth(cls, c1, c2, p)
 
-    @classmethod
     def _interpolate_hsl(cls, c1, c2, p):
         h1, s1, l1 = utils.rgb_to_hsl(c1.r, c1.g, c1.b)
         h2, s2, l2 = utils.rgb_to_hsl(c2.r, c2.g, c2.b)
@@ -516,7 +514,6 @@ class Color(metaclass=AttributeFactoryMeta):
             utils.interpolate(l1, l2, p),
         )
 
-    @classmethod
     def _interpolate_hsv(cls, c1, c2, p):
         h1, s1, v1 = utils.rgb_to_hsv(c1.r, c1.g, c1.b)
         h2, s2, v2 = utils.rgb_to_hsv(c2.r, c2.g, c2.b)
@@ -527,7 +524,6 @@ class Color(metaclass=AttributeFactoryMeta):
             utils.interpolate(v1, v2, p),
         )
 
-    @classmethod
     def _interpolate_rgb(cls, c1, c2, p):
         return cls.from_rgb(
             int(utils.interpolate(c1.r, c2.r, p)),
