@@ -44,7 +44,7 @@ def interpolate(v1, v2, p):
 
 def hsl_to_rgb(h, s, l):
     """
-    Converts a HSL value to an RGB value.
+    Converts HSL to RGB.
 
     Parameters
     ----------
@@ -58,7 +58,7 @@ def hsl_to_rgb(h, s, l):
     Returns
     -------
     Tuple[:class:`int`, :class:`int`, :class:`int`]
-        The converted RGB value.
+        The RGB tuple.
     """
 
     h /= 360
@@ -74,7 +74,7 @@ def hsl_to_rgb(h, s, l):
 
 def rgb_to_hsl(r, g, b):
     """
-    Converts an RGB value to a HSL value.
+    Converts RGB to HSL.
 
     Parameters
     ----------
@@ -88,7 +88,7 @@ def rgb_to_hsl(r, g, b):
     Returns
     -------
     Tuple[:class:`int`, :class:`float`, :class:`float`]
-        The converted HSL value.
+        The HSL tuple.
     """
 
     r /= 255
@@ -104,7 +104,7 @@ def rgb_to_hsl(r, g, b):
 
 def hsv_to_rgb(h, s, v):
     """
-    Converts a HSV value to an RGB value.
+    Converts HSV to RGB.
 
     Parameters
     ----------
@@ -118,7 +118,7 @@ def hsv_to_rgb(h, s, v):
     Returns
     -------
     Tuple[:class:`int`, :class:`int`, :class:`int`]
-        The converted RGB value.
+        The RGB tuple.
     """
 
     h /= 360
@@ -134,7 +134,7 @@ def hsv_to_rgb(h, s, v):
 
 def rgb_to_hsv(r, g, b):
     """
-    Converts an RGB value to a HSV value.
+    Converts RGB to HSV.
 
     Parameters
     ----------
@@ -148,7 +148,7 @@ def rgb_to_hsv(r, g, b):
     Returns
     -------
     Tuple[:class:`int`, :class:`float`, :class:`float`]
-        The converted HSV value.
+        The HSV tuple.
     """
 
     r /= 255
