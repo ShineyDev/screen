@@ -80,6 +80,28 @@ def hsv_to_rgb(h, s, v):
     return (r, g, b)
 
 
+def interpolate(v1, v2, p):
+    """
+    Calculates linear interpolation.
+
+    Parameters
+    ----------
+    v1: :class:`float`
+        The start value.
+    v2: :class:`float`
+        The end value.
+    p: :class:`float`
+        The point along the line in the range ``[0, 1]``.
+
+    Returns
+    -------
+    :class:`float`
+        The interpolated value.
+    """
+
+    return (1 - p) * v1 + p * v2
+
+
 def rgb_to_hsl(r, g, b):
     """
     Converts RGB to HSL.
@@ -140,33 +162,11 @@ def rgb_to_hsv(r, g, b):
     return (h, s, v)
 
 
-def interpolate(v1, v2, p):
-    """
-    Calculates linear interpolation.
-
-    Parameters
-    ----------
-    v1: :class:`float`
-        The start value.
-    v2: :class:`float`
-        The end value.
-    p: :class:`float`
-        The point along the line in the range ``[0, 1]``.
-
-    Returns
-    -------
-    :class:`float`
-        The interpolated value.
-    """
-
-    return (1 - p) * v1 + p * v2
-
-
 __all__ = [
     "distance",
     "hsl_to_rgb",
     "hsv_to_rgb",
+    "interpolate",
     "rgb_to_hsl",
     "rgb_to_hsv",
-    "interpolate",
 ]
