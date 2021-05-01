@@ -57,7 +57,7 @@ def hsl_to_rgb(h, s, l):
 
     Returns
     -------
-    Tuple[:class:`int`]
+    Tuple[:class:`int`, :class:`int`, :class:`int`]
         The converted RGB value.
     """
 
@@ -87,7 +87,7 @@ def rgb_to_hsl(r, g, b):
 
     Returns
     -------
-    Tuple[:class:`int`, :class:`float`]
+    Tuple[:class:`int`, :class:`float`, :class:`float`]
         The converted HSL value.
     """
 
@@ -117,7 +117,7 @@ def hsv_to_rgb(h, s, v):
 
     Returns
     -------
-    Tuple[:class:`int`]
+    Tuple[:class:`int`, :class:`int`, :class:`int`]
         The converted RGB value.
     """
 
@@ -147,7 +147,7 @@ def rgb_to_hsv(r, g, b):
 
     Returns
     -------
-    Tuple[:class:`int`, :class:`float`]
+    Tuple[:class:`int`, :class:`float`, :class:`float`]
         The converted HSV value.
     """
 
