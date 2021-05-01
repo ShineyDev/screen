@@ -71,6 +71,7 @@ def hsl_to_rgb(h, s, l):
 
     return (r, g, b)
 
+
 def rgb_to_hsl(r, g, b):
     """
     Converts an RGB value to a HSL value.
@@ -99,6 +100,7 @@ def rgb_to_hsl(r, g, b):
     h = int(h * 360)
 
     return (h, s, l)
+
 
 def hsv_to_rgb(h, s, v):
     """
@@ -129,6 +131,7 @@ def hsv_to_rgb(h, s, v):
 
     return (r, g, b)
 
+
 def rgb_to_hsv(r, g, b):
     """
     Converts an RGB value to a HSV value.
@@ -157,7 +160,6 @@ def rgb_to_hsv(r, g, b):
     h = int(h * 360)
 
     return (h, s, v)
-
 
 
 __all__ = [

@@ -535,6 +535,7 @@ class Color(metaclass=AttributeFactoryMeta):
             int(utils.interpolate(c1.b, c2.b, p)),
         )
 
+
 __all__ = [
     "Color",
 ]
