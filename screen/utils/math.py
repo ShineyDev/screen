@@ -72,36 +72,6 @@ def hsl_to_rgb(h, s, l):
     return (r, g, b)
 
 
-def rgb_to_hsl(r, g, b):
-    """
-    Converts RGB to HSL.
-
-    Parameters
-    ----------
-    r: :class:`int`
-        The red value in the range ``[0, 255]``.
-    g: :class:`int`
-        The green value in the range ``[0, 255]``.
-    b: :class:`int`
-        The blue value in the range ``[0, 255]``.
-
-    Returns
-    -------
-    Tuple[:class:`int`, :class:`float`, :class:`float`]
-        The HSL tuple.
-    """
-
-    r /= 255
-    g /= 255
-    b /= 255
-
-    h, l, s = colorsys.rgb_to_hls(r, g, b)
-
-    h = int(h * 360)
-
-    return (h, s, l)
-
-
 def hsv_to_rgb(h, s, v):
     """
     Converts HSV to RGB.
@@ -130,6 +100,36 @@ def hsv_to_rgb(h, s, v):
     b = int(round(b * 255, 0))
 
     return (r, g, b)
+
+
+def rgb_to_hsl(r, g, b):
+    """
+    Converts RGB to HSL.
+
+    Parameters
+    ----------
+    r: :class:`int`
+        The red value in the range ``[0, 255]``.
+    g: :class:`int`
+        The green value in the range ``[0, 255]``.
+    b: :class:`int`
+        The blue value in the range ``[0, 255]``.
+
+    Returns
+    -------
+    Tuple[:class:`int`, :class:`float`, :class:`float`]
+        The HSL tuple.
+    """
+
+    r /= 255
+    g /= 255
+    b /= 255
+
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+
+    h = int(h * 360)
+
+    return (h, s, l)
 
 
 def rgb_to_hsv(r, g, b):
@@ -166,7 +166,7 @@ __all__ = [
     "distance",
     "interpolate",
     "hsl_to_rgb",
-    "rgb_to_hsl",
     "hsv_to_rgb",
+    "rgb_to_hsl",
     "rgb_to_hsv",
 ]
