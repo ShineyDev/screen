@@ -458,6 +458,7 @@ class Color(metaclass=AttributeFactoryMeta):
 
         return self.value & 0xFF
 
+    @classmethod
     def distance(cls, c1, c2):
         """
         Calculates euclidean distance.

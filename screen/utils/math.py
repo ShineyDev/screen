@@ -20,28 +20,6 @@ def distance(*pairs):
     return math.sqrt(sum((p[0] - p[1]) ** 2 for p in pairs))
 
 
-def interpolate(v1, v2, p):
-    """
-    Calculates linear interpolation.
-
-    Parameters
-    ----------
-    v1: :class:`float`
-        The start value.
-    v2: :class:`float`
-        The end value.
-    p: :class:`float`
-        The point along the line in the range ``[0, 1]``.
-
-    Returns
-    -------
-    :class:`float`
-        The interpolated value.
-    """
-
-    return (1 - p) * v1 + p * v2
-
-
 def hsl_to_rgb(h, s, l):
     """
     Converts HSL to RGB.
@@ -162,11 +140,33 @@ def rgb_to_hsv(r, g, b):
     return (h, s, v)
 
 
+def interpolate(v1, v2, p):
+    """
+    Calculates linear interpolation.
+
+    Parameters
+    ----------
+    v1: :class:`float`
+        The start value.
+    v2: :class:`float`
+        The end value.
+    p: :class:`float`
+        The point along the line in the range ``[0, 1]``.
+
+    Returns
+    -------
+    :class:`float`
+        The interpolated value.
+    """
+
+    return (1 - p) * v1 + p * v2
+
+
 __all__ = [
     "distance",
-    "interpolate",
     "hsl_to_rgb",
     "hsv_to_rgb",
     "rgb_to_hsl",
     "rgb_to_hsv",
+    "interpolate",
 ]
