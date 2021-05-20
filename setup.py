@@ -46,6 +46,7 @@ setuptools.setup(
     author="ShineyDev",
     description="A Python library for creating TUI inspired by WPF.",
     extras_require=extras_require,
+    include_package_data=True,
     license="Apache Software License",
     name="screen",
     packages=packages,
