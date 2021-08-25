@@ -228,6 +228,7 @@ class Enum(metaclass=EnumMeta):
 
 __all__ = [
     "get_type_doc",
+    "isinstance",
     "AttributeFactoryMeta",
     "EnumMeta",
     "Enum",
