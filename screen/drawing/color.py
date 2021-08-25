@@ -2,10 +2,10 @@ import random
 
 from .colorinterpolationmethod import ColorInterpolationMethod
 from screen import utils
-from screen.utils.internal import AttributeFactoryMeta
+from screen.utils.internal import AttributeFactory
 
 
-class Color(metaclass=AttributeFactoryMeta):
+class Color(AttributeFactory):
     """
     Represents a color.
 

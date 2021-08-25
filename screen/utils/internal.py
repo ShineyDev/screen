@@ -170,6 +170,10 @@ class AttributeFactoryMeta(type):
         return cls
 
 
+class AttributeFactory(metaclass=AttributeFactoryMeta):
+    pass
+
+
 class EnumMeta(type):
     def __new__(cls_meta, cls_name, cls_bases, cls_attrs, **kwargs):
         member_type = collections.namedtuple(f"_{cls_name}_member", ["name", "value"])
@@ -230,6 +234,7 @@ __all__ = [
     "get_type_doc",
     "isinstance",
     "AttributeFactoryMeta",
+    "AttributeFactory",
     "EnumMeta",
     "Enum",
 ]

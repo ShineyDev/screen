@@ -1,7 +1,7 @@
-from screen.utils.internal import AttributeFactoryMeta
+from screen.utils.internal import AttributeFactory
 
 
-class Style(metaclass=AttributeFactoryMeta):
+class Style(AttributeFactory):
     """
     Represents an ANSI SGR sequence.
 
