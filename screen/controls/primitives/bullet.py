@@ -4,7 +4,7 @@ from screen.utils.internal import Enum
 
 class Bullet(Enum, __call__=lambda s, a: s.value(a)):
     """
-    Represents a dynamic bullet type.
+    Represents a dynamic bullet.
 
     Attributes
     ----------
