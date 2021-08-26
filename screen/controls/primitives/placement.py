@@ -3,7 +3,7 @@ from screen.utils.internal import Enum
 
 class Placement(Enum):
     """
-    Represents the placement of a pop-up control.
+    Represents the placement of a control.
 
     Attributes
     ----------
