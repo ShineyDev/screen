@@ -6,7 +6,7 @@ _size_re = re.compile(r"(auto)|([0-9]+)?(\*)?")
 
 class Size:
     """
-    Represents the height or width of a cell.
+    Represents the size of a cell.
 
     Parameters
     ----------
