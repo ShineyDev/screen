@@ -8,7 +8,7 @@ from screen.utils import len
 
 class Border(Control):
     """
-    Represents a control used to display a border around another.
+    Represents a control used to display a border around another control.
 
     |parameters|
 
