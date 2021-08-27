@@ -1,7 +1,7 @@
 import re
 
 
-_size_re = re.compile(r"(auto)|([0-9]+)?(\*)?")
+_size_re = re.compile(r"(auto)|([0-9]+)?\*|[0-9]+")
 
 
 class Size:
