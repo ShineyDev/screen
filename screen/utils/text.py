@@ -20,7 +20,7 @@ def decimal_to_latin(d):
     Examples
     --------
 
-    .. code-block:: python3
+    .. code:: python3
 
         >>> decimal_to_latin(15)
         "o"
@@ -73,7 +73,7 @@ def decimal_to_roman(d):
     Examples
     --------
 
-    .. code-block:: python3
+    .. code:: python3
 
         >>> decimal_to_roman(15)
         "xv"
@@ -137,7 +137,7 @@ def len(s):
     Examples
     --------
 
-    .. code-block:: python3
+    .. code:: python3
 
         >>> len("oranges")
         7
@@ -205,7 +205,7 @@ def normalize(s):
     Examples
     --------
 
-    .. code-block:: python3
+    .. code:: python3
 
         >>> normalize("\\u0061\\u0301")  # \u0061\u0301
         "\\u00E1"
