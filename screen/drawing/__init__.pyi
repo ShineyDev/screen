@@ -1,3 +1,3 @@
-from screen.drawing.color import Color as Color
-from screen.drawing.colorinterpolationmethod import ColorInterpolationMethod as ColorInterpolationMethod
-from screen.drawing.style import Style as Style
+from screen.drawing.color import *
+from screen.drawing.colorinterpolationmethod import *
+from screen.drawing.style import *
