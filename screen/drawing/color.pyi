@@ -1,6 +1,12 @@
 from typing import ClassVar, Type, TypeVar, Union
 
-from .colorinterpolationmethod import ColorInterpolationMethod
+from enum import Enum
+
+
+class ColorInterpolationMethod(Enum):
+    hsl: int
+    hsv: int
+    rgb: int
 
 
 C = TypeVar("C", bound=Color)
