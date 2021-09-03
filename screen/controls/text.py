@@ -22,6 +22,10 @@ class Text(Control):
             Returns the hash of the :class:`~.Text` object.
     """
 
+    @classmethod
+    def _invalidate_measure(cls, before, after):
+        return not (isinstance(before, Text) and isinstance(after, Text) and before.measure() == after.measure())
+
     # fmt: off
     case                      = property(Case,                Case.normal,              False, True,  True)
     content                   = property(str,                 None,                     True,  True,  True)
