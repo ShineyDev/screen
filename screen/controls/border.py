@@ -25,9 +25,9 @@ class Border(Control):
     """
 
     # fmt: off
-    child     = property(Control,        None,         True,  True,                          True)
-    header    = property(Optional[Text], None,         False, lambda b, a: len(b) != len(a), True)
-    thickness = property(Thickness,      Thickness(1), False, True,                          True)
+    child     = property(Control,        None,         True,  True,                     True)
+    header    = property(Optional[Text], None,         False, Text._invalidate_measure, True)
+    thickness = property(Thickness,      Thickness(1), False, True,                     True)
     # fmt: on
 
     def measure_core(self, h, w):
