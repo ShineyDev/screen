@@ -14,5 +14,5 @@ __all__ = [
 
 _VersionInfo = collections.namedtuple("_VersionInfo", "major minor micro release serial")
 
-version = "0.5.0a"
-version_info = _VersionInfo(0, 5, 0, "alpha", 0)
+version = "0.5.1a"
+version_info = _VersionInfo(0, 5, 1, "alpha", 0)
