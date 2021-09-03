@@ -1,12 +1,9 @@
 from typing import List, Union
 
+from .text import Text
 from screen.controls import Control, property
 from screen.controls.primitives import Bullet, Orientation
 from screen.utils import len
-
-
-def _bullet_invalidate_measure(before, after):
-    return not (isinstance(before, str) and isinstance(after, str) and len(before) == len(after))
 
 
 class Stack(Control):
@@ -28,10 +25,10 @@ class Stack(Control):
     """
 
     # fmt: off
-    bullet      = property(Union[Bullet, str], Bullet.none,            False, _bullet_invalidate_measure, True)
-    children    = property(List[Control],      None,                   True,  True,                       True)
-    orientation = property(Orientation,        Orientation.horizontal, False, True,                       True)
-    spacing     = property(int,                0,                      False, True,                       True)
+    bullet      = property(Union[Bullet, Text], Bullet.none,            False, Text._invalidate_measure, True)
+    children    = property(List[Control],       None,                   True,  True,                     True)
+    orientation = property(Orientation,         Orientation.horizontal, False, True,                     True)
+    spacing     = property(int,                 0,                      False, True,                     True)
     # fmt: on
 
     def measure_core(self, h, w):
