@@ -1,11 +1,11 @@
 from typing import ClassVar, List, Optional, Union
 
-from screen.controls import Control
+from screen.controls import Control, Text
 from screen.controls.primitives import Bullet, Orientation
 
 
 class Stack(Control):
-    default_bullet: ClassVar[Union[Bullet, str]]
+    default_bullet: ClassVar[Union[Bullet, Text]]
     default_orientation: ClassVar[Orientation]
     default_spacing: ClassVar[int]
 
@@ -13,16 +13,16 @@ class Stack(Control):
         self,
         *,
         children: List[Control],
-        bullet: Union[Bullet, str]=...,
+        bullet: Union[Bullet, Text]=...,
         orientation: Orientation=...,
         spacing: int=...,
         **kwargs,
     ) -> None: ...
 
     @property
-    def bullet(self) -> Union[Bullet, str]: ...
+    def bullet(self) -> Union[Bullet, Text]: ...
     @bullet.setter
-    def bullet(self, value: Optional[Union[Bullet, str]]) -> None: ...
+    def bullet(self, value: Optional[Union[Bullet, Text]]) -> None: ...
     @property
     def children(self) -> List[Control]: ...
     @children.setter
