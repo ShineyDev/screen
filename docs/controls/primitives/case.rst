@@ -2,6 +2,6 @@
 
 
 Case
-======
+====
 
 .. autoclass:: Case()
