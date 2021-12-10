@@ -5,12 +5,6 @@ A Python library for creating TUI inspired by WPF.
 
 
 .. toctree::
-    :maxdepth: 2
-
-    introduction
-
-
-.. toctree::
     :caption: Controls
     :maxdepth: 1
 
