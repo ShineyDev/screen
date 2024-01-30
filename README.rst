@@ -1,24 +1,24 @@
 .. raw:: html
 
     <p align="center">
-        <a href="https://github.com/ShineyDev/screen/actions?query=workflow%3AAnalyze">
-            <img alt="Analyze Status" src="https://github.com/ShineyDev/screen/workflows/Analyze/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/screen/actions/workflows/analyze.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Analyze Status" src="https://github.com/ShineyDev/screen/actions/workflows/analyze.yml/badge.svg?branch=main&event=push" />
         </a>
 
-        <a href="https://github.com/ShineyDev/screen/actions?query=workflow%3ABuild">
-            <img alt="Build Status" src="https://github.com/ShineyDev/screen/workflows/Build/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/screen/actions/workflows/build.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Build Status" src="https://github.com/ShineyDev/screen/actions/workflows/build.yml/badge.svg?branch=main&event=push" />
         </a>
 
-        <a href="https://github.com/ShineyDev/screen/actions?query=workflow%3ACheck">
-            <img alt="Check Status" src="https://github.com/ShineyDev/screen/workflows/Check/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/screen/actions/workflows/check.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Check Status" src="https://github.com/ShineyDev/screen/actions/workflows/check.yml/badge.svg?branch=main&event=push" />
         </a>
 
-        <a href="https://github.com/ShineyDev/screen/actions?query=workflow%3ADeploy">
-            <img alt="Deploy Status" src="https://github.com/ShineyDev/screen/workflows/Deploy/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/screen/actions/workflows/deploy.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Deploy Status" src="https://github.com/ShineyDev/screen/actions/workflows/deploy.yml/badge.svg?branch=main&event=push" />
         </a>
 
-        <a href="https://github.com/ShineyDev/screen/actions?query=workflow%3ALint">
-            <img alt="Lint Status" src="https://github.com/ShineyDev/screen/workflows/Lint/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/screen/actions/workflows/lint.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Lint Status" src="https://github.com/ShineyDev/screen/actions/workflows/lint.yml/badge.svg?branch=main&event=push" />
         </a>
     </p>
 
@@ -27,7 +27,7 @@
 .. raw:: html
 
     <h1 align="center">ShineyDev/screen</h1>
-    <p align="center">A Python library for creating TUI inspired by WPF.<br><a href="https://docs.shiney.dev/screen">documentation</a> | <a href="https://github.com/ShineyDev/screen/tree/main/examples">examples</a></p>
+    <p align="center">A Python library for creating TUI inspired by WPF.<br><a href="https://github.com/ShineyDev/screen">source</a> | <a href="https://docs.shiney.dev/screen">documentation</a></p>
 
 
 Install
@@ -35,16 +35,15 @@ Install
 
 .. code:: shell
 
-    $ pip install --upgrade git+https://github.com/ShineyDev/screen.git@main
+    $ python -m pip install --upgrade git+https://github.com/ShineyDev/screen.git@main
 
 
-..  Use
-    ---
+Use
+---
 
-    .. code:: python
+.. code:: python
 
-        >>> import screen
-        >>> # TODO
+    TODO
 
 
 .. raw:: html
